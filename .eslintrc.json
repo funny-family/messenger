@@ -8,6 +8,7 @@
     "rules": {
         "no-unused-vars": "error",
         "no-console": "off",
+        "comma-dangle": ["error", "never"],
         "no-mixed-spaces-and-tabs": "error",
         "space-before-blocks": "error",
         "space-in-parens": ["error", "never"],
