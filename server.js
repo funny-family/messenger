@@ -19,6 +19,9 @@ if (global.__DEV__ === process.env.NODE_ENV) {
 
 app.use(responseTime({ hrtime: false }));
 
+app.use(require('./middlewares/log'));
+app.use(require('./middlewares/error'));
+
 server.listen(config.port, () => {
   console.log('\x1b[36m', `Server running at: http://localhost:${config.port}/`);
   console.log('\x1b[35m', 'Mode:', global.__DEV__);
