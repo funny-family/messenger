@@ -20,7 +20,7 @@ if (global.__DEV__ === process.env.NODE_ENV) {
 app.use(responseTime({ hrtime: false }));
 
 server.listen(config.port, () => {
-  console.log('"\x1b[36m"', `Server running at: http://localhost:${config.port}/`);
-  console.log(global.__DEV__);
-  console.log(global.__DEV__ === process.env.NODE_ENV);
+  console.log('\x1b[36m', `Server running at: http://localhost:${config.port}/`);
+  console.log('\x1b[35m', 'Mode:', global.__DEV__);
+  console.log('\x1b[36m', 'Am I developing?', global.__DEV__ === process.env.NODE_ENV);
 });
