@@ -55,6 +55,7 @@
                 "maxEOF": 1
             }
         ],
-        "eqeqeq": ["error", "always"]
+        "eqeqeq": ["error", "always"],
+        "no-underscore-dangle": "off"
     }
 }
