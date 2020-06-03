@@ -57,5 +57,10 @@
         ],
         "eqeqeq": ["error", "always"],
         "no-underscore-dangle": "off"
+    },
+    "settings": {
+        "react": {
+          "version": "none"
+        }
     }
 }
