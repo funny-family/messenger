@@ -54,6 +54,7 @@
                 "max": 2,
                 "maxEOF": 1
             }
-        ]
+        ],
+        "eqeqeq": ["error", "always"]
     }
 }
