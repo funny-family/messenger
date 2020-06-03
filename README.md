@@ -1,6 +1,6 @@
-### Messenger backend ☢️
+## Messenger backend ☢️
 
-## Todo list 📋
+### Todo list 📋
 1. ~~set up eslint~~
 1. make koa server
 1. add routes
