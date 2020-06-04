@@ -24,6 +24,5 @@ app.use(require('./middlewares/error'));
 
 server.listen(config.port, () => {
   console.log('\x1b[36m', `Server running at: http://localhost:${config.port}/`);
-  console.log('\x1b[35m', 'Mode:', global.__DEV__);
-  console.log('\x1b[36m', 'Am I developing?', global.__DEV__ === process.env.NODE_ENV);
+  console.log('\x1b[36m', 'Mode:', '\x1b[33m', global.__DEV__);
 });
