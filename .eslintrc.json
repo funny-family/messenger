@@ -10,6 +10,7 @@
         "no-console": "off",
         "comma-dangle": ["error", "never"],
         "no-mixed-spaces-and-tabs": "error",
+        "object-curly-spacing": ["error", "always"],
         "space-before-blocks": "error",
         "space-in-parens": ["error", "never"],
         "no-dupe-args": "error",
