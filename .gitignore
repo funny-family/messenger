@@ -21,7 +21,7 @@ yarn-error.log*
 *.sw?
 
 # Database
-!db/.gitkeep
+!db/.keep
 
 # Error logs
-!logs/.gitkeep
+!logs/.keep
