@@ -60,7 +60,9 @@
         ],
         "eqeqeq": ["error", "always"],
         "no-underscore-dangle": "off",
-        "consistent-return": "off"
+        "consistent-return": "off",
+        "no-control-regex": "off",
+        "no-useless-escape": "off"
     },
     "settings": {
         "react": {
