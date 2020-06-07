@@ -21,6 +21,7 @@
         "prefer-const": "error",
         "no-trailing-spaces": "error",
         "keyword-spacing": ["error", { "before": true }],
+        "key-spacing": ["error", { "beforeColon": false }],
         "arrow-spacing": "error",
         "space-before-function-paren": [
             "error",
