@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: emailValidation
   },
-  userPassword: { // password hash
+  userPasswordHash: { // password hash
     type: String,
     require: [
       true,
