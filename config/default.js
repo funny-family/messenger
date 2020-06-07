@@ -7,5 +7,10 @@ module.exports = {
       useUnifiedTopology: true,
       useCreateIndex: true
     }
+  },
+  crypto: {
+    iterations: 100,
+    keylen: 100,
+    digest: 'sha512'
   }
 };
