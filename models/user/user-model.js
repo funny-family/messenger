@@ -86,4 +86,4 @@ userSchema.method.passwordCheck = function (password) {
   )) === this.password_hash;
 };
 
-module.exports = mongoose.model('Users', userSchema);
+module.exports = mongoose.model('User', userSchema);
