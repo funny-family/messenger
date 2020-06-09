@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto');
+const config = require('config');
 
 const emailValidation = {
   validator: email => {
@@ -45,5 +47,24 @@ const userSchema = new mongoose.Schema({
   id: false,
   versionKey: false
 });
+
+userSchema.virtual('password')
+  .set(function (password) {
+    if (!password || !String(password).trim()) {
+      return this.invalidate('userPassword', 'Password field is empty!');
+    }
+    this._password = password;
+    this.salt = crypto.randomBytes(256).toString('base64');
+    this.password_hash = crypto.pbkdf2Sync(
+      password,
+      this.salt,
+      config.crypto.iterations,
+      config.crypto.keylen,
+      config.crypto.digest
+    );
+  }())
+  .get(function () {
+    return this._password;
+  });
 
 module.exports = mongoose.model('Users', userSchema);
