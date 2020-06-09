@@ -75,4 +75,15 @@ userSchema.virtual('сonfirmed_password')
     return this._confirmed_password;
   });
 
+userSchema.method.passwordCheck = function (password) {
+  if (!password || !String(password).trim() || !this.password_hash) return false;
+  return String(crypto.pbkdf2Sync(
+    password,
+    this.salt,
+    config.crypto.iterations,
+    config.crypto.keylen,
+    config.crypto.digest
+  )) === this.password_hash;
+};
+
 module.exports = mongoose.model('Users', userSchema);
