@@ -67,4 +67,12 @@ userSchema.virtual('password')
     return this._password;
   });
 
+userSchema.virtual('сonfirmed_password')
+  .set(function (password) {
+    this._confirmed_password = password;
+  })
+  .get(function () {
+    return this._confirmed_password;
+  });
+
 module.exports = mongoose.model('Users', userSchema);
