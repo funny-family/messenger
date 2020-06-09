@@ -21,6 +21,7 @@ if (global.__DEV__ === process.env.NODE_ENV) {
 app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
 
+require('./models/auth')(app);
 require('./models/test-model')(app);
 
 server.listen(config.port, () => {
