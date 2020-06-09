@@ -35,6 +35,9 @@
     "koa-logger": "^3.2.1",
     "koa-response-time": "^2.1.0",
     "koa-router": "^9.0.1",
-    "mongoose": "^5.9.17"
+    "mongoose": "^5.9.17",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
   }
 }
