@@ -7,10 +7,10 @@ const auth = new Router({
 
 auth
   .post('/signup', async ctx => {
-    // ctx.body = 'signup';
     const userData = ctx.request.body;
     const newUser = new User(userData);
-    await newUser.save();
+    console.log(newUser);
+    // newUser.save();
   })
   .post('/signin', async ctx => {
     ctx.body = 'signin';

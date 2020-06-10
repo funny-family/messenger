@@ -22,7 +22,7 @@ app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
 
 require('./modules/auth')(app);
-// require('./modules/user')(app);
+require('./modules/user')(app);
 require('./modules/test-model')(app);
 
 server.listen(config.port, () => {
