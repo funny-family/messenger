@@ -80,7 +80,7 @@ userSchema.virtual('сonfirmed_password')
     return this._confirmed_password;
   });
 
-userSchema.method.passwordCheck = function (password) {
+userSchema.methods.passwordCheck = function (password) {
   if (!password || !String(password).trim() || !this.password_hash) return false;
   return String(crypto.pbkdf2Sync(
     password,
@@ -91,4 +91,9 @@ userSchema.method.passwordCheck = function (password) {
   )) === this.password_hash;
 };
 
-module.exports = mongoose.model('User', userSchema);
+userSchema.methods.toJSON = function (userData) {
+  const user = this.toObject(userData);
+  return user;
+};
+
+module.exports = mongoose.model('users', userSchema);
