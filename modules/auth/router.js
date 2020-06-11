@@ -1,17 +1,15 @@
 const Router = require('koa-router');
 const User = require('../user/models/User');
-const bodyParser = require('../../middlewares/body-parser');
 
 const auth = new Router({
   prefix: '/auth'
 });
 
 auth
-  .post('/signup', bodyParser, async ctx => {
+  .post('/signup', async ctx => {
     const userData = ctx.request.body;
     const newUser = new User(userData);
-    newUser.validation_token = 'uuid' + Math.random();
-    ctx.body = newUser;
+    console.log(newUser);
     // newUser.save();
   })
   .post('/signin', async ctx => {
