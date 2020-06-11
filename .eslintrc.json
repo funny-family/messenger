@@ -63,7 +63,8 @@
         "no-underscore-dangle": "off",
         "consistent-return": "off",
         "no-control-regex": "off",
-        "no-useless-escape": "off"
+        "no-useless-escape": "off",
+        "prefer-template": "off"
     },
     "settings": {
         "react": {
