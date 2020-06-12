@@ -14,7 +14,7 @@ global.__DEV__ = 'development';
 app.proxy = false;
 
 if (global.__DEV__ === process.env.NODE_ENV) {
-  app.use(responseTime({ hrtime: false }));
+  app.use(responseTime());
   app.use(logger());
 }
 
