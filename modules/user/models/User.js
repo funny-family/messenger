@@ -74,6 +74,9 @@ userSchema.virtual('password')
 
 userSchema.virtual('сonfirmed_password')
   .set(function (password) {
+    if (!password || !String(password).trim()) {
+      return this.invalidate('сonfirmed_password', 'Confirm password!');
+    }
     this._confirmed_password = password;
   })
   .get(function () {
@@ -96,4 +99,4 @@ userSchema.methods.toJSON = function (userData) {
   return user;
 };
 
-module.exports = mongoose.model('users', userSchema);
+module.exports = mongoose.model('Users', userSchema);
