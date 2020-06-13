@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
 const crypto = require('crypto');
 const config = require('config');
+const mongoose = require('../../../lib/mongoose');
 
 const emailValidation = {
   validator: email => {
@@ -12,7 +12,7 @@ const emailValidation = {
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    require: [
+    required: [
       true,
       'Username is required!'
     ],
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    require: [
+    required: [
       true,
       'Email is required!'
     ],
@@ -31,14 +31,14 @@ const userSchema = new mongoose.Schema({
   },
   password_hash: {
     type: String,
-    require: [
+    required: [
       true,
       'Password is required!'
     ]
   },
   salt: {
     type: String,
-    require: true
+    required: true
   },
   validation_token: {
     type: String
