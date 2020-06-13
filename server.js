@@ -4,7 +4,6 @@ const http = require('http');
 const Koa = require('koa');
 const logger = require('koa-logger');
 const responseTime = require('koa-response-time');
-// const path = require('path');
 
 const app = new Koa();
 const server = http.createServer(app.callback());
