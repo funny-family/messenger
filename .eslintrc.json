@@ -5,6 +5,14 @@
         "plugin:node/recommended"
     ],
     "plugins": ["prettier"],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 6,
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
+    },
     "rules": {
         "no-unused-vars": "error",
         "no-console": "off",
