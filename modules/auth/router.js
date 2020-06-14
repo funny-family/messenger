@@ -14,7 +14,7 @@ auth
     await newUser.save();
     ctx.body = newUser;
   })
-  .post('/signin', async ctx => {
+  .post('/signin', bodyParser, async ctx => {
     ctx.body = 'signin';
   })
   .post('/signout', async ctx => {
