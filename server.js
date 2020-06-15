@@ -20,6 +20,7 @@ if (global.__DEV__ === process.env.NODE_ENV) {
 
 app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
+app.use(require('./middlewares/static'));
 
 require('./modules/auth')(app);
 require('./modules/test-model')(app);
