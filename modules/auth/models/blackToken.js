@@ -4,7 +4,7 @@ const blackTokenSchema = new mongoose.Schema({
   token: {
     type: String
   },
-  expiresAt: {
+  expiresIn: {
     type: Date,
     required: true
   }
