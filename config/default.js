@@ -13,5 +13,8 @@ module.exports = {
     iterations: 100,
     keylen: 100,
     digest: 'sha512'
+  },
+  jsonwebtoken: {
+    algorithm: 'HS512'
   }
 };
