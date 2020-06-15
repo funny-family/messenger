@@ -6,23 +6,55 @@
   <title>Static test page</title>
 </head>
 <body>
-  <form action="">
+  <form action="auth/signin">
     <h2>Sign up</h2>
-    <input type="text" name="username" placeholder="Email" required />
-    <input type="text" name="email" placeholder="Username" required />
-    <input type="password" name="password" placeholder="Password" required />
-    <input type="password" name="сonfirmed_password" placeholder="Confirm password" required />
+    <input
+      type="text"
+      autocomplete="off"
+      name="username"
+      placeholder="Email"
+      required
+    />
+    <input
+      type="text"
+      autocomplete="off"
+      name="email"
+      placeholder="Username" required
+     />
+    <input
+      type="password"
+      autocomplete="off"
+      name="password"
+      placeholder="Password" required
+     />
+    <input
+      type="password"
+      autocomplete="off"
+      name="сonfirmed_password"
+      placeholder="Confirm password"
+      required
+     />
     <button type="submit">Sign up</button>
   </form>
   <hr>
-  <form action="">
+  <form action="auth/signup">
     <h2>Sign in</h2>
-    <input type="text" name="email" placeholder="Email" required />
-    <input type="password" name="password" placeholder="Password" required />
+    <input
+      type="text"
+      autocomplete="off"
+      name="email"
+      placeholder="Email" required
+     />
+    <input
+      type="password"
+      autocomplete="off"
+      name="password"
+      placeholder="Password" required
+     />
     <button type="submit">Sign up</button>
   </form>
   <hr>
-  <form action="">
+  <form action="auth/signout">
     <h2>Sign out</h2>
     <button type="submit">Sign out</button>
   </form>
