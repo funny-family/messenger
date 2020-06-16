@@ -3,8 +3,6 @@ const config = require('config');
 const User = require('../../user/models/User');
 const BlackToken = require('../models/BlackToken');
 
-// https://stackoverflow.com/questions/45897044/passport-jwt-401-unauthorized
-
 function createAccessAndRefreshTokens(user) {
   const accessTokenExpiresIn = '60 * 30'; // 60sec * 30 = 30min
   const refreshTokenExpiresIn = '86400 * 30'; // 86400inOneDay * 30 = 30days

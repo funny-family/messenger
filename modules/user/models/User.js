@@ -83,7 +83,7 @@ userSchema.virtual('сonfirmed_password')
     return this._confirmed_password;
   });
 
-userSchema.methods.checkPassword = function (password) {
+userSchema.methods.passwordCheck = function (password) {
   if (!password || !String(password).trim() || !this.password_hash) return false;
   return String(crypto.pbkdf2Sync(
     password,
