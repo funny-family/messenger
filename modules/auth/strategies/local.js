@@ -8,8 +8,11 @@ module.exports = new LocalStrategy({
 }, function (email, password, done) {
   User.findOne({ email }, function (err, user) {
     if (err) return done(err);
+
     if (!user) return done(null, false, 'User not found!');
+
     if (!user.passwordCheck(password)) return done(null, false, 'Incorrect password!');
+
     return done(null, false);
   });
 });

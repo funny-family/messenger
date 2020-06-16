@@ -48,6 +48,7 @@ async function invalidateRefreshToken(ctx) {
                       ctx.query.access_token ||
                       ctx.cookies.get('x-access-token') ||
                       ctx.body && ctx.body.access_token;
+
   const refreshToken = ctx.headers['x-refresh-token'] ||
                       ctx.query.access_token ||
                       ctx.cookies.get('x-refresh-token') ||
@@ -57,7 +58,6 @@ async function invalidateRefreshToken(ctx) {
 
   const decoded = jwt.decode(refreshToken);
   const userId = decoded._id;
-
   const user = await User.findOne({ _id: userId }).lean().exec();
 
   if (!user) return ctx.throw(500, 'Invalid token!');
@@ -67,7 +67,7 @@ async function invalidateRefreshToken(ctx) {
       algorithm: [config.jsonwebtoken.algorithm],
       ignoreExpiration: true
     };
-    const expires = jwt.verify(token, config.secretOrKey, verifyOptions);
+    const expires = jwt.verify(token, config.secretOrKey, verifyOptions).exp;
     const blackToken = new BlackToken({
       token,
       expiresIn: expires * 1000

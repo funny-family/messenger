@@ -20,11 +20,13 @@ module.exports = new JWTStrategy(options, async function (request, payload, done
                 request.query.access_token ||
                 request.cookies.get('x-access-token') ||
                 request.body && request.body.access_token;
+
   const deniedToken = await BlackTokensList.findOne({ token }).lean().exec();
   if (deniedToken) return done(null, false, 'Token is blacklisted!');
 
   const userId = payload._id;
   const user = await UsersList.findOne({ _id: userId });
   if (!user) return done(null, false, 'User not found!');
+
   return done(null, user);
 });
