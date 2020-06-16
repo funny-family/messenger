@@ -6,7 +6,11 @@
   <title>Static test page</title>
 </head>
 <body>
-  <form action="auth/signin">
+  <form
+    action="auth/signup"
+    method="POST"
+    enctype="application/x-www-form-urlencoded"
+  >
     <h2>Sign up</h2>
     <input
       type="text"
@@ -39,7 +43,11 @@
     <button type="submit">Sign up</button>
   </form>
   <hr>
-  <form action="auth/signup">
+  <form
+    action="auth/signin"
+    method="POST"
+    enctype="application/x-www-form-urlencoded"
+  >
     <h2>Sign in</h2>
     <input
       type="text"
@@ -56,7 +64,11 @@
     <button type="submit">Sign up</button>
   </form>
   <hr>
-  <form action="auth/signout">
+  <form
+    action="auth/signout"
+    method="POST"
+    enctype="application/x-www-form-urlencoded"
+  >
     <h2>Sign out</h2>
     <button type="submit">Sign out</button>
   </form>
