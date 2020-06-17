@@ -5,8 +5,9 @@ const mongoose = require('../../../lib/mongoose');
 const emailValidation = {
   validator: email => {
     const emailRexExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    Promise.resolve(emailRexExp.test(email));
-  }
+    return Promise.resolve(emailRexExp.test(email));
+  },
+  message: 'Invalid email!'
 };
 
 const userSchema = new mongoose.Schema({
@@ -31,10 +32,7 @@ const userSchema = new mongoose.Schema({
   },
   password_hash: {
     type: String,
-    required: [
-      true,
-      'Password is required!'
-    ]
+    required: true
   },
   salt: {
     type: String,
@@ -57,6 +55,8 @@ userSchema.virtual('password')
   .set(function (password) {
     if (!password || !String(password).trim()) {
       return this.invalidate('password', 'Password is required!');
+    } else if (password && password.length < 8) {
+      return this.invalidate('password', 'Password should be no less than 8 symbols!');
     }
     this._password = password;
     this.salt = crypto.randomBytes(256).toString('base64');
