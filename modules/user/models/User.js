@@ -80,6 +80,12 @@ userSchema.virtual('password_confirmation')
     return this._password_confirmation;
   });
 
+userSchema.path('password_hash').validate(function () {
+  if (this._password !== this._password_confirmation) {
+    this.invalidate('password_confirmation', 'Passwords must match!');
+  }
+}, null);
+
 userSchema.methods.checkPassword = function (password) {
   if (!password || !String(password).trim() || !this.password_hash) return false;
   return String(crypto.pbkdf2Sync(
