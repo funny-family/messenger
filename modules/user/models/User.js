@@ -72,15 +72,12 @@ userSchema.virtual('password')
     return this._password;
   });
 
-userSchema.virtual('сonfirmed_password')
+userSchema.virtual('password_confirmation')
   .set(function (password) {
-    if (!password || !String(password).trim()) {
-      return this.invalidate('сonfirmed_password', 'Confirm password!');
-    }
-    this._confirmed_password = password;
+    this._password_confirmation = password;
   })
   .get(function () {
-    return this._confirmed_password;
+    return this._password_confirmation;
   });
 
 userSchema.methods.checkPassword = function (password) {
