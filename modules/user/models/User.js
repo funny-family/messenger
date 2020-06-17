@@ -56,7 +56,7 @@ userSchema.virtual('password')
     if (!password || !String(password).trim()) {
       return this.invalidate('password', 'Password is required!');
     } else if (password && password.length < 8) {
-      return this.invalidate('password', 'Password should be no less than 8 symbols!');
+      return this.invalidate('password', 'Password must be at least 6 characters!');
     }
     this._password = password;
     this.salt = crypto.randomBytes(256).toString('base64');
