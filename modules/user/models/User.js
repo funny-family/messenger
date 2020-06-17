@@ -53,11 +53,6 @@ const userSchema = new mongoose.Schema({
 
 userSchema.virtual('password')
   .set(function (password) {
-    if (!password || !String(password).trim()) {
-      return this.invalidate('password', 'Password is required!');
-    } else if (password && password.length < 8) {
-      return this.invalidate('password', 'Password must be at least 6 characters!');
-    }
     this._password = password;
     this.salt = crypto.randomBytes(256).toString('base64');
     this.password_hash = crypto.pbkdf2Sync(
@@ -81,6 +76,12 @@ userSchema.virtual('password_confirmation')
   });
 
 userSchema.path('password_hash').validate(function () {
+  if (!this._password || !String(this._password).trim()) {
+    return this.invalidate('password', 'Password is required!');
+  }
+  if (this._password && this._password.length < 8) {
+    return this.invalidate('password', 'Password must be at least 8 characters!');
+  }
   if (this._password !== this._password_confirmation) {
     this.invalidate('password_confirmation', 'Passwords must match!');
   }
