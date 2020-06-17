@@ -66,6 +66,7 @@
                 "maxEOF": 1
             }
         ],
+        "no-else-return": ["error", { "allowElseIf": true }],
         "func-names": ["off", "always"],
         "eqeqeq": ["error", "always"],
         "no-underscore-dangle": "off",
