@@ -19,6 +19,7 @@ module.exports = async (ctx, next) => {
       }
       ctx.body = errorMessages;
     } else {
+      ctx.type = 'json';
       ctx.body = err.message;
     }
   }
