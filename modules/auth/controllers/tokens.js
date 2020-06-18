@@ -43,7 +43,7 @@ function setCookiesAndTokens(ctx, tokens) {
   });
 }
 
-async function invalidateRefreshToken(ctx) {
+async function refreshTokens(ctx) {
   const accessToken = ctx.headers['x-access-token'] ||
                       ctx.query.access_token ||
                       ctx.cookies.get('x-access-token') ||
@@ -54,30 +54,37 @@ async function invalidateRefreshToken(ctx) {
                       ctx.cookies.get('x-refresh-token') ||
                       ctx.body && ctx.body.refresh_token;
 
-  const decoded = jwt.decode(refreshToken);
-  const userId = decoded._id;
-  const user = await User.findOne({ _id: userId }).lean().exec();
+  try {
+    const decoded = jwt.decode(refreshToken);
+    const userId = decoded._id;
+    const user = await User.findOne({ _id: userId }).lean().exec();
 
-  if (!accessToken || !refreshToken) return ctx.throw(401, 'No token!');
-  if (!user) return ctx.throw(500, 'Invalid token!');
+    if (!accessToken || !refreshToken) return ctx.throw(401, 'No token!');
+    if (!user) return ctx.throw(500, 'Invalid token!');
 
-  await Promise.all([accessToken, refreshToken].map(token => {
-    const verifyOptions = {
-      algorithm: [config.jsonwebtoken.algorithm],
-      ignoreExpiration: true
-    };
-    const expires = jwt.verify(token, config.secretOrKey, verifyOptions).exp;
-    const blackToken = new BlackToken({
-      token,
-      expiresIn: expires * 1000
-    });
-    return blackToken.save();
-  }));
-  const createTokens = createAccessAndRefreshTokens(user);
-  setCookiesAndTokens(ctx, createTokens);
-  ctx.body = createTokens;
+    await Promise.all([accessToken, refreshToken].map(token => {
+      const verifyOptions = {
+        algorithm: [config.jsonwebtoken.algorithm],
+        ignoreExpiration: true
+      };
+      const expires = jwt.verify(token, config.secretOrKey, verifyOptions).exp;
+      const blackToken = new BlackToken({
+        token,
+        expiresIn: expires * 1000
+      });
+      return blackToken.save();
+    }));
+    const createTokens = createAccessAndRefreshTokens(user);
+    setCookiesAndTokens(ctx, createTokens);
+    ctx.type = 'json';
+    ctx.body = createTokens;
+  } catch (err) {
+    ctx.cookies.set('x-access-token', null);
+    ctx.cookies.set('x-refresh-token', null);
+    return ctx.throw(401, 'Refresh token validation error!');
+  }
 }
 
-exports.invalidateRefreshToken = invalidateRefreshToken;
+exports.refreshTokens = refreshTokens;
 exports.createAccessAndRefreshTokens = createAccessAndRefreshTokens;
 exports.setCookiesAndTokens = setCookiesAndTokens;
