@@ -77,10 +77,13 @@ userSchema.virtual('password_confirmation')
 
 userSchema.path('password_hash').validate(function () {
   if (!this._password || !String(this._password).trim()) {
-    return this.invalidate('password', 'Password is required!');
+    this.invalidate('password', 'Password is required!');
   }
   if (this._password && this._password.length < 8) {
-    return this.invalidate('password', 'Password must be at least 8 characters!');
+    this.invalidate('password', 'Password must be at least 8 characters!');
+  }
+  if (!this._password_confirmation || !String(this._password_confirmation).trim()) {
+    this.invalidate('password_confirmation', 'Password confirmation is required!');
   }
   if (this._password !== this._password_confirmation) {
     this.invalidate('password_confirmation', 'Passwords must match!');
