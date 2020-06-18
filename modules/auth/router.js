@@ -19,7 +19,7 @@ auth
   .post('/signin', bodyParser, passport.authenticate('local', { session: false }), async ctx => {
     const tokens = tokenContoller.createAccessAndRefreshTokens(ctx.state.user);
     await tokenContoller.setCookiesAndTokens(ctx, tokens);
-    ctx.status = ctx.state.user;
+    ctx.body = tokens;
   })
   .post('/signout', async ctx => {
     ctx.body = 'signout';
