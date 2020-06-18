@@ -14,7 +14,7 @@ module.exports = async (ctx, next) => {
       for (const field in err.errors) {
         errorMessages.push({
           field,
-          message: err.errors[field].message
+          errorMessage: err.errors[field].message
         });
       }
       ctx.body = errorMessages;
