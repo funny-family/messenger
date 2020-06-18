@@ -74,7 +74,9 @@
         "no-control-regex": "off",
         "no-useless-escape": "off",
         "prefer-template": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "guard-for-in": "off",
+        "no-restricted-syntax": "off"
     },
     "settings": {
         "react": {
