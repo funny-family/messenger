@@ -2,6 +2,8 @@ require('dotenv').config();
 const config = require('config');
 const http = require('http');
 const Koa = require('koa');
+const Keygrip = require('keygrip');
+const { userAgent } = require('koa-useragent');
 const logger = require('koa-logger');
 const responseTime = require('koa-response-time');
 
@@ -12,11 +14,13 @@ global.__PROD__ = 'production';
 global.__DEV__ = 'development';
 
 app.proxy = false;
+app.keys = new Keygrip([config.secretOrKey], 'sha256');
 
 if (global.__DEV__ === process.env.NODE_ENV) {
   app.use(responseTime());
   app.use(logger());
 }
+app.use(userAgent);
 
 app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
