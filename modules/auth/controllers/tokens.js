@@ -20,8 +20,8 @@ function createAccessAndRefreshTokens(user) {
   return {
     access_token,
     refresh_token,
-    access_token_expires_date: Date.now() * accessTokenExpiresIn * 1000,
-    refresh_token_expires_date: Date.now() * refreshTokenExpiresIn * 1000
+    access_token_expiration_date: Date.now() * accessTokenExpiresIn * 1000,
+    refresh_token_expiration_date: Date.now() * refreshTokenExpiresIn * 1000
   };
 }
 
