@@ -9,6 +9,17 @@ module.exports = async (ctx, next) => {
       ctx.body = 'Server error';
       return ctx.body;
     }
-    ctx.body = err.message;
+    if (err.errors) {
+      const errorMessages = [];
+      for (const field in err.errors) {
+        errorMessages.push({
+          field,
+          message: err.errors[field].message
+        });
+      }
+      ctx.body = errorMessages;
+    } else {
+      ctx.body = err.message;
+    }
   }
 };
