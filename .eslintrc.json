@@ -31,6 +31,7 @@
         "keyword-spacing": ["error", { "before": true }],
         "key-spacing": ["error", { "beforeColon": false }],
         "arrow-spacing": "error",
+        "no-whitespace-before-property": "error",
         "space-before-function-paren": [
             "error",
             {
