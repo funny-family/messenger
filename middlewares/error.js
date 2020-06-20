@@ -9,6 +9,9 @@ module.exports = async (ctx, next) => {
       ctx.body = 'Server error';
       return ctx.body;
     }
+    if (err.name === 'CastError' || err.name === 'ValidationError') {
+      ctx.status = 400;
+    }
     if (err.errors) {
       const errorContainer = [];
       for (const field in err.errors) {
