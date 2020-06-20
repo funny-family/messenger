@@ -44,4 +44,5 @@ exports.signout = async ctx => {
     blackRefreshToken.save()
   ]);
   clearCookies(ctx);
+  ctx.status = 200;
 };
