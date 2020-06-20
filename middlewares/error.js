@@ -10,14 +10,14 @@ module.exports = async (ctx, next) => {
       return ctx.body;
     }
     if (err.errors) {
-      const errorMessages = [];
+      const errorContainer = [];
       for (const field in err.errors) {
-        errorMessages.push({
+        errorContainer.push({
           field,
           errorMessage: err.errors[field].message
         });
       }
-      ctx.body = errorMessages;
+      ctx.body = errorContainer;
     } else {
       ctx.type = 'json';
       ctx.body = err.message;
