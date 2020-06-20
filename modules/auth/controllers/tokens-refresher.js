@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const createToken = require('./tokens-creator');
+const createTokens = require('./tokens-creator');
+const setCookies = require('./cookies-setter');
+const clearCookies = require('./cookies-cleaner');
 const BlackToken = require('../models/BlackToken');
 const User = require('../../user/models/User');
 
@@ -20,24 +22,26 @@ module.exports = async ctx => {
     const decoded = jwt.decode(refreshToken);
     const userId = decoded._id;
     const user = await User.findOne({ _id: userId }).lean().exec();
-    const createNewToken = createToken(user);
-    const cookiesOptions = {
-      signed: true,
-      secure: false,
-      httpOnly: true
-    };
+    const createNewTokens = createTokens(user);
+    // const cookiesOptions = {
+    //   signed: true,
+    //   secure: false,
+    //   httpOnly: true
+    // };
 
     if (!accessToken || !refreshToken) return ctx.throw(401, 'No token!');
     if (!user) return ctx.throw(500, 'Invalid token!');
 
-    ctx.cookies.set('x-access-token', createNewToken.access_token, {
-      ...cookiesOptions,
-      expires: 1
-    });
-    ctx.cookies.set('x-refresh-token', createNewToken.refresh_token, {
-      ...cookiesOptions,
-      expires: 1
-    });
+    // ctx.cookies.set('x-access-token', createNewToken.access_token, {
+    //   ...cookiesOptions,
+    //   expires: 1
+    // });
+    // ctx.cookies.set('x-refresh-token', createNewToken.refresh_token, {
+    //   ...cookiesOptions,
+    //   expires: 1
+    // });
+
+    setCookies(ctx, createNewTokens);
 
     await Promise.all([accessToken, refreshToken].map(token => {
       const verifyOptions = {
@@ -52,8 +56,7 @@ module.exports = async ctx => {
       return blackToken.save();
     }));
   } catch (err) {
-    ctx.cookies.set('x-access-token', null);
-    ctx.cookies.set('x-refresh-token', null);
+    clearCookies(ctx);
     return ctx.throw(401, 'Refresh token validation error!');
   }
 };
