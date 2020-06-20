@@ -1,9 +1,9 @@
-const tokenContoller = require('./tokens');
+// const tokenContoller = require('./tokens');
 const User = require('../../user/models/User');
 const BlackToken = require('../models/BlackToken');
+const clearCookies = require('./cookies-cleaner');
 const createTokens = require('./tokens-creator');
 const setCookiesAndTokens = require('./cookies-setter');
-// const BlackToken = require('../models/BlackToken');
 
 exports.signup = async ctx => {
   const userData = ctx.request.body;
@@ -20,18 +20,28 @@ exports.signin = async ctx => {
 };
 
 exports.signout = async ctx => {
-  // const accessToken = ctx.headers['x-access-token'] ||
-  //                     ctx.query.access_token ||
-  //                     ctx.cookies.get('x-access-token') ||
-  //                     ctx.body && ctx.body.access_token;
+  const access_token = ctx.headers['x-access-token'] ||
+                      ctx.query.access_token ||
+                      ctx.cookies.get('x-access-token') ||
+                      ctx.body && ctx.body.access_token;
 
-  // const refreshToken = ctx.headers['x-refresh-token'] ||
-  //                     ctx.query.refresh_token ||
-  //                     ctx.cookies.get('x-refresh-token') ||
-  //                     ctx.body && ctx.body.refresh_token;
+  const refresh_token = ctx.headers['x-refresh-token'] ||
+                      ctx.query.refresh_token ||
+                      ctx.cookies.get('x-refresh-token') ||
+                      ctx.body && ctx.body.refresh_token;
 
-  // const blackAccessToken  = new BlackToken({token: access_token});
-  // const blackRefreshToken = new BlackToken({token: refresh_token});
-  ctx.cookies.set('x-access-token', null);
-  ctx.cookies.set('x-refresh-token', null);
+  const blackAccessToken = new BlackToken({
+    token: access_token,
+    expires: Date.now() * 1000
+  });
+  const blackRefreshToken = new BlackToken({
+    token: refresh_token,
+    expires: Date.now() * 1000
+  });
+
+  await Promise.all([
+    blackAccessToken.save(),
+    blackRefreshToken.save()
+  ]);
+  clearCookies(ctx);
 };
