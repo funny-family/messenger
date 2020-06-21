@@ -103,6 +103,9 @@ userSchema.methods.checkPassword = function (password) {
 
 userSchema.methods.toJSON = function (userData) {
   const user = this.toObject(userData);
+  delete user.salt;
+  delete user.password_hash;
+  delete user.validation_token;
   return user;
 };
 
