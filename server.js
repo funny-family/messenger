@@ -27,6 +27,7 @@ app.use(require('./middlewares/error'));
 app.use(require('./middlewares/static'));
 
 require('./modules/auth')(app);
+require('./modules/user')(app);
 require('./modules/test-model')(app);
 
 server.listen(config.port, () => {
