@@ -31,12 +31,10 @@ exports.signout = async ctx => {
                       ctx.body && ctx.body.refresh_token;
 
   const blackAccessToken = new BlackToken({
-    token: access_token,
-    expires: Date.now() * 1000
+    token: access_token
   });
   const blackRefreshToken = new BlackToken({
-    token: refresh_token,
-    expires: Date.now() * 1000
+    token: refresh_token
   });
 
   await Promise.all([
