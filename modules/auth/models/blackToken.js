@@ -4,9 +4,10 @@ const blackTokenSchema = new mongoose.Schema({
   token: {
     type: String
   },
-  expires: {
+  creation_date: {
     type: Date,
-    required: true
+    default: Date.now,
+    expires: 30
   }
 }, {
   id: false,
