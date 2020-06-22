@@ -1,4 +1,3 @@
-// const tokenContoller = require('./tokens');
 const User = require('../../user/models/User');
 const BlackToken = require('../models/BlackToken');
 const clearCookies = require('./cookies-cleaner');
