@@ -17,6 +17,13 @@
         "no-unused-vars": "error",
         "no-console": "off",
         "comma-dangle": ["error", "never"],
+        "comma-spacing": [
+            "error",
+            {
+                "before": false,
+                "after": true 
+            }
+        ],
         "no-mixed-spaces-and-tabs": "error",
         "object-curly-spacing": ["error", "always"],
         "space-before-blocks": "error",
