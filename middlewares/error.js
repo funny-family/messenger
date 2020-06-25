@@ -13,13 +13,17 @@ module.exports = async (ctx, next) => {
       ctx.status = 400;
     }
     if (err.errors) {
-      const errorContainer = [];
+      let errorContainer = {};
       for (const field in err.errors) {
-        errorContainer.push({
-          field,
-          errorMessage: err.errors[field].message
-        });
+        errorContainer = err;
+        delete err.errors[field].properties.type;
+        delete err.errors[field].path;
+        delete err.errors[field].kind;
+        delete err.errors[field].value;
+        delete err._message;
+        delete err.message;
       }
+      ctx.type = 'json';
       ctx.body = errorContainer;
     } else {
       ctx.type = 'json';
