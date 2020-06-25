@@ -5,17 +5,18 @@ module.exports = new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   session: false
-}, function (email, password, done) {
-  User.findOne({ email }, function (err, user) {
-    if (err) {
-      return done(err);
-    }
+}, async function (email, password, done) {
+  try {
+    const user = await User.findOne({ email: String(email) });
+
     if (!user) {
-      return done(null, false, { errorMessage: 'User not found!' });
+      return done(null, false, { message: 'User not found!' });
     }
     if (!user.checkPassword(password)) {
-      return done(null, false, { errorMessage: 'Incorrect password!' });
+      return done(null, false, { message: 'Incorrect password!' });
     }
     return done(null, user);
-  });
+  } catch (err) {
+    return done(err);
+  }
 });
