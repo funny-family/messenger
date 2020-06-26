@@ -24,6 +24,8 @@
                 "after": true 
             }
         ],
+        "no-param-reassign": "off",
+        "no-nested-ternary": "off",
         "no-mixed-spaces-and-tabs": "error",
         "object-curly-spacing": ["error", "always"],
         "space-before-blocks": "error",
