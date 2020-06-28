@@ -3,16 +3,6 @@ const User = require('../../user/models/User');
 
 const emailPath = 'email';
 const passwordPath = 'password';
-const errorObject = {
-  errors: {
-    email: {
-      properties: {
-        path: '',
-        message: ''
-      }
-    }
-  }
-};
 
 module.exports = new LocalStrategy({
   usernameField: emailPath,
@@ -23,13 +13,29 @@ module.exports = new LocalStrategy({
     const user = await User.findOne({ email: String(email) });
 
     if (!user) {
-      errorObject.errors.email.properties.message = 'User not found!';
-      errorObject.errors.email.properties.path = emailPath;
+      const errorObject = {
+        errors: {
+          email: {
+            properties: {
+              path: emailPath,
+              message: 'User not found!'
+            }
+          }
+        }
+      };
       throw errorObject;
     }
     if (!user.checkPassword(password)) {
-      errorObject.errors.email.properties.message = 'Incorrect password!';
-      errorObject.errors.email.properties.path = passwordPath;
+      const errorObject = {
+        errors: {
+          password: {
+            properties: {
+              path: passwordPath,
+              message: 'Incorrect password!'
+            }
+          }
+        }
+      };
       throw errorObject;
     }
     return done(null, user);
