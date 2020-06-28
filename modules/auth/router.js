@@ -16,14 +16,14 @@ auth.post(
 auth.post(
   '/signin',
   bodyParser,
-  passport.authenticate('local', { session: false }),
+  passport.authenticate('local', { session: false, failWithError: true }),
   authenticator.signin
 );
 
 auth.post(
   '/signout',
   bodyParser,
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: false, failWithError: true }),
   authenticator.signout
 );
 
