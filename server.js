@@ -1,5 +1,6 @@
 require('dotenv').config();
 const config = require('config');
+const util = require('util');
 const http = require('http');
 const Koa = require('koa');
 const Keygrip = require('keygrip');
@@ -22,6 +23,11 @@ if (global.__DEV__ === process.env.NODE_ENV) {
 }
 
 app.use(userAgent);
+app.use(async (ctx) => {
+  const userInfo = util.inspect(ctx.userAgent);
+  console.log(userInfo);
+});
+
 app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
 app.use(require('./middlewares/static'));
