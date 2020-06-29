@@ -6,6 +6,7 @@ const Keygrip = require('keygrip');
 const { userAgent } = require('koa-useragent');
 const logger = require('koa-logger');
 const responseTime = require('koa-response-time');
+const cors = require('@koa/cors');
 
 const app = new Koa();
 const server = http.createServer(app.callback());
@@ -21,6 +22,7 @@ if (global.__DEV__ === process.env.NODE_ENV) {
   app.use(logger());
 }
 app.use(userAgent);
+app.use(cors());
 
 app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
