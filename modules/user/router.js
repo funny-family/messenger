@@ -8,7 +8,7 @@ const user = new Router({
 });
 
 user.get(
-  '/get-user',
+  '/me',
   bodyParser,
   passport.authenticate('jwt', { session: false }),
   authorizator.getAuthenticatedUserInfo
