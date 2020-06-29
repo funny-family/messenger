@@ -27,6 +27,7 @@ app.use(cors());
 app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
 app.use(require('./middlewares/static'));
+app.use(require('./middlewares/ratelimiter'));
 
 require('./modules/auth')(app);
 require('./modules/user')(app);
