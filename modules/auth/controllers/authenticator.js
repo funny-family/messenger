@@ -9,12 +9,14 @@ exports.signup = async ctx => {
   const newUser = new User(userData);
   newUser.validation_token = 'uuid' + Math.random();
   await newUser.save();
+  ctx.type = 'json';
   ctx.body = newUser;
 };
 
 exports.signin = async ctx => {
   const tokens = createTokens(ctx.state.user);
   await setCookiesAndTokens(ctx, tokens);
+  ctx.type = 'json';
   ctx.body = tokens;
 };
 
