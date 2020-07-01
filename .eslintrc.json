@@ -24,6 +24,7 @@
                 "after": true 
             }
         ],
+        "global-require": "off",
         "no-param-reassign": "off",
         "no-nested-ternary": "off",
         "no-mixed-spaces-and-tabs": "error",
