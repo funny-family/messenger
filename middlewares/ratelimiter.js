@@ -2,15 +2,17 @@ const ratelimit = require('koa-ratelimit');
 
 const database = new Map();
 let maximumNumberOfRequests = 4;
+let delayTime = 30000; // 30sec
 
 if (global.__DEV__ === process.env.NODE_ENV) {
   maximumNumberOfRequests = 6;
+  delayTime = 5000; // 5sec
 }
 
 module.exports = ratelimit({
   driver: 'memory',
   db: database,
-  duration: 30000, // 30sec
+  duration: delayTime,
   errorMessage: 'Number of requests exceeded.',
   id: (ctx) => ctx.ip,
   headers: {
