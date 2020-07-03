@@ -13,7 +13,9 @@ module.exports = ratelimit({
   driver: 'memory',
   db: database,
   duration: delayTime,
-  errorMessage: 'Number of requests exceeded.',
+  errorMessage: {
+    message: 'Number of requests exceeded.'
+  },
   id: (ctx) => ctx.ip,
   headers: {
     remaining: 'Rate-Limit-Remaining',
