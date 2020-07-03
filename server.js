@@ -28,6 +28,7 @@ app.use(async (ctx) => {
   console.log(userInfo);
 });
 
+app.use(require('./middlewares/headers-setter'));
 app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
 app.use(require('./middlewares/static'));
