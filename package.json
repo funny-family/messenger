@@ -8,9 +8,14 @@
     "dev": "cross-env NODE_ENV=development nodemon --exec \"npm run lint && node src/server\"",
     "lint": "./node_modules/.bin/eslint ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "koa",
+    "server",
+    "node",
+    "nodejs"
+  ],
+  "author": "(https://github.com/funny-family)",
+  "license": "SEE LICENSE IN LICENSE file",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
