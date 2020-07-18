@@ -17,6 +17,7 @@
         "no-unused-vars": "error",
         "no-console": "off",
         "comma-dangle": ["error", "never"],
+        "eslint eol-last": ["error", "always"],
         "comma-spacing": [
             "error",
             {
