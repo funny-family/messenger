@@ -1,10 +1,10 @@
 require('dotenv').config();
 const config = require('config');
-const util = require('util');
+// const util = require('util');
 const http = require('http');
 const Koa = require('koa');
 const Keygrip = require('keygrip');
-const { userAgent } = require('koa-useragent');
+// const { userAgent } = require('koa-useragent');
 const logger = require('koa-logger');
 const responseTime = require('koa-response-time');
 
@@ -22,11 +22,13 @@ if (global.__DEV__ === process.env.NODE_ENV) {
   app.use(logger());
 }
 
-app.use(userAgent);
-app.use(async (ctx) => {
-  const userInfo = util.inspect(ctx.userAgent);
-  console.log(userInfo);
-});
+// app.use(userAgent);
+// app.use(async (ctx) => {
+//   const userInfo = util.inspect(ctx.userAgent);
+//   console.log(userInfo);
+// });
+
+// https://www.npmjs.com/package/koa-body maybe this thing can help (((((
 
 app.use(require('./middlewares/headers-setter'));
 app.use(require('./middlewares/log'));
@@ -37,7 +39,6 @@ app.use(require('./middlewares/cors'));
 
 require('./modules/auth')(app);
 require('./modules/user')(app);
-require('./modules/test-model')(app);
 
 server.listen(config.port, () => {
   console.log('\x1b[36m', `Server running at: http://localhost:${config.port}/`);
