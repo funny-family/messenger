@@ -1,5 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../../user/models/User');
+const User = require('../models/User');
 
 const emailPath = 'email';
 const passwordPath = 'password';

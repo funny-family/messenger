@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const config = require('config');
-const mongoose = require('../../../lib/mongoose');
+const mongoose = require('../lib/mongoose');
 
 const emailValidation = {
   validator: email => {

@@ -1,5 +1,5 @@
-const User = require('../../user/models/User');
-const BlackToken = require('../models/BlackToken');
+const User = require('../../../models/User');
+const BlackToken = require('../../../models/BlackToken');
 const clearCookies = require('./cookies-cleaner');
 const createTokens = require('./tokens-creator');
 const setCookiesAndTokens = require('./cookies-setter');

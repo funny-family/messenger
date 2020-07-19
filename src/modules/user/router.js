@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 const bodyParser = require('../../middlewares/body-parser');
-const passport = require('../auth/middlewares/passport');
+const passport = require('../../middlewares/passport');
 const authorizator = require('./controllers/authorizator');
 
 const user = new Router({
