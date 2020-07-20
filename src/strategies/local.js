@@ -1,4 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
+const createError = require('http-errors');
 const User = require('../models/User');
 
 const emailPath = 'email';
@@ -23,7 +24,7 @@ module.exports = new LocalStrategy({
           }
         }
       };
-      throw errorObject;
+      throw done(createError(401, 'Unauthorized', errorObject));
     }
     if (!user.checkPassword(password)) {
       const errorObject = {
@@ -36,7 +37,7 @@ module.exports = new LocalStrategy({
           }
         }
       };
-      throw errorObject;
+      throw done(createError(401, 'Unauthorized', errorObject));
     }
     return done(null, user);
   } catch (err) {
