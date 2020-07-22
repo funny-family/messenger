@@ -12,6 +12,12 @@ module.exports = async (ctx, next) => {
     if (err.name === 'CastError' || err.name === 'ValidationError') {
       ctx.status = 400;
     }
+    if (err.name === 'AuthenticationError') {
+      ctx.status = 401;
+    }
+    if (err.name === 'AuthenticationError' && err.message === 'Bad Request') {
+      ctx.status = 400;
+    }
     if (err.errors) {
       // let errorContainer = {};
       // for (const field in err.errors) {
