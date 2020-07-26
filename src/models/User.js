@@ -91,6 +91,8 @@ userSchema.path('password_hash').validate(function () {
 }, null);
 
 userSchema.methods.checkPassword = function (password) {
+  if (!password) return false;
+  if (!this.password_hash) return false;
   if (!password || !String(password).trim() || !this.password_hash) return false;
   return String(crypto.pbkdf2Sync(
     password,
