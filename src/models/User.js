@@ -1,14 +1,17 @@
 const crypto = require('crypto');
 const config = require('config');
+const uniqueValidator = require('mongoose-unique-validator');
 const mongoose = require('../lib/mongoose');
 
-const emailValidation = {
-  validator: email => {
-    const emailRexExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return Promise.resolve(emailRexExp.test(email));
-  },
-  message: 'Invalid email!'
-};
+const emailValidation = [
+  {
+    validator: email => {
+      const emailRexExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return Promise.resolve(emailRexExp.test(email));
+    },
+    message: 'Invalid email!'
+  }
+];
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -89,6 +92,10 @@ userSchema.path('password_hash').validate(function () {
     this.invalidate('password_confirmation', 'Passwords must match!');
   }
 }, null);
+
+userSchema.plugin(uniqueValidator, {
+  message: 'Email is already used!'
+});
 
 userSchema.methods.checkPassword = function (password) {
   if (!password) return false;
