@@ -18,9 +18,10 @@ module.exports = ratelimit({
   },
   id: (ctx) => ctx.ip,
   headers: {
-    remaining: 'Rate-Limit-Remaining',
-    reset: 'Rate-Limit-Reset',
-    total: 'Rate-Limit-Total'
+    limit: 'X-RateLimit-Limit',
+    remaining: 'X-RateLimit-Remaining',
+    reset: 'X-RateLimit-Reset',
+    total: 'X-Rate-Limit-Total'
   },
   max: maximumNumberOfRequests
 });
