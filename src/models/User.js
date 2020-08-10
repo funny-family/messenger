@@ -79,18 +79,19 @@ userSchema.virtual('password_confirmation')
   });
 
 userSchema.path('username').validate(function () {
-  const usernameLength = 4;
-  if (this.username && this.username.length < usernameLength) {
-    this.invalidate('username', `Password must be at least ${usernameLength} characters!`);
+  const usernameLenght = 4;
+  if (this.username && this.username.length < usernameLenght) {
+    this.invalidate('username', `Password must be at least ${usernameLenght} characters!`);
   }
 });
 
 userSchema.path('password_hash').validate(function () {
+  const passwordLenght = 6;
   if (!this._password || !String(this._password).trim()) {
     this.invalidate('password', 'Password is required!');
   }
-  if (this._password && this._password.length < 8) {
-    this.invalidate('password', 'Password must be at least 8 characters!');
+  if (this._password && this._password.length < passwordLenght) {
+    this.invalidate('password', `Password must be at least ${passwordLenght} characters!`);
   }
   if (!this._password_confirmation || !String(this._password_confirmation).trim()) {
     this.invalidate('password_confirmation', 'Password confirmation is required!');
