@@ -81,7 +81,7 @@ userSchema.virtual('password_confirmation')
 userSchema.path('username').validate(function () {
   const usernameLength = 4;
   if (this.username && this.username.length < usernameLength) {
-    this.invalidate('username', `Password must be at least ${usernameLength} characters!`);
+    this.invalidate('username', `Username must be at least ${usernameLength} characters!`);
   }
 });
 
