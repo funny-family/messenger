@@ -78,6 +78,13 @@ userSchema.virtual('password_confirmation')
     return this._password_confirmation;
   });
 
+userSchema.path('username').validate(function () {
+  const usernameLength = 4;
+  if (this.username && this.username.length < usernameLength) {
+    this.invalidate('username', `Password must be at least ${usernameLength} characters!`);
+  }
+});
+
 userSchema.path('password_hash').validate(function () {
   if (!this._password || !String(this._password).trim()) {
     this.invalidate('password', 'Password is required!');
