@@ -7,7 +7,6 @@ const setCookiesAndTokens = require('./cookies-setter');
 exports.signup = async ctx => {
   const userData = ctx.request.body;
   const newUser = new User(userData);
-  newUser.validation_token = 'uuid' + Math.random();
   await newUser.save();
   ctx.type = 'json';
   ctx.body = newUser;
