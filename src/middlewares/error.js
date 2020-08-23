@@ -33,7 +33,6 @@ module.exports = async (ctx, next) => {
         delete err.message;
       }
       ctx.type = 'json';
-      ctx.body = err;
       ctx.body = errorContainer;
     } else {
       ctx.type = 'json';
