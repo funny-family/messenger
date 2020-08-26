@@ -30,6 +30,11 @@ exports.signout = async ctx => {
                       ctx.cookies.get('x-refresh-token') ||
                       ctx.body && ctx.body.refresh_token;
 
+  if (!access_token || !refresh_token) return ctx.throw(400);
+
+  console.log('access_token:', access_token);
+  console.log('refresh_token:', refresh_token);
+
   const blackAccessToken = new BlackToken({
     token: access_token
   });
