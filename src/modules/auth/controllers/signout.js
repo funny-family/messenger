@@ -1,5 +1,5 @@
 const BlackToken = require('../../../models/BlackToken');
-const clearCookies = require('./functions/cookies-cleaner');
+const { clearCookies } = require('./functions/clear-cookies');
 
 exports.single = async ctx => { // single signout
   const access_token = ctx.headers['x-access-token'] ||

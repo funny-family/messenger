@@ -1,4 +1,4 @@
-module.exports = ctx => {
+exports.clearCookies = function (ctx) {
   ctx.cookies.set('x-access-token', null);
   ctx.cookies.set('x-refresh-token', null);
   ctx.cookies.set('x-access-token.sig', null);
