@@ -1,25 +1,7 @@
-const User = require('../../../models/User');
 const BlackToken = require('../../../models/BlackToken');
-const clearCookies = require('./cookies-cleaner');
-const createTokens = require('./tokens-creator');
-const setCookiesAndTokens = require('./cookies-setter');
+const clearCookies = require('./functions/cookies-cleaner');
 
-exports.signup = async ctx => {
-  const userData = ctx.request.body;
-  const newUser = new User(userData);
-  await newUser.save();
-  ctx.type = 'json';
-  ctx.body = newUser;
-};
-
-exports.signin = async ctx => {
-  const tokens = createTokens(ctx.state.user);
-  await setCookiesAndTokens(ctx, tokens);
-  ctx.type = 'json';
-  ctx.body = tokens;
-};
-
-exports.signout = async ctx => {
+exports.single = async ctx => { // single signout
   const access_token = ctx.headers['x-access-token'] ||
                       ctx.query.access_token ||
                       ctx.cookies.get('x-access-token') ||

@@ -1,7 +1,11 @@
 const Router = require('koa-router');
+
 const bodyParser = require('../../middlewares/body-parser');
 const passport = require('../../middlewares/passport');
-const authenticator = require('./controllers/authenticator');
+
+const signup = require('./controllers/signup');
+const signin = require('./controllers/signin');
+const signout = require('./controllers/signout');
 
 const auth = new Router({
   prefix: '/auth'
@@ -10,21 +14,21 @@ const auth = new Router({
 auth.post(
   '/signup',
   bodyParser,
-  authenticator.signup
+  signup
 );
 
 auth.post(
   '/signin',
   bodyParser,
   passport.authenticate('local', { session: false, failWithError: true }),
-  authenticator.signin
+  signin
 );
 
 auth.post(
   '/signout',
   bodyParser,
   passport.authenticate('jwt', { session: false, failWithError: true }),
-  authenticator.signout
+  signout.single
 );
 
 module.exports = [auth];
