@@ -1,4 +1,5 @@
 const BlackToken = require('../../../models/BlackToken');
+
 const { clearCookies } = require('./functions/clear-cookies');
 
 exports.single = async ctx => { // single signout
