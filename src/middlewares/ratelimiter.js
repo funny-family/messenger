@@ -1,11 +1,11 @@
 const ratelimit = require('koa-ratelimit');
 
 const database = new Map();
-let maximumNumberOfRequests = 4;
+let maxNumberOfRequests = 4;
 let delayTime = 30000; // 30sec
 
 if (global.__DEV__ === process.env.NODE_ENV) {
-  maximumNumberOfRequests = 6;
+  maxNumberOfRequests = 6;
   delayTime = 5000; // 5sec
 }
 
@@ -23,5 +23,5 @@ module.exports = ratelimit({
     reset: 'X-RateLimit-Reset',
     total: 'X-Rate-Limit-Total'
   },
-  max: maximumNumberOfRequests
+  max: maxNumberOfRequests
 });
