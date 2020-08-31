@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const createTokens = require('./tokens-creator');
+const { createTokens } = require('./create-tokens');
 const { setCookies } = require('./set-сookies');
 const clearCookies = require('./cookies-cleaner');
 const BlackToken = require('../../../../models/BlackToken');

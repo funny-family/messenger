@@ -1,4 +1,4 @@
-const createTokens = require('./functions/tokens-creator');
+const { createTokens } = require('./functions/create-tokens');
 const { setCookies } = require('./functions/set-сookies');
 
 module.exports = async ctx => {
