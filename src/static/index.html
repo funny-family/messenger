@@ -86,7 +86,17 @@
     <h2>Check auth</h2>
     <button type="submit">Check auth</button>
   </form>
+  <hr>
+  <div>
+    <h2>Show cookies</h2>
+    <button type="button" onclick="showCookies()">Show cookies</button>
+  </div>
 </body>
+<script>
+function showCookies() {
+  console.log(document.cookie);
+}
+</script>
 <style>
 form {
   box-sizing: border-box;
