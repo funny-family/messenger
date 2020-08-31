@@ -1,4 +1,4 @@
-module.exports = function (ctx, tokens) {
+exports.setCookies = function (ctx, tokens) {
   const cookiesOptions = {
     signed: true,
     secure: false,
