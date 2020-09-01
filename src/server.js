@@ -22,6 +22,7 @@ app.use(require('./middlewares/static'));
 app.use(require('./middlewares/ratelimiter'));
 app.use(require('./middlewares/cors'));
 app.use(require('./middlewares/logger'));
+app.use(require('./middlewares/response-time'));
 
 require('./modules/auth')(app);
 require('./modules/user')(app);
