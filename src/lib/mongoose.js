@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('config');
+
 const log = require('./bunyan').child({ level: 'fatal' });
 
 mongoose.Promise = global.Promise;
