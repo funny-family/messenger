@@ -5,11 +5,7 @@ const logger = bunyan.createLogger({
   name: 'messenger',
   streams: [
     {
-      level: 'fatal',
-      path: path.join(__dirname, '/../logs/errors.log')
-    },
-    {
-      level: 'error',
+      level: 'fatal' || 'error',
       path: path.join(__dirname, '/../logs/errors.log')
     }
   ]
