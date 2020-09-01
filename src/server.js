@@ -8,11 +8,6 @@ const app = new Koa();
 const server = http.createServer(app.callback());
 
 const Keygrip = require('keygrip');
-const logger = require('koa-logger');
-const responseTime = require('koa-response-time');
-// const util = require('util');
-// const { userAgent } = require('koa-useragent');
-
 
 global.__PROD__ = 'production';
 global.__DEV__ = 'development';
@@ -20,23 +15,13 @@ global.__DEV__ = 'development';
 app.proxy = false;
 app.keys = new Keygrip([config.secretOrKey], 'sha256');
 
-app.use(responseTime());
-app.use(logger());
-
-// app.use(userAgent);
-// app.use(async (ctx) => {
-//   const userInfo = util.inspect(ctx.userAgent);
-//   console.log(userInfo);
-// });
-
-// https://www.npmjs.com/package/koa-body maybe this thing can help (((((
-
 app.use(require('./middlewares/headers-setter'));
 app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
 app.use(require('./middlewares/static'));
 app.use(require('./middlewares/ratelimiter'));
 app.use(require('./middlewares/cors'));
+app.use(require('./middlewares/logger'));
 
 require('./modules/auth')(app);
 require('./modules/user')(app);
