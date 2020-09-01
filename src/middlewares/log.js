@@ -1,4 +1,4 @@
-const logger = require('../lib/logger');
+const logger = require('../lib/bunyan');
 
 module.exports = async (ctx, next) => {
   ctx.log = logger.child({
