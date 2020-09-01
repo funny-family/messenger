@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
   staticRoot: path.join(process.cwd(), 'src/static'),
+  proxy: false,
   secretOrKey: 'secret',
   mongoose: {
     uri: 'mongodb://localhost:27017',
