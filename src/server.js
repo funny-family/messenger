@@ -7,13 +7,13 @@ const Koa = require('koa');
 const app = new Koa();
 const server = http.createServer(app.callback());
 
-const Keygrip = require('keygrip');
+// const Keygrip = require('keygrip');
 
 global.__PROD__ = 'production';
 global.__DEV__ = 'development';
 
 app.proxy = false;
-app.keys = new Keygrip([config.secretOrKey], 'sha256');
+app.keys = require('./middlewares/keygrip');
 
 app.use(require('./middlewares/headers-setter'));
 app.use(require('./middlewares/log'));
