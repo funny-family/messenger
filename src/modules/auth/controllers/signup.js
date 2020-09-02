@@ -1,6 +1,6 @@
 const User = require('../../../models/User');
 
-module.exports = async ctx => {
+exports.signup = async function (ctx) {
   const userData = ctx.request.body;
   const newUser = new User(userData);
   await newUser.save();

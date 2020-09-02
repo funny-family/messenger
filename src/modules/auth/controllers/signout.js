@@ -2,7 +2,7 @@ const BlackToken = require('../../../models/BlackToken');
 
 const { clearCookies } = require('./functions/clear-cookies');
 
-exports.single = async ctx => { // single signout
+exports.single = async function (ctx) { // single signout
   const access_token = ctx.headers['x-access-token'] ||
                       ctx.query.access_token ||
                       ctx.cookies.get('x-access-token') ||
@@ -14,9 +14,6 @@ exports.single = async ctx => { // single signout
                       ctx.body && ctx.body.refresh_token;
 
   if (!access_token || !refresh_token) return ctx.throw(400);
-
-  console.log('access_token:', access_token);
-  console.log('refresh_token:', refresh_token);
 
   const blackAccessToken = new BlackToken({
     token: access_token
@@ -30,5 +27,6 @@ exports.single = async ctx => { // single signout
     blackRefreshToken.save()
   ]);
   clearCookies(ctx);
+  ctx.body = 'ok';
   ctx.status = 200;
 };
