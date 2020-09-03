@@ -9,6 +9,15 @@
     "dev": "cross-env NODE_ENV=development nodemon --exec \"npm run lint && node src/server\"",
     "lint": "./node_modules/.bin/eslint ."
   },
+  "_moduleAliases": {
+    "@db": "src/db",
+    "@lib": "src/lib",
+    "@middlewares": "src/middlewares",
+    "@models": "src/models",
+    "@modules": "src/modules",
+    "@static": "src/static",
+    "@strategies": "src/strategies"
+  },
   "keywords": [
     "koa",
     "server",
@@ -51,6 +60,7 @@
     "koa-router": "^9.0.1",
     "koa-static": "^5.0.0",
     "koa-useragent": "^4.0.0",
+    "module-alias": "^2.2.2",
     "mongoose": "^5.9.17",
     "mongoose-unique-validator": "^2.0.3",
     "passport": "^0.4.1",
