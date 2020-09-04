@@ -10,6 +10,8 @@
     "lint": "./node_modules/.bin/eslint ."
   },
   "_moduleAliases": {
+    "@": "./src/",
+    "@root": ".",
     "@db": "src/db",
     "@lib": "src/lib",
     "@middlewares": "src/middlewares",
@@ -33,7 +35,8 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-node": "^4.1.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.20.2",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.3",
