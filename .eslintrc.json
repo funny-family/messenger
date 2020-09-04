@@ -93,6 +93,14 @@
     "settings": {
         "react": {
           "version": "none"
+        },
+        "import/resolver": {
+            "alias": {
+              "extensions": [".js", ".ts"],
+              "map": [
+                ["@", "./src"]
+              ]
+            }
         }
     }
 }
