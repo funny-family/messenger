@@ -95,11 +95,14 @@
           "version": "none"
         },
         "import/resolver": {
+            "node": {
+                "extensions": [".js", ".ts"]
+            },
             "alias": {
-              "extensions": [".js", ".ts"],
-              "map": [
-                ["@", "./src"]
-              ]
+                "extensions": [".js", ".ts"],
+                "map": [
+                    ["@", "./src/"]
+                ]
             }
         }
     }
