@@ -14,7 +14,7 @@ global.__DEV__ = 'development';
 app.proxy = config.proxy;
 app.keys = require('./middlewares/keygrip');
 
-app.use(require('./middlewares/headers-setter'));
+app.use(require('./middlewares/headers'));
 app.use(require('./middlewares/log'));
 app.use(require('./middlewares/error'));
 app.use(require('./middlewares/static'));
