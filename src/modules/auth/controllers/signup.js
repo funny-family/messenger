@@ -1,4 +1,4 @@
-const User = require('../../../models/User');
+const User = require('@/models/User');
 
 exports.signup = async function (ctx) {
   const userData = ctx.request.body;

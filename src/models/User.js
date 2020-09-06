@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const config = require('config');
 const { v4: uuidv4 } = require('uuid');
 const uniqueValidator = require('mongoose-unique-validator');
-const mongoose = require('../lib/mongoose');
+const mongoose = require('@/lib/mongoose');
 
 const emailValidation = [
   {

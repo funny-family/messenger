@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const createError = require('http-errors');
 
-const User = require('../models/User');
+const User = require('@/models/User');
 
 const emailPath = 'email';
 const passwordPath = 'password';

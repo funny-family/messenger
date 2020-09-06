@@ -1,8 +1,8 @@
 const config = require('config');
 const JWTStrategy = require('passport-jwt').Strategy;
 
-const UsersList = require('../models/User');
-const BlackTokensList = require('../models/BlackToken');
+const UsersList = require('@/models/User');
+const BlackTokensList = require('@/models/BlackToken');
 
 const options = {
   passReqToCallback: true,

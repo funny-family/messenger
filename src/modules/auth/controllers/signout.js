@@ -1,4 +1,4 @@
-const BlackToken = require('../../../models/BlackToken');
+const BlackToken = require('@/models/BlackToken');
 
 const { clearCookies } = require('./functions/clear-cookies');
 

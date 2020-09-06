@@ -1,5 +1,5 @@
+const passport = require('@/middlewares/passport');
 const router = require('./router');
-const passport = require('../../middlewares/passport');
 
 module.exports = app => {
   app.use(passport.initialize());
