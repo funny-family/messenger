@@ -4,7 +4,7 @@
         "prettier",
         "plugin:node/recommended"
     ],
-    "plugins": ["prettier"],
+    "plugins": ["prettier", "node"],
     "parser": "babel-eslint",
     "parserOptions": {
         "sourceType": "module",
@@ -88,7 +88,8 @@
         "prefer-template": "off",
         "camelcase": "off",
         "guard-for-in": "off",
-        "no-restricted-syntax": "off"
+        "no-restricted-syntax": "off",
+        "node/no-missing-require": "off"
     },
     "settings": {
         "react": {
@@ -99,10 +100,10 @@
                 "extensions": [".js", ".ts"]
             },
             "alias": {
-                "extensions": [".js", ".ts"],
-                "map": [
-                    ["@", "./src/"]
-                ]
+              "extensions": [".js", ".ts"],
+              "map": [
+                ["@", "./src/"]
+              ]
             }
         }
     }
