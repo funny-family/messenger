@@ -87,12 +87,48 @@
     <button type="submit">Check auth</button>
   </form>
   <hr>
+  <form
+    action="user/get-info"
+    method="GET"
+    enctype="application/x-www-form-urlencoded"
+  >
+    <h2>getUserAgentInfo</h2>
+    <button type="submit">getUserAgentInfo</button>
+  </form>
+  <hr>
   <div>
     <h2>Show cookies</h2>
     <button type="button" onclick="showCookies()">Show cookies</button>
   </div>
+  <hr>
+  <form class="test">
+    <h2>test</h2>
+    <button type="submit">test</button>
+  </form>
 </body>
 <script>
+const testForm = document.querySelector('.test');
+
+testForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const url = 'auth/signout';
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  });
+  console.log('response', response);
+  if (response.ok) {
+    const good = await response.json();
+    console.log('stringify', JSON.stringify(response));
+    console.log('good', good);
+  } else {
+    const bad = await response.json();
+    console.log('bad', bad);
+  }
+});
+
 function showCookies() {
   console.log(document.cookie);
 }
