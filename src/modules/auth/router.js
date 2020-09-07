@@ -7,28 +7,28 @@ const { signup } = require('./controllers/signup');
 const { signin } = require('./controllers/signin');
 const signout = require('./controllers/signout');
 
-const auth = new Router({
-  prefix: '/auth'
+const apiV1 = new Router({
+  prefix: '/api/v1/auth'
 });
 
-auth.post(
+apiV1.post(
   '/signup',
   bodyParser,
   signup
 );
 
-auth.post(
+apiV1.post(
   '/signin',
   bodyParser,
   passport.authenticate('local', { session: false, failWithError: true }),
   signin
 );
 
-auth.post(
+apiV1.post(
   '/signout',
   bodyParser,
   passport.authenticate('jwt', { session: false, failWithError: true }),
   signout.single
 );
 
-module.exports = [auth];
+module.exports = [apiV1];

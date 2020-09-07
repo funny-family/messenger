@@ -7,7 +7,7 @@
 </head>
 <body>
   <form
-    action="auth/signup"
+    action="/api/v1/auth/signup"
     method="POST"
     enctype="application/x-www-form-urlencoded"
   >
@@ -40,7 +40,7 @@
   </form>
   <hr>
   <form
-    action="auth/signin"
+    action="/api/v1/auth/signin"
     method="POST"
     enctype="application/x-www-form-urlencoded"
   >
@@ -61,7 +61,7 @@
   </form>
   <hr>
   <form
-    action="auth/signout"
+    action="/api/v1/auth/signout"
     method="POST"
     enctype="application/x-www-form-urlencoded"
   >
@@ -70,7 +70,7 @@
   </form>
   <hr>
   <form
-    action="user/me"
+    action="/api/v1/user/me"
     method="GET"
     enctype="application/x-www-form-urlencoded"
   >
@@ -79,7 +79,7 @@
   </form>
   <hr>
   <form
-    action="user/check-auth"
+    action="/api/v1/user/check-auth"
     method="GET"
     enctype="application/x-www-form-urlencoded"
   >
@@ -88,7 +88,7 @@
   </form>
   <hr>
   <form
-    action="user/get-info"
+    action="/api/v1/user/get-info"
     method="GET"
     enctype="application/x-www-form-urlencoded"
   >
@@ -111,7 +111,7 @@ const testForm = document.querySelector('.test');
 
 testForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const url = 'auth/signout';
+  const url = '/api/v1/auth/signout';
   const response = await fetch(url, {
     method: 'POST',
     headers: {

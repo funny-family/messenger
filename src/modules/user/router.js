@@ -5,29 +5,29 @@ const passport = require('@/middlewares/passport');
 
 const authorizator = require('./controllers/authorizator');
 
-const user = new Router({
-  prefix: '/user'
+const apiV1 = new Router({
+  prefix: '/api/v1/user'
 });
 
-user.get(
+apiV1.get(
   '/me',
   bodyParser,
   passport.authenticate('jwt', { session: false }),
   authorizator.getAuthenticatedUserInfo
 );
 
-user.get(
+apiV1.get(
   '/check-auth',
   bodyParser,
   passport.authenticate('jwt', { session: false }),
   authorizator.checkIsUserAuthenticated
 );
 
-user.get(
+apiV1.get(
   '/get-info',
   bodyParser,
   passport.authenticate('jwt', { session: false }),
   authorizator.getUserAgentInfo
 );
 
-module.exports = [user];
+module.exports = [apiV1];
