@@ -3,7 +3,11 @@ exports.getAuthenticatedUserInfo = async ctx => {
 };
 
 exports.checkIsUserAuthenticated = async ctx => {
-  ctx.body = 'Access is allowed!';
+  if (ctx.status === 200) {
+    ctx.body = 'Access is allowed!';
+  } else {
+    ctx.body = 'Access is denied!';
+  }
 };
 
 exports.getUserAgentInfo = async ctx => {
