@@ -4,11 +4,7 @@ exports.getAuthenticatedUserInfo = async ctx => {
 };
 
 exports.checkIsUserAuthenticated = async ctx => {
-  if (ctx.status === 401) {
-    ctx.body = 'Access is denied!';
-  } else {
-    ctx.body = 'Access is allowed!';
-  }
+  ctx.body = 'Access is allowed!';
 };
 
 exports.getUserAgentInfo = async ctx => {
