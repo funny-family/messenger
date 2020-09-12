@@ -26,7 +26,8 @@ exports.single = async function (ctx) { // single signout
     blackAccessToken.save(),
     blackRefreshToken.save()
   ]);
+
   clearCookies(ctx);
-  ctx.body = 'ok';
+
   ctx.status = 200;
 };
