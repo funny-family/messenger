@@ -4,11 +4,10 @@ exports.getAuthenticatedUserInfo = async ctx => {
 };
 
 exports.checkIsUserAuthenticated = async ctx => {
-  ctx.type = 'json';
-  if (ctx.status === 200) {
-    ctx.body = 'Access is allowed!';
-  } else {
+  if (ctx.status === 401) {
     ctx.body = 'Access is denied!';
+  } else {
+    ctx.body = 'Access is allowed!';
   }
 };
 
