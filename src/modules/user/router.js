@@ -24,9 +24,9 @@ apiV1.post(
 );
 
 apiV1.post(
-  '/get-info',
+  '/get-user-info',
   bodyParser,
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   userRequest.getUserAgentInfo
 );
 
@@ -46,9 +46,9 @@ apiV1.get(
 );
 
 apiV1.get(
-  '/get-info',
+  '/get-user-info',
   bodyParser,
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   userRequest.getUserAgentInfo
 );
 
