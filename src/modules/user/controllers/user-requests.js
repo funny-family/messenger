@@ -1,4 +1,4 @@
-const useragent = require('express-useragent');
+// const useragent = require('express-useragent');
 const { useragentInfoToObject } = require('./functions/useragent-info-to-object');
 
 exports.getAuthenticatedUserInfo = async ctx => {
@@ -13,10 +13,10 @@ exports.checkIsUserAuthenticated = async ctx => {
 exports.getUserAgentInfo = async ctx => {
   // is+\w{0,} (isiPhone, isMobileNative ....)
   // is+\w{0,}.\s(false|true) (isMobileNative: false, isTablet: false ....)
-  useragentInfoToObject(ctx);
+  const test = useragentInfoToObject(ctx);
   const userAgentInfo1 = await require('util').inspect(ctx.userAgent);
   // console.log(userAgentInfo1);
-  const userAgentInfo = useragent.parse(ctx.headers['user-agent']);
+  // const userAgentInfo = useragent.parse(ctx.headers['user-agent']);
 
   const userGeolocationInfo = await ctx.get('http://ip-api.com/json', null, {
     'User-Agent': 'koa-http-request'
@@ -24,10 +24,13 @@ exports.getUserAgentInfo = async ctx => {
 
   const userInfo = {
     userAgentInfo1,
-    userAgentInfo,
-    userGeolocationInfo
+    // userAgentInfo,
+    userGeolocationInfo,
+    test
   };
 
   ctx.type = 'json';
-  ctx.body = userInfo;
+  ctx.body = {
+    userInfo
+  };
 };
