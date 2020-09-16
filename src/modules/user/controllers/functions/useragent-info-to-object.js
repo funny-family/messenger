@@ -39,7 +39,12 @@ exports.useragentInfoToObject = function (ctx) {
 
   for (let i = 0; i < boolenCharacters.length; i++) {
     const key = boolenCharacters[i].match(/is+\w{0,}/gm).toString();
-    const value = boolenCharacters[i].match(/false|true/gm).toString();
+    let value = boolenCharacters[i].match(/false|true/gm).toString();
+    if (value === 'false') {
+      value = false;
+    } else {
+      value = true;
+    }
     ISvalues.push(key);
     boolenValues.push(value);
   }
@@ -50,7 +55,7 @@ exports.useragentInfoToObject = function (ctx) {
 
   const browerInfo = userAgentStringInfo.match(/browser.\s+\'([^\']+)\'/gm);
   const browerInfoContainer = {
-    browser: browerInfo.toString().match(/\'([^\']+)\'/gm).toString()
+    browser: browerInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
   };
   // browser.\s+
   // words in single quotes \'([^\']+)\'
@@ -59,5 +64,6 @@ exports.useragentInfoToObject = function (ctx) {
     ...boolenCharactersContainer,
     ...browerInfoContainer
   };
+  // console.log(typeof userAgentInfoContainer.isYaBrowser);
   return userAgentInfoContainer;
 };
