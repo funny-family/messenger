@@ -53,16 +53,22 @@ exports.useragentInfoToObject = function (ctx) {
     boolenCharactersContainer[key] = boolenValues[value];
   });
 
-  const browerInfo = userAgentStringInfo.match(/browser.\s+\'([^\']+)\'/gm);
-  const browerInfoContainer = {
-    browser: browerInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+  const browerNameInfo = userAgentStringInfo.match(/browser.\s+\'([^\']+)\'/gm);
+  const browerNameInfoContainer = {
+    browser: browerNameInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+  };
+
+  const browserVersionInfo = userAgentStringInfo.match(/version.\s+\'([^\']+)\'/gm);
+  const browserVersionInfoContainer = {
+    version: browserVersionInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
   };
   // browser.\s+
   // words in single quotes \'([^\']+)\'
 
   userAgentInfoContainer = {
     ...boolenCharactersContainer,
-    ...browerInfoContainer
+    ...browerNameInfoContainer,
+    ...browserVersionInfoContainer
   };
   // console.log(typeof userAgentInfoContainer.isYaBrowser);
   return userAgentInfoContainer;
