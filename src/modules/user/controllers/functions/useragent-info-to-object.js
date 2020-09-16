@@ -1,6 +1,4 @@
 exports.useragentInfoToObject = function (ctx, koaUserAgentString) {
-  // const userAgentStringInfo = require('util').inspect(ctx.userAgent);
-
   let userAgentInfoContainer = {};
 
   const boolenCharactersContainer = {};
