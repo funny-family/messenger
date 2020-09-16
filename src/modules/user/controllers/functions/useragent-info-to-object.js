@@ -1,41 +1,12 @@
-exports.useragentInfoToObject = function (ctx) {
-  const userAgentStringInfo = require('util').inspect(ctx.userAgent);
-
-  // return userAgentStringInfo.replace(/is+\w{0,}/gm, () => console.log(userAgentStringInfo));
-
-  // userAgentStringInfo.replace(/is+\w{0,}/gm, (match) => {
-  //   console.log(match);
-  // });
-
-  // const wordsStartWhithIs = userAgentStringInfo.match(/is+\w{0,}.\s(false|true)/gm);
-  // console.log(wordsStartWhithIs);
-
-  // const wordsStartWhithIs = userAgentStringInfo.match(/is+\w{0,}/gm);
-  // const wordsStartWhithIsValue = userAgentStringInfo.match(/false|true/gm);
-
-  // console.log(Object.keys(wordsStartWhithIs).map((key) => [Number(key), wordsStartWhithIs[key]]));
-  // const container = [];
-  // for (let i = 0; i < container.length; i++) {
-  //   container.pop(wordsStartWhithIs[i]);
-  // }
-  // console.log(container);
-
-  // const boolenUserAgentValues = {};
-  // wordsStartWhithIs.foreach((key, value) => {
-  //   boolenUserAgentValues[key] = wordsStartWhithIsValue[value];
-  // });
-
-  // return {
-  //   wordsStartWhithIs,
-  //   wordsStartWhithIsValue
-  // };
+exports.useragentInfoToObject = function (ctx, koaUserAgentString) {
+  // const userAgentStringInfo = require('util').inspect(ctx.userAgent);
 
   let userAgentInfoContainer = {};
 
   const boolenCharactersContainer = {};
   const ISvalues = [];
   const boolenValues = [];
-  const boolenCharacters = userAgentStringInfo.match(/is+\w{0,}.\s(false|true)/gm);
+  const boolenCharacters = koaUserAgentString.match(/is+\w{0,}.\s(false|true)/gm);
 
   for (let i = 0; i < boolenCharacters.length; i++) {
     const key = boolenCharacters[i].match(/is+\w{0,}/gm).toString();
@@ -53,29 +24,27 @@ exports.useragentInfoToObject = function (ctx) {
     boolenCharactersContainer[key] = boolenValues[value];
   });
 
-  const browerNameInfo = userAgentStringInfo.match(/browser.\s+\'([^\']+)\'/gm);
+  const browerNameInfo = koaUserAgentString.match(/browser.\s+\'([^\']+)\'/gm);
   const browerNameInfoContainer = {
     browser: browerNameInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
   };
 
-  const browserVersionInfo = userAgentStringInfo.match(/version.\s+\'([^\']+)\'/gm);
+  const browserVersionInfo = koaUserAgentString.match(/version.\s+\'([^\']+)\'/gm);
   const browserVersionInfoContainer = {
     version: browserVersionInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
   };
 
-  const electronVersionInfo = userAgentStringInfo.match(/electronVersion.\s+(\'([^\']+)\')|electronVersion.\s''/gm);
+  const electronVersionInfo = koaUserAgentString.match(/electronVersion.\s+(\'([^\']+)\')|electronVersion.\s''/gm);
   let electronVersionInfoString = electronVersionInfo.toString().match(/\'([^\']+)\'/gm);
   if (electronVersionInfoString === null) electronVersionInfoString = '';
   const electronVersionInfoContainer = {
     electronVersion: electronVersionInfoString
   };
 
-  const sourceInfo = userAgentStringInfo.match(/source.\s+\'([^\']+)\'/gm);
+  const sourceInfo = koaUserAgentString.match(/source.\s+\'([^\']+)\'/gm);
   const sourceInfoContainer = {
     source: sourceInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
   };
-  // browser.\s+
-  // words in single quotes \'([^\']+)\'
 
   userAgentInfoContainer = {
     ...boolenCharactersContainer,
@@ -84,6 +53,5 @@ exports.useragentInfoToObject = function (ctx) {
     ...electronVersionInfoContainer,
     ...sourceInfoContainer
   };
-  // console.log(typeof userAgentInfoContainer.isYaBrowser);
   return userAgentInfoContainer;
 };
