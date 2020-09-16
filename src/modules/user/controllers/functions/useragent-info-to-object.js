@@ -69,6 +69,11 @@ exports.useragentInfoToObject = function (ctx) {
   const electronVersionInfoContainer = {
     electronVersion: electronVersionInfoString
   };
+
+  const sourceInfo = userAgentStringInfo.match(/source.\s+\'([^\']+)\'/gm);
+  const sourceInfoContainer = {
+    source: sourceInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+  };
   // browser.\s+
   // words in single quotes \'([^\']+)\'
 
@@ -76,7 +81,8 @@ exports.useragentInfoToObject = function (ctx) {
     ...boolenCharactersContainer,
     ...browerNameInfoContainer,
     ...browserVersionInfoContainer,
-    ...electronVersionInfoContainer
+    ...electronVersionInfoContainer,
+    ...sourceInfoContainer
   };
   // console.log(typeof userAgentInfoContainer.isYaBrowser);
   return userAgentInfoContainer;
