@@ -29,22 +29,35 @@ exports.useragentInfoToObject = function (ctx) {
   //   wordsStartWhithIs,
   //   wordsStartWhithIsValue
   // };
-  const userAgentInfoContainer = {};
 
+  let userAgentInfoContainer = {};
+
+  const boolenCharactersContainer = {};
   const ISvalues = [];
   const boolenValues = [];
-  const boolenCharactersCpntainer = userAgentStringInfo.match(/is+\w{0,}.\s(false|true)/gm);
+  const boolenCharacters = userAgentStringInfo.match(/is+\w{0,}.\s(false|true)/gm);
 
-  for (let i = 0; i < boolenCharactersCpntainer.length; i++) {
-    const key = boolenCharactersCpntainer[i].match(/is+\w{0,}/gm).toString();
-    const value = boolenCharactersCpntainer[i].match(/false|true/gm).toString();
+  for (let i = 0; i < boolenCharacters.length; i++) {
+    const key = boolenCharacters[i].match(/is+\w{0,}/gm).toString();
+    const value = boolenCharacters[i].match(/false|true/gm).toString();
     ISvalues.push(key);
     boolenValues.push(value);
   }
 
   ISvalues.forEach((key, value) => {
-    userAgentInfoContainer[key] = boolenValues[value];
+    boolenCharactersContainer[key] = boolenValues[value];
   });
 
+  const browerInfo = userAgentStringInfo.match(/browser.\s+\'([^\']+)\'/gm);
+  const browerInfoContainer = {
+    browser: browerInfo.toString().match(/\'([^\']+)\'/gm).toString()
+  };
+  // browser.\s+
+  // words in single quotes \'([^\']+)\'
+
+  userAgentInfoContainer = {
+    ...boolenCharactersContainer,
+    ...browerInfoContainer
+  };
   return userAgentInfoContainer;
 };
