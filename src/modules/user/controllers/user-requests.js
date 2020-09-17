@@ -11,7 +11,7 @@ exports.checkIsUserAuthenticated = async ctx => {
 
 exports.getUserAgentInfo = async ctx => {
   const userAgentString = await require('util').inspect(ctx.userAgent);
-  const userAgentObject = useragentInfoToObject(ctx, userAgentString);
+  const userAgentObject = useragentInfoToObject(userAgentString);
 
   const userGeolocationInfo = await ctx.get('http://ip-api.com/json', null, {
     'User-Agent': 'koa-http-request'
