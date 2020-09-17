@@ -27,10 +27,14 @@ exports.useragentInfoToObject = function (userAgentString) {
     return booleanCharactersObject;
   }
 
-  const browerInfo = userAgentString.match(/browser.\s+\'([^\']+)\'/gm);
-  const browerInfoObject = {
-    browser: browerInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
-  };
+  function getBrowerInfoObject() {
+    const browerInfo = userAgentString.match(/browser.\s+\'([^\']+)\'/gm);
+    const browerInfoObject = {
+      browser: browerInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+    };
+
+    return browerInfoObject;
+  }
 
   const browserVersionInfo = userAgentString.match(/version.\s+\'([^\']+)\'/gm);
   const browserVersionInfoObject = {
@@ -51,7 +55,7 @@ exports.useragentInfoToObject = function (userAgentString) {
 
   userAgentObjectContainer = {
     ...getBooleanCharactersObject(),
-    ...browerInfoObject,
+    ...getBrowerInfoObject(),
     ...browserVersionInfoObject,
     ...electronVersionInfoObject,
     ...sourceInfoObject
