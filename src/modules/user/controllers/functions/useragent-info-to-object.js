@@ -36,10 +36,14 @@ exports.useragentInfoToObject = function (userAgentString) {
     return browerInfoObject;
   }
 
-  const browserVersionInfo = userAgentString.match(/version.\s+\'([^\']+)\'/gm);
-  const browserVersionInfoObject = {
-    version: browserVersionInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
-  };
+  function getBrowserVersionInfoObject() {
+    const browserVersionInfo = userAgentString.match(/version.\s+\'([^\']+)\'/gm);
+    const browserVersionInfoObject = {
+      version: browserVersionInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+    };
+
+    return browserVersionInfoObject;
+  }
 
   const electronVersionInfo = userAgentString.match(/electronVersion.\s+(\'([^\']+)\')|electronVersion.\s''/gm);
   let electronVersionInfoString = electronVersionInfo.toString().match(/\'([^\']+)\'/gm);
@@ -56,7 +60,7 @@ exports.useragentInfoToObject = function (userAgentString) {
   userAgentObjectContainer = {
     ...getBooleanCharactersObject(),
     ...getBrowerInfoObject(),
-    ...browserVersionInfoObject,
+    ...getBrowserVersionInfoObject(),
     ...electronVersionInfoObject,
     ...sourceInfoObject
   };
