@@ -27,39 +27,42 @@ exports.useragentInfoToObject = function (userAgentString) {
     return booleanCharactersObject;
   }
 
-  function getBrowerInfoObject() {
-    const browerInfo = userAgentString.match(/browser.\s+\'([^\']+)\'/gm);
-    const browerInfoObject = {
-      browser: browerInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+  function getbrowserObject() {
+    const stringifiedObject = userAgentString.match(/browser.\s+\'([^\']+)\'/gm);
+    const value = stringifiedObject.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '');
+    const browserObject = {
+      browser: value
     };
 
-    return browerInfoObject;
+    return browserObject;
   }
 
   function getBrowserVersionInfoObject() {
-    const browserVersionInfo = userAgentString.match(/version.\s+\'([^\']+)\'/gm);
+    const stringifiedObject = userAgentString.match(/version.\s+\'([^\']+)\'/gm);
+    const value = stringifiedObject.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '');
     const browserVersionInfoObject = {
-      version: browserVersionInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+      version: value
     };
 
     return browserVersionInfoObject;
   }
 
   function getElectronVersionInfo() {
-    const electronVersionInfo = userAgentString.match(/electronVersion.\s+(\'([^\']+)\')|electronVersion.\s''/gm);
-    let electronVersionInfoString = electronVersionInfo.toString().match(/\'([^\']+)\'/gm);
-    if (electronVersionInfoString === null) electronVersionInfoString = '';
+    const stringifiedObject = userAgentString.match(/electronVersion.\s+(\'([^\']+)\')|electronVersion.\s''/gm);
+    let value = stringifiedObject.toString().match(/\'([^\']+)\'/gm);
+    if (value === null) value = '';
     const electronVersionInfoObject = {
-      electronVersion: electronVersionInfoString
+      electronVersion: value
     };
 
     return electronVersionInfoObject;
   }
 
   function getSourceInfoObject() {
-    const sourceInfo = userAgentString.match(/source.\s+\'([^\']+)\'/gm);
+    const stringifiedObject = userAgentString.match(/source.\s+\'([^\']+)\'/gm);
+    const value = stringifiedObject.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '');
     const sourceInfoObject = {
-      source: sourceInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+      source: value
     };
 
     return sourceInfoObject;
@@ -67,7 +70,7 @@ exports.useragentInfoToObject = function (userAgentString) {
 
   userAgentObjectContainer = {
     ...getBooleanCharactersObject(),
-    ...getBrowerInfoObject(),
+    ...getbrowserObject(),
     ...getBrowserVersionInfoObject(),
     ...getElectronVersionInfo(),
     ...getSourceInfoObject()
