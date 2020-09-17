@@ -56,17 +56,21 @@ exports.useragentInfoToObject = function (userAgentString) {
     return electronVersionInfoObject;
   }
 
-  const sourceInfo = userAgentString.match(/source.\s+\'([^\']+)\'/gm);
-  const sourceInfoObject = {
-    source: sourceInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
-  };
+  function getSourceInfoObject() {
+    const sourceInfo = userAgentString.match(/source.\s+\'([^\']+)\'/gm);
+    const sourceInfoObject = {
+      source: sourceInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+    };
+
+    return sourceInfoObject;
+  }
 
   userAgentObjectContainer = {
     ...getBooleanCharactersObject(),
     ...getBrowerInfoObject(),
     ...getBrowserVersionInfoObject(),
     ...getElectronVersionInfo(),
-    ...sourceInfoObject
+    ...getSourceInfoObject()
   };
   return userAgentObjectContainer;
 };
