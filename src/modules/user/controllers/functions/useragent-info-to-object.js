@@ -1,10 +1,10 @@
-exports.useragentInfoToObject = function (koaUserAgentString) {
-  let userAgentInfoContainer = {};
+exports.useragentInfoToObject = function (userAgentString) {
+  let userAgentObjectContainer = {};
 
-  const boolenCharactersContainer = {};
-  const ISvalues = [];
-  const boolenValues = [];
-  const boolenCharacters = koaUserAgentString.match(/is+\w{0,}.\s(false|true)/gm);
+  const booleanCharactersObject = {};
+  const objectKeysContainer = [];
+  const objectValuesContainer = [];
+  const boolenCharacters = userAgentString.match(/is+\w{0,}.\s(false|true)/gm);
 
   for (let i = 0; i < boolenCharacters.length; i++) {
     const key = boolenCharacters[i].match(/is+\w{0,}/gm).toString();
@@ -14,42 +14,42 @@ exports.useragentInfoToObject = function (koaUserAgentString) {
     } else {
       value = true;
     }
-    ISvalues.push(key);
-    boolenValues.push(value);
+    objectKeysContainer.push(key);
+    objectValuesContainer.push(value);
   }
 
-  ISvalues.forEach((key, value) => {
-    boolenCharactersContainer[key] = boolenValues[value];
+  objectKeysContainer.forEach((key, value) => {
+    booleanCharactersObject[key] = objectValuesContainer[value];
   });
 
-  const browerNameInfo = koaUserAgentString.match(/browser.\s+\'([^\']+)\'/gm);
-  const browerNameInfoContainer = {
-    browser: browerNameInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
+  const browerInfo = userAgentString.match(/browser.\s+\'([^\']+)\'/gm);
+  const browerInfoObject = {
+    browser: browerInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
   };
 
-  const browserVersionInfo = koaUserAgentString.match(/version.\s+\'([^\']+)\'/gm);
-  const browserVersionInfoContainer = {
+  const browserVersionInfo = userAgentString.match(/version.\s+\'([^\']+)\'/gm);
+  const browserVersionInfoObject = {
     version: browserVersionInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
   };
 
-  const electronVersionInfo = koaUserAgentString.match(/electronVersion.\s+(\'([^\']+)\')|electronVersion.\s''/gm);
+  const electronVersionInfo = userAgentString.match(/electronVersion.\s+(\'([^\']+)\')|electronVersion.\s''/gm);
   let electronVersionInfoString = electronVersionInfo.toString().match(/\'([^\']+)\'/gm);
   if (electronVersionInfoString === null) electronVersionInfoString = '';
-  const electronVersionInfoContainer = {
+  const electronVersionInfoObject = {
     electronVersion: electronVersionInfoString
   };
 
-  const sourceInfo = koaUserAgentString.match(/source.\s+\'([^\']+)\'/gm);
-  const sourceInfoContainer = {
+  const sourceInfo = userAgentString.match(/source.\s+\'([^\']+)\'/gm);
+  const sourceInfoObject = {
     source: sourceInfo.toString().match(/\'([^\']+)\'/gm).toString().replace(/['"]+/g, '')
   };
 
-  userAgentInfoContainer = {
-    ...boolenCharactersContainer,
-    ...browerNameInfoContainer,
-    ...browserVersionInfoContainer,
-    ...electronVersionInfoContainer,
-    ...sourceInfoContainer
+  userAgentObjectContainer = {
+    ...booleanCharactersObject,
+    ...browerInfoObject,
+    ...browserVersionInfoObject,
+    ...electronVersionInfoObject,
+    ...sourceInfoObject
   };
-  return userAgentInfoContainer;
+  return userAgentObjectContainer;
 };
