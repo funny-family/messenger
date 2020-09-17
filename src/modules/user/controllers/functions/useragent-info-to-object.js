@@ -1,26 +1,31 @@
 exports.useragentInfoToObject = function (userAgentString) {
   let userAgentObjectContainer = {};
 
-  const booleanCharactersObject = {};
-  const objectKeysContainer = [];
-  const objectValuesContainer = [];
-  const boolenCharacters = userAgentString.match(/is+\w{0,}.\s(false|true)/gm);
+  function getBooleanCharactersObject() {
+    const booleanCharactersObject = {};
 
-  for (let i = 0; i < boolenCharacters.length; i++) {
-    const key = boolenCharacters[i].match(/is+\w{0,}/gm).toString();
-    let value = boolenCharacters[i].match(/false|true/gm).toString();
-    if (value === 'false') {
-      value = false;
-    } else {
-      value = true;
+    const objectKeysContainer = [];
+    const objectValuesContainer = [];
+    const boolenCharacters = userAgentString.match(/is+\w{0,}.\s(false|true)/gm);
+
+    for (let i = 0; i < boolenCharacters.length; i++) {
+      const key = boolenCharacters[i].match(/is+\w{0,}/gm).toString();
+      let value = boolenCharacters[i].match(/false|true/gm).toString();
+      if (value === 'false') {
+        value = false;
+      } else {
+        value = true;
+      }
+      objectKeysContainer.push(key);
+      objectValuesContainer.push(value);
     }
-    objectKeysContainer.push(key);
-    objectValuesContainer.push(value);
-  }
 
-  objectKeysContainer.forEach((key, value) => {
-    booleanCharactersObject[key] = objectValuesContainer[value];
-  });
+    objectKeysContainer.forEach((key, value) => {
+      booleanCharactersObject[key] = objectValuesContainer[value];
+    });
+
+    return booleanCharactersObject;
+  }
 
   const browerInfo = userAgentString.match(/browser.\s+\'([^\']+)\'/gm);
   const browerInfoObject = {
@@ -45,7 +50,7 @@ exports.useragentInfoToObject = function (userAgentString) {
   };
 
   userAgentObjectContainer = {
-    ...booleanCharactersObject,
+    ...getBooleanCharactersObject(),
     ...browerInfoObject,
     ...browserVersionInfoObject,
     ...electronVersionInfoObject,
