@@ -1,4 +1,4 @@
-const { useragentInfoToObject } = require('./functions/useragent-info-to-object');
+const { getUseragentInfo } = require('./functions/get-useragent-info');
 
 exports.getAuthenticatedUserInfo = async ctx => {
   ctx.type = 'json';
@@ -10,8 +10,7 @@ exports.checkIsUserAuthenticated = async ctx => {
 };
 
 exports.getUserAgentInfo = async ctx => {
-  const userAgentString = await require('util').inspect(ctx.userAgent);
-  const userAgentObject = useragentInfoToObject(userAgentString);
+  const userAgentObject = await getUseragentInfo(ctx);
 
   const userGeolocationInfo = await ctx.get('http://ip-api.com/json', null, {
     'User-Agent': 'koa-http-request'
