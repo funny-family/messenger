@@ -5,6 +5,7 @@ const passport = require('@/middlewares/passport');
 
 const { signup } = require('./controllers/signup');
 const { signin } = require('./controllers/signin');
+const { refreshAuth } = require('./controllers/refresh-auth');
 const signout = require('./controllers/signout');
 
 const apiV1 = new Router({
@@ -22,6 +23,13 @@ apiV1.post(
   bodyParser,
   passport.authenticate('local', { session: false, failWithError: true }),
   signin
+);
+
+apiV1.post(
+  '/refresh-auth',
+  bodyParser,
+  passport.authenticate('jwt', { session: false, failWithError: true }),
+  refreshAuth
 );
 
 apiV1.post(

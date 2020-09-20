@@ -23,19 +23,19 @@
       autocomplete="off"
       name="email"
       placeholder="Email"
-     />
+    />
     <input
       type="password"
       autocomplete="off"
       name="password"
       placeholder="Password"
-     />
+    />
     <input
       type="password"
       autocomplete="off"
       name="password_confirmation"
       placeholder="Confirm password"
-     />
+    />
     <button type="submit">Sign up</button>
   </form>
   <hr>
@@ -50,14 +50,23 @@
       autocomplete="off"
       name="email"
       placeholder="Email"
-     />
+    />
     <input
       type="password"
       autocomplete="off"
       name="password"
       placeholder="Password"
-     />
+    />
     <button type="submit">Sign in</button>
+  </form>
+  <hr>
+  <form
+    action="/api/v1/auth/refresh-auth"
+    method="POST"
+    enctype="application/x-www-form-urlencoded"
+  >
+    <h2>Refresh Auth</h2>
+    <button type="submit">Refresh Auth</button>
   </form>
   <hr>
   <form
