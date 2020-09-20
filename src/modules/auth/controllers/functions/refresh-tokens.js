@@ -1,60 +1,49 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
+// const config = require('config');
 
 const BlackToken = require('@/models/BlackToken');
 const User = require('@/models/User');
 
-const { createTokens } = require('./create-tokens');
+const { createTokensForUser } = require('./create-tokens-for-user');
 const { setCookies } = require('./set-сookies');
 const { clearCookies } = require('./clear-cookies');
 
-module.exports = async ctx => {
-  const accessToken = ctx.headers['x-access-token'] ||
+exports.refreshTokens = async ctx => {
+  const access_token = ctx.headers['x-access-token'] ||
                       ctx.query.access_token ||
                       ctx.cookies.get('x-access-token') ||
                       ctx.body && ctx.body.access_token;
 
-  const refreshToken = ctx.headers['x-refresh-token'] ||
+  const refresh_token = ctx.headers['x-refresh-token'] ||
                       ctx.query.refresh_token ||
                       ctx.cookies.get('x-refresh-token') ||
                       ctx.body && ctx.body.refresh_token;
 
-  if (!accessToken || !refreshToken) return ctx.throw(401, 'No token found!');
-  try {
-    const decoded = jwt.decode(refreshToken);
-    const userId = decoded._id;
-    const user = await User.findOne({ _id: userId }).lean().exec();
-    const createNewTokens = createTokens(user);
-    // const cookiesOptions = {
-    //   signed: true,
-    //   secure: false,
-    //   httpOnly: true
-    // };
+  if (!access_token || !refresh_token) return ctx.throw(401, 'No token found!');
 
-    if (!accessToken || !refreshToken) return ctx.throw(401, 'No token!');
+  try {
+    const refreshTokenDecoded = jwt.decode(refresh_token);
+    const userId = refreshTokenDecoded._id;
+    const user = await User.findOne({ _id: userId }).lean().exec();
+    const newTokens = createTokensForUser(user);
+
+    if (!access_token || !refresh_token) return ctx.throw(401, 'No token!');
     if (!user) return ctx.throw(500, 'Invalid token!');
 
-    // ctx.cookies.set('x-access-token', createNewToken.access_token, {
-    //   ...cookiesOptions,
-    //   expires: 1
-    // });
-    // ctx.cookies.set('x-refresh-token', createNewToken.refresh_token, {
-    //   ...cookiesOptions,
-    //   expires: 1
-    // });
+    setCookies(ctx, newTokens);
 
-    setCookies(ctx, createNewTokens);
+    await Promise.all([access_token, refresh_token].map((token) => {
+      // const verifyOptions = {
+      //   algorithm: [config.jsonwebtoken.algorithm],
+      //   ignoreExpiration: true
+      // };
 
-    await Promise.all([accessToken, refreshToken].map(token => {
-      const verifyOptions = {
-        algorithm: [config.jsonwebtoken.algorithm],
-        ignoreExpiration: true
-      };
-      const expires = jwt.verify(token, config.secretOrKey, verifyOptions).exp;
+      // const expires = jwt.verify(token, config.secretOrKey, verifyOptions).exp;
       const blackToken = new BlackToken({
-        token,
-        expires: expires * 1000
+        token
+        // expires: expires * 1000
       });
+
       return blackToken.save();
     }));
   } catch (err) {
