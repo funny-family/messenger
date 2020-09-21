@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const User = require('@/models/User');
+// const User = require('@/models/User');
+const { findId } = require('@/db-requests/user/find-id');
 
 const { createTokensForUser } = require('./create-tokens-for-user');
 const { setAuthCookies } = require('./set-auth-сookies');
@@ -23,7 +24,8 @@ exports.refreshTokens = async ctx => {
   try {
     const refreshTokenDecoded = jwt.decode(refresh_token);
     const userId = refreshTokenDecoded._id;
-    const user = await User.findOne({ _id: userId }).lean().exec();
+    // const user = await User.findOne({ _id: userId }).lean().exec();
+    const user = await findId(userId);
     const newTokens = createTokensForUser(user);
 
     if (!access_token || !refresh_token) return ctx.throw(401, 'No token!');
