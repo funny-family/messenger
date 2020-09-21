@@ -1,5 +1,5 @@
 const BlackToken = require('@/models/BlackToken');
 
-exports.findAccessToken = async function (access_token) {
-  await BlackToken.findOne({ access_token }).lean().exec();
+exports.findAccessToken = function (access_token) {
+  return BlackToken.findOne({ access_token }).lean().exec();
 };
