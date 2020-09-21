@@ -1,12 +1,11 @@
 const jwt = require('jsonwebtoken');
-// const config = require('config');
 
-const BlackToken = require('@/models/BlackToken');
 const User = require('@/models/User');
 
 const { createTokensForUser } = require('./create-tokens-for-user');
 const { setCookies } = require('./set-сookies');
 const { clearCookies } = require('./clear-cookies');
+const { addTokenToBlacklist } = require('./add-token-to-blacklist');
 
 exports.refreshTokens = async ctx => {
   const access_token = ctx.headers['x-access-token'] ||
@@ -32,20 +31,10 @@ exports.refreshTokens = async ctx => {
 
     setCookies(ctx, newTokens);
 
-    await Promise.all([access_token, refresh_token].map((token) => {
-      // const verifyOptions = {
-      //   algorithm: [config.jsonwebtoken.algorithm],
-      //   ignoreExpiration: true
-      // };
-
-      // const expires = jwt.verify(token, config.secretOrKey, verifyOptions).exp;
-      const blackToken = new BlackToken({
-        token
-        // expires: expires * 1000
-      });
-
-      return blackToken.save();
-    }));
+    await Promise.all([
+      addTokenToBlacklist(access_token),
+      addTokenToBlacklist(refresh_token)
+    ]);
   } catch (err) {
     clearCookies(ctx);
     return ctx.throw(401, 'Refresh token validation error!');
