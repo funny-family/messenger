@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('@/models/User');
 
 const { createTokensForUser } = require('./create-tokens-for-user');
-const { setCookies } = require('./set-сookies');
+const { setAuthCookies } = require('./set-auth-сookies');
 const { clearCookies } = require('./clear-cookies');
 const { addTokenToBlacklist } = require('./add-token-to-blacklist');
 
@@ -29,7 +29,7 @@ exports.refreshTokens = async ctx => {
     if (!access_token || !refresh_token) return ctx.throw(401, 'No token!');
     if (!user) return ctx.throw(500, 'Invalid token!');
 
-    setCookies(ctx, newTokens);
+    setAuthCookies(ctx, newTokens);
 
     await Promise.all([
       addTokenToBlacklist(access_token),
