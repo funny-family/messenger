@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const createError = require('http-errors');
 
-const User = require('@/models/User');
+const UserList = require('@/db-requests/user');
 
 const emailPath = 'email';
 const passwordPath = 'password';
@@ -12,7 +12,7 @@ module.exports = new LocalStrategy({
   session: false
 }, async function (email, password, done) {
   try {
-    const user = await User.findOne({ email: String(email) });
+    const user = await UserList.findEmail(email);
 
     if (!user) {
       const errorObject = {
