@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 
-// const User = require('@/models/User');
-const { findId } = require('@/db-requests/user/find-id');
+const UserList = require('@/db-requests/user');
+const BlackTokenList = require('@/db-requests/black-token');
+
 
 const { createTokensForUser } = require('./create-tokens-for-user');
 const { setAuthCookies } = require('./set-auth-сookies');
 const { clearCookies } = require('./clear-cookies');
-const { addTokenToBlacklist } = require('./add-token-to-blacklist');
 
 exports.refreshTokens = async ctx => {
   const access_token = ctx.headers['x-access-token'] ||
@@ -22,20 +22,19 @@ exports.refreshTokens = async ctx => {
   if (!access_token || !refresh_token) return ctx.throw(401, 'No token found!');
 
   try {
-    const refreshTokenDecoded = jwt.decode(refresh_token);
-    const userId = refreshTokenDecoded._id;
-    // const user = await User.findOne({ _id: userId }).lean().exec();
-    const user = await findId(userId);
-    const newTokens = createTokensForUser(user);
+    const decodedRefreshToken = jwt.decode(refresh_token);
+    const id = decodedRefreshToken._id;
+    const userFromDecodedToken = await UserList.findId(id);
+    const newTokens = createTokensForUser(userFromDecodedToken);
 
     if (!access_token || !refresh_token) return ctx.throw(401, 'No token!');
-    if (!user) return ctx.throw(500, 'Invalid token!');
+    if (!userFromDecodedToken) return ctx.throw(500, 'Invalid token!');
 
     setAuthCookies(ctx, newTokens);
 
     await Promise.all([
-      addTokenToBlacklist(access_token),
-      addTokenToBlacklist(refresh_token)
+      BlackTokenList.addTokenAndSave(access_token),
+      BlackTokenList.addTokenAndSave(refresh_token)
     ]);
   } catch (err) {
     clearCookies(ctx);

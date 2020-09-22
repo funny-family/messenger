@@ -1,5 +1,6 @@
+const BlackTokenList = require('@/db-requests/black-token');
+
 const { clearCookies } = require('./functions/clear-cookies');
-const { addTokenToBlacklist } = require('./functions/add-token-to-blacklist');
 
 exports.single = async function (ctx) { // single signout
   const access_token = ctx.headers['x-access-token'] ||
@@ -15,8 +16,8 @@ exports.single = async function (ctx) { // single signout
   if (!access_token || !refresh_token) return ctx.throw(400);
 
   await Promise.all([
-    addTokenToBlacklist(access_token),
-    addTokenToBlacklist(refresh_token)
+    BlackTokenList.addTokenAndSave(access_token),
+    BlackTokenList.addTokenAndSave(refresh_token)
   ]);
 
   clearCookies(ctx);
