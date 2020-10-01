@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const UserList = require('@/db-requests/user');
 const BlackTokenList = require('@/db-requests/black-token');
 
-
 const { createTokensForUser } = require('./create-tokens-for-user');
 const { setAuthCookies } = require('./set-auth-сookies');
 const { clearCookies } = require('./clear-cookies');
