@@ -1,11 +1,10 @@
-const jwt = require('jsonwebtoken');
-
 const UserList = require('@/db-requests/user');
 const BlackTokenList = require('@/db-requests/black-token');
 
 const { createAuthTokens } = require('./create-auth-tokens');
 const { setAuthCookies } = require('./set-auth-сookies');
 const { clearCookies } = require('./clear-cookies');
+const { decodeToken } = require('./decode-token');
 
 exports.refreshTokens = async ctx => {
   const access_token = ctx.headers['x-access-token'] ||
@@ -21,7 +20,7 @@ exports.refreshTokens = async ctx => {
   if (!access_token || !refresh_token) return ctx.throw(401, 'No token found!');
 
   try {
-    const decodedRefreshToken = jwt.decode(refresh_token);
+    const decodedRefreshToken = decodeToken(refresh_token);
     const id = decodedRefreshToken._id;
     const userFromDecodedToken = await UserList.findId(id);
     const newTokens = createAuthTokens(userFromDecodedToken);
