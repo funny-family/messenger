@@ -1,8 +1,8 @@
-const { createTokensForUser } = require('./functions/create-tokens-for-user');
+const { createAuthTokens } = require('./functions/create-auth-tokens');
 const { setAuthCookies } = require('./functions/set-auth-сookies');
 
 exports.signin = async function (ctx) {
-  const tokens = createTokensForUser(ctx.state.user);
+  const tokens = createAuthTokens(ctx.state.user);
   await setAuthCookies(ctx, tokens);
 
   ctx.type = 'json';

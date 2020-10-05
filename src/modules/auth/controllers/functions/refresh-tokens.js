@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const UserList = require('@/db-requests/user');
 const BlackTokenList = require('@/db-requests/black-token');
 
-const { createTokensForUser } = require('./create-tokens-for-user');
+const { createAuthTokens } = require('./create-auth-tokens');
 const { setAuthCookies } = require('./set-auth-сookies');
 const { clearCookies } = require('./clear-cookies');
 
@@ -24,7 +24,7 @@ exports.refreshTokens = async ctx => {
     const decodedRefreshToken = jwt.decode(refresh_token);
     const id = decodedRefreshToken._id;
     const userFromDecodedToken = await UserList.findId(id);
-    const newTokens = createTokensForUser(userFromDecodedToken);
+    const newTokens = createAuthTokens(userFromDecodedToken);
 
     if (!access_token || !refresh_token) return ctx.throw(401, 'No token!');
     if (!userFromDecodedToken) return ctx.throw(500, 'Invalid token!');

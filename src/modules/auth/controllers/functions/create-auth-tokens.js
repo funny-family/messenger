@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-exports.createTokensForUser = function (user) {
+exports.createAuthTokens = function (user) {
   if (!user) throw Error('User is required!');
 
   const accessTokenExpiresIn = 60 * 30; // 60sec * 30 = 30min
