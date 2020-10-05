@@ -1,6 +1,6 @@
 const BlackTokenList = require('@/db-requests/black-token');
 
-const { clearCookies } = require('./functions/clear-cookies');
+const { clearAuthCookies } = require('./functions/clear-auth-cookies');
 
 exports.single = async function (ctx) { // single signout
   const access_token = ctx.headers['x-access-token'] ||
@@ -20,7 +20,7 @@ exports.single = async function (ctx) { // single signout
     BlackTokenList.addTokenAndSave(refresh_token)
   ]);
 
-  clearCookies(ctx);
+  clearAuthCookies(ctx);
 
   ctx.status = 200;
 };

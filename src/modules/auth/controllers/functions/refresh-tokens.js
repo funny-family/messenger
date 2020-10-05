@@ -3,7 +3,7 @@ const BlackTokenList = require('@/db-requests/black-token');
 
 const { createAuthTokens } = require('./create-auth-tokens');
 const { setAuthCookies } = require('./set-auth-сookies');
-const { clearCookies } = require('./clear-cookies');
+const { clearAuthCookies } = require('./clear-auth-cookies');
 const { decodeToken } = require('./decode-token');
 
 exports.refreshTokens = async ctx => {
@@ -35,7 +35,7 @@ exports.refreshTokens = async ctx => {
       BlackTokenList.addTokenAndSave(refresh_token)
     ]);
   } catch (err) {
-    clearCookies(ctx);
+    clearAuthCookies(ctx);
     return ctx.throw(401, 'Refresh token validation error!');
   }
 };
