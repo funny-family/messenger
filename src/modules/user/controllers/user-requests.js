@@ -1,4 +1,4 @@
-const { getUseragentInfo } = require('./functions/get-useragent-info');
+const { getUseragentInfo } = require('../functions/get-useragent-info');
 
 exports.getAuthenticatedUserInfo = async ctx => {
   ctx.type = 'json';
