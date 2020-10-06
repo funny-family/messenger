@@ -1,6 +1,13 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
+// function signJWTToken(user, tokenExpiresTime) {
+//   return jwt.sign({ _id: user._id }, config.secretOrKey, {
+//     algorithm: config.jsonwebtoken.algorithm,
+//     expiresIn: tokenExpiresTime
+//   });
+// }
+
 exports.createAuthTokens = function (user) {
   if (!user) throw Error('User is required!');
 

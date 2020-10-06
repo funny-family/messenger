@@ -14,10 +14,4 @@ exports.setAuthCookies = function (ctx, tokens) {
     ...cookiesOptions,
     expires: new Date(tokens.refresh_token_expiration_date)
   });
-
-  ctx.cookies.set('logged-in', 'yes', {
-    signed: true,
-    secure: false,
-    httpOnly: false
-  });
 };

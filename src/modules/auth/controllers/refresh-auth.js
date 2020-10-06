@@ -1,4 +1,4 @@
-const { refreshTokens } = require('./functions/refresh-tokens');
+const { refreshTokens } = require('../functions/refresh-tokens');
 
 exports.refreshAuth = async function (ctx) {
   await refreshTokens(ctx);
