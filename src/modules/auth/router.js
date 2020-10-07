@@ -26,7 +26,6 @@ apiV1.post(
   signin
 );
 
-
 apiV1.post(
   '/signout',
   passport.authenticate('jwt', { session: false, failWithError: true }),
