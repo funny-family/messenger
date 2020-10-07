@@ -29,21 +29,18 @@ apiV1.post(
 
 apiV1.post(
   '/signout',
-  bodyParser,
   passport.authenticate('jwt', { session: false, failWithError: true }),
   signout.single
 );
 
 apiV1.post(
   '/check-auth',
-  bodyParser,
   passport.authenticate('jwt', { session: false, failWithError: true }),
   checkAuth
 );
 
 apiV1.post(
   '/refresh-auth',
-  bodyParser,
   refreshAuth
 );
 
