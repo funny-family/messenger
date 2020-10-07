@@ -9,40 +9,11 @@ const apiV1 = new Router({
   prefix: '/api/v1/user'
 });
 
-apiV1.post(
-  '/me',
-  bodyParser,
-  passport.authenticate('jwt', { session: false }),
-  userRequest.getAuthenticatedUserInfo
-);
-
-apiV1.post(
-  '/check-auth',
-  bodyParser,
-  passport.authenticate('jwt', { session: false }),
-  userRequest.checkIsUserAuthenticated
-);
-
-apiV1.post(
-  '/get-user-info',
-  bodyParser,
-  // passport.authenticate('jwt', { session: false }),
-  userRequest.getUserAgentInfo
-);
-
-
 apiV1.get(
   '/me',
   bodyParser,
   passport.authenticate('jwt', { session: false }),
   userRequest.getAuthenticatedUserInfo
-);
-
-apiV1.get(
-  '/check-auth',
-  bodyParser,
-  passport.authenticate('jwt', { session: false }),
-  userRequest.checkIsUserAuthenticated
 );
 
 apiV1.get(
