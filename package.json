@@ -12,7 +12,8 @@
   },
   "_moduleAliases": {
     "@": "./src/",
-    "@root": "."
+    "@root": ".",
+    "@core": "./core/"
   },
   "keywords": [
     "koa",
