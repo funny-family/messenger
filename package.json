@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "nolint": "cross-env NODE_ENV=development nodemon src/server.js",
-    "prod": "cross-env NODE_ENV=production node src/server.js",
+    "nolint": "cross-env NODE_ENV=development nodemon ./src/server.js",
+    "prod": "cross-env NODE_ENV=production node ./src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec \"npm run lint && node src/server\"",
     "lint": "./node_modules/.bin/eslint .",
     "clr-logs": "node ./tools/logs-cleaner.js"
