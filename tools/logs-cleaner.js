@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const fileDirectory = path.join(__dirname, '/../logs/errors.log');
+const fileDirectory = path.join(__dirname, '/../src/logs/errors.log');
 
 fs.truncate(fileDirectory, 0, (err) => {
   if (err) {
-    console.log('\x1b[31m', `Cannot clean file in "${fileDirectory}" directory.`);
+    console.log('\x1b[31m', `Cannot clean file content in "${fileDirectory}" directory.`);
     throw err;
   }
 
