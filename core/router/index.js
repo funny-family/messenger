@@ -5,29 +5,32 @@ const newRoute = new KoaRouter();
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Error // to set errors!
 
 const Router = class {
-  static createRoute({ method, prefix = '', path, middlewares, callback }) {
-    newRoute.prefix(prefix);
-
-    // middlewares = middlewares.map((middleware) => {
-    //   return middleware;
-    // });
-
-    const passMiddleware = () => {
-      return {
-        ...middlewares
-      };
+  static createRoute({ method = '', prefix = '', path = '', middlewares, callback }) {
+    const checkMehodName = (methodName) => {
+      return ['get', 'post', 'put', 'del'].indexOf(methodName) !== -1;
     };
+
+    if (typeof method !== 'string') {
+      throw new TypeError(`Route method should be string type insted of ${typeof method}!`);
+    } else if (checkMehodName(method) === false) {
+      throw new SyntaxError(`Invalid method name ${method}!`);
+    }
+
+    if (typeof prefix !== 'string') {
+      throw new TypeError(`Prefix should be string type insted of ${typeof prefix}!`);
+    }
+
+    if (typeof path !== 'string') {
+      throw new TypeError(`Path should be string type insted of ${typeof path}!`);
+    }
+
+    newRoute.prefix(prefix);
 
     newRoute[method](
       path,
-      passMiddleware,
+      ...middlewares,
       callback
     );
-    // return newRoute[method](
-    //   path,
-    //   middlewares,
-    //   callback
-    // );
 
     return newRoute;
 
