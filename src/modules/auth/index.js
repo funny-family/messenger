@@ -1,10 +1,13 @@
 const passport = require('@/middlewares/passport');
+
 const routes = require('./routes');
 
-module.exports = (app) => {
-  app.use(passport.initialize());
+const { combineRoutes } = require('../../../core/router');
 
-  routes.map((route) => {
-    return app.use(route.routes());
-  });
-};
+module.exports = (app) => combineRoutes({
+  appInstance: app,
+  routes,
+  middlewares: [
+    passport.initialize()
+  ]
+});
