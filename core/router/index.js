@@ -6,13 +6,13 @@ const newRoute = new KoaRouter();
 
 const Router = class {
   static createRoute({ method = '', prefix = '', path = '', middlewares, callback }) {
-    const checkMehodName = (methodName) => {
+    const checkMethodName = (methodName) => {
       return ['get', 'post', 'put', 'del'].indexOf(methodName) !== -1;
     };
 
     if (typeof method !== 'string') {
       throw new TypeError(`Route method should be string type insted of ${typeof method}!`);
-    } else if (checkMehodName(method) === false) {
+    } else if (checkMethodName(method) === false) {
       throw new SyntaxError(`Invalid method name ${method}!`);
     }
 
