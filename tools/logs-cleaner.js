@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const fileName = 'errors.log';
-const fileDirectory = path.join(__dirname, `/../src/logs/${fileName}`);
+const fileDirectory = path.join(__dirname, `../src/logs/${fileName}`);
 
 if (fs.existsSync(fileDirectory)) {
   fs.truncate(fileDirectory, 0, (err) => {
