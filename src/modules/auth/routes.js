@@ -15,13 +15,13 @@ const prefix = '/test';
 
 module.exports = [
   createRoute({
-    method: 'post',
+    method: 'get',
     prefix,
     path: '/test',
     middlewares: [
       bodyParser
     ],
-    controller: (ctx) => { ctx.body = 'test'; }
+    callback: (ctx) => { ctx.body = 'test'; }
   })
 ];
 
