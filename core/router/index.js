@@ -18,12 +18,14 @@ const Router = class {
     }
 
     if (typeof prefix !== 'string') {
-      throw new TypeError(`Prefix should be string type insted of ${typeof prefix}!`);
+      throw new TypeError(`Prefix should be string type instead of ${typeof prefix}!`);
     }
 
     if (typeof path !== 'string') {
-      throw new TypeError(`Path should be string type insted of ${typeof path}!`);
+      throw new TypeError(`Path should be string type instead of ${typeof path}!`);
     }
+
+    console.log(newRoute);
 
     newRoute.prefix(prefix);
 
