@@ -1,12 +1,12 @@
 const KoaRouter = require('koa-router');
 // import KoaRouter from 'koa-router';
 
-const newRoute = new KoaRouter();
-
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Error // to set errors!
 
 const Router = class {
-  static createRoute({ method = '', prefix = '', path = '', middlewares, callback }) {
+  static createRoute({ method = '', prefix = '', path = '', middlewares = [], callback }) {
+    const newRoute = new KoaRouter();
+
     const checkMethodName = (methodName) => {
       return ['get', 'post', 'put', 'del'].indexOf(methodName) !== -1;
     };
