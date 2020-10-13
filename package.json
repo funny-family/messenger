@@ -26,9 +26,6 @@
   ],
   "author": "(https://github.com/funny-family)",
   "license": "SEE LICENSE IN LICENSE file",
-  "engines": {
-    "node": ">=14"
-  },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
