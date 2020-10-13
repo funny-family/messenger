@@ -1,49 +1,27 @@
 // const Router = require('koa-router');
 
 const bodyParser = require('@/middlewares/body-parser');
-const passport = require('@/middlewares/passport');
+// const passport = require('@/middlewares/passport');
 
-const { signup } = require('./controllers/signup');
-const { signin } = require('./controllers/signin');
-const signout = require('./controllers/signout');
+// const { signup } = require('./controllers/signup');
+// const { signin } = require('./controllers/signin');
+// const signout = require('./controllers/signout');
 // const { refreshAuth } = require('./controllers/refresh-auth');
 // const { checkAuth } = require('./controllers/check-auth');
 
 const { createRoute } = require('../../../core/router');
 
-const prefix = '/api/v1/auth';
+const prefix = '/test';
 
 module.exports = [
   createRoute({
-    method: 'post',
+    method: 'get',
     prefix,
-    path: '/signup',
+    path: '/test',
     middlewares: [
       bodyParser
     ],
-    callback: signup
-  }),
-
-  createRoute({
-    method: 'post',
-    prefix,
-    path: '/signin',
-    middlewares: [
-      bodyParser,
-      passport.authenticate('local', { session: false, failWithError: true })
-    ],
-    callback: signin
-  }),
-
-  createRoute({
-    method: 'post',
-    prefix,
-    path: '/signout',
-    middlewares: [
-      bodyParser,
-      passport.authenticate('jwt', { session: false, failWithError: true })
-    ],
-    callback: signout.single
+    callback: (ctx) => { ctx.body = 'test'; }
   })
 ];
 

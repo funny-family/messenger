@@ -89,7 +89,8 @@
         "camelcase": "off",
         "guard-for-in": "off",
         "no-restricted-syntax": "off",
-        "node/no-missing-require": "off"
+        "node/no-missing-require": "off",
+        "node/no-unsupported-features/es-syntax": "off"
     },
     "settings": {
         "react": {

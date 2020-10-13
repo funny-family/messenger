@@ -1,11 +1,12 @@
 const KoaRouter = require('koa-router');
+// import KoaRouter from 'koa-router';
+
+const newRoute = new KoaRouter();
 
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Error // to set errors!
 
 const Router = class {
-  static createRoute({ method = '', prefix = '', path = '', middlewares = [], callback }) {
-    const newRoute = new KoaRouter();
-
+  static createRoute({ method = '', prefix = '', path = '', middlewares, callback }) {
     const checkMethodName = (methodName) => {
       return ['get', 'post', 'put', 'del'].indexOf(methodName) !== -1;
     };
@@ -26,7 +27,13 @@ const Router = class {
 
     newRoute.prefix(prefix);
 
-    return newRoute[method](path, ...middlewares, callback);
+    newRoute[method](
+      path,
+      ...middlewares,
+      callback
+    );
+
+    return newRoute;
 
     // createRoute({ // example of usage
     //   prefix: 'somePrefix',
@@ -47,11 +54,8 @@ const Router = class {
       throw new Error('Combiner requires at least one route!');
     }
 
-    console.log(routes);
-
     if (middlewares.length > 0) {
       middlewares.map((middleware) => {
-        console.log(middlewares);
         return appInstance.use(middleware);
       });
     }
