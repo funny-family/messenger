@@ -57,9 +57,7 @@ const Router = class {
     }
 
     if (middlewares.length > 0) {
-      middlewares.map((middleware) => {
-        return appInstance.use(middleware);
-      });
+      appInstance.use(...middlewares);
     }
 
     routes.map((route) => {
