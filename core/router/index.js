@@ -1,5 +1,4 @@
 const KoaRouter = require('koa-router');
-// import KoaRouter from 'koa-router';
 
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Error // to set errors!
 // https://stackoverflow.com/questions/7764536/pass-object-to-javascript-function
@@ -45,21 +44,39 @@ const KoaRouter = require('koa-router');
 //   // });
 // }
 
-exports.combineRoutes = ({ appInstance, routes, middlewares = [] }) => {
+exports.createRoutes = (routes) => {
   const newRoute = new KoaRouter();
-  console.log(newRoute);
-  console.log('Object routes:', routes);
+  console.log('newRoute', newRoute);
+
+  // console.log('all routes', routes);
   for (const route of routes) {
-    console.log(route);
+    console.log('route method:', route.method);
+    console.log('route prefix:', route.prefix);
+    console.log('route path:', route.path);
+    console.log('route middlewares:', route.middlewares);
+    console.log('route callback:', route.callback, '\n');
+
     const fullPath = route.prefix + route.path;
 
-    console.log('newRoute:', newRoute);
-    newRoute[route.method](
-      fullPath,
-      ...route.middlewares,
-      route.callback
-    );
+    return newRoute[route.method](fullPath, ...route.middlewares, route.callback);
   }
+};
+
+exports.combineRoutes = ({ appInstance, routes, middlewares = [] }) => {
+  // const newRoute = new KoaRouter();
+  // console.log(newRoute);
+  // console.log('Object routes:', routes);
+  // for (const route of routes) {
+  //   // console.log(route);
+  //   const fullPath = route.prefix + route.path;
+
+  //   // console.log('newRoute:', newRoute);
+  //   newRoute[route.method](
+  //     fullPath,
+  //     ...route.middlewares,
+  //     route.callback
+  //   );
+  // }
 
   if (!appInstance) {
     throw new Error('Required to set application instance!');
