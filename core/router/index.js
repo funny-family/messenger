@@ -12,7 +12,7 @@ const Router = class {
     };
 
     if (typeof method !== 'string') {
-      throw new TypeError(`Route method should be string type insted of ${typeof method}!`);
+      throw new TypeError(`Route method should be string type instead of ${typeof method}!`);
     } else if (checkMethodName(method) === false) {
       throw new SyntaxError(`Invalid method name ${method}!`);
     }
