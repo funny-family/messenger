@@ -45,27 +45,54 @@ const KoaRouter = require('koa-router');
 // }
 
 exports.createRoutes = (routes) => {
+  // console.log(routes);
   const newRoute = new KoaRouter();
-  console.log('newRoute', newRoute);
+
+  let prefixString = '';
+  // const newRoutes = [];
+  // const modifiedRoutes = [];
+  // console.log('newRoute', newRoute);
 
   // console.log('all routes', routes);
-  for (const route of routes) {
-    console.log('route method:', route.method);
-    console.log('route prefix:', route.prefix);
-    console.log('route path:', route.path);
-    console.log('route middlewares:', route.middlewares);
-    console.log('route callback:', route.callback, '\n');
+  routes.forEach(({ method = '', prefix, path = '', middlewares, callback }) => {
+    // console.log('route method:', route.method);
+    // console.log('route prefix:', route.prefix);
+    // console.log('route path:', route.path);
+    // console.log('route middlewares:', route.middlewares);
+    // console.log('route callback:', route.callback, '\n');
 
-    const fullPath = route.prefix + route.path;
+    // const fullPath = prefix + path;
+    prefixString = prefix;
+    // newRoute.prefix(prefix);
 
-    return newRoute[route.method](fullPath, ...route.middlewares, route.callback);
-  }
+    // modifiedRoutes.push(
+    //   );
+    newRoute[method](path, ...middlewares, callback);
+  });
+  newRoute.prefix(prefixString);
+  // console.log(newRoute);
+
+  // console.log(newRoute);
+  // console.log('newRoute:', newRoute);
+  // return newRoutes.push(newRoute);
+
+  // return [
+  //   newRoute.opts,
+  //   newRoute.methods,
+  //   newRoute.stack
+  // ];
+  return newRoute;
 };
 
-exports.combineRoutes = ({ appInstance, routes, middlewares = [] }) => {
+exports.combineRoutes = ({ appInstance, routes = [], middlewares = [] }) => {
+  console.log(routes);
+  // const modifiedRoutes = this.createRoutes(routes);
+  // console.log('modifiedRoutes:', modifiedRoutes);
+  // const modifiedRoutes = Array.from(routes);
   // const newRoute = new KoaRouter();
   // console.log(newRoute);
   // console.log('Object routes:', routes);
+
   // for (const route of routes) {
   //   // console.log(route);
   //   const fullPath = route.prefix + route.path;
@@ -78,17 +105,22 @@ exports.combineRoutes = ({ appInstance, routes, middlewares = [] }) => {
   //   );
   // }
 
+  // console.log('routes:', routes);
+  // console.log('routes is array:', Array.isArray(modifiedRoutes));
+
   if (!appInstance) {
     throw new Error('Required to set application instance!');
   }
 
-  if (!routes) {
+  if (routes.length < 0) {
     throw new Error('Combiner requires at least one route!');
   }
 
   if (middlewares.length > 0) {
     appInstance.use(...middlewares);
   }
+
+  // modifiedRoutes.push(routes);
 
   routes.map((route) => {
     return appInstance.use(route.routes());
