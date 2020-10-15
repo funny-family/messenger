@@ -2,12 +2,9 @@ const bodyParser = require('@/middlewares/body-parser');
 
 const { createRoutes } = require('../../../core/router');
 
-const prefix = '/test';
-
 const routes = [
   {
     method: 'get',
-    prefix,
     path: '/test',
     middlewares: [
       bodyParser
@@ -16,7 +13,6 @@ const routes = [
   },
   {
     method: 'get',
-    prefix,
     path: '/test1',
     middlewares: [
       bodyParser
@@ -25,7 +21,9 @@ const routes = [
   }
 ];
 
-module.exports = [createRoutes(routes)];
+module.exports = [
+  createRoutes('/test', routes)
+];
 
 // const Router = require('koa-router');
 

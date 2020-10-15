@@ -44,17 +44,17 @@ const KoaRouter = require('koa-router');
 //   // });
 // }
 
-exports.createRoutes = (routes) => {
+exports.createRoutes = (prefix, routes) => {
   // console.log(routes);
   const newRoute = new KoaRouter();
 
-  let prefixString = '';
+  // let prefixString = '';
   // const newRoutes = [];
   // const modifiedRoutes = [];
   // console.log('newRoute', newRoute);
 
   // console.log('all routes', routes);
-  routes.forEach(({ method = '', prefix, path = '', middlewares, callback }) => {
+  routes.forEach(({ method = '', path = '', middlewares, callback }) => {
     // console.log('route method:', route.method);
     // console.log('route prefix:', route.prefix);
     // console.log('route path:', route.path);
@@ -62,14 +62,14 @@ exports.createRoutes = (routes) => {
     // console.log('route callback:', route.callback, '\n');
 
     // const fullPath = prefix + path;
-    prefixString = prefix;
+    // prefixString = prefix;
     // newRoute.prefix(prefix);
 
     // modifiedRoutes.push(
     //   );
     newRoute[method](path, ...middlewares, callback);
   });
-  newRoute.prefix(prefixString);
+  newRoute.prefix(prefix);
   // console.log(newRoute);
 
   // console.log(newRoute);
