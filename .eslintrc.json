@@ -90,7 +90,8 @@
         "guard-for-in": "off",
         "no-restricted-syntax": "off",
         "node/no-missing-require": "off",
-        "node/no-unsupported-features/es-syntax": "off"
+        "node/no-unsupported-features/es-syntax": "off",
+        "prefer-rest-params": "off"
     },
     "settings": {
         "react": {
