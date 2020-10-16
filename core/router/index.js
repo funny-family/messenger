@@ -11,14 +11,22 @@ function createRoutes(routes, prefix = '') {
   };
 
   for (const { method = '', path = '', middlewares = [], callback } of routes) {
-    if (typeof method !== 'string') {
+    if (!method) {
+      throw new Error('Method of route is required!');
+    } else if (typeof method !== 'string') {
       throw new TypeError(`Route method should be type of string instead of "${typeof method}"!`);
     } else if (checkMethodName(method) === false) {
       throw new SyntaxError(`Invalid method name ${method}!`);
     }
 
-    if (typeof path !== 'string') {
+    if (!path) {
+      throw new Error('Path of route is required!');
+    } else if (typeof path !== 'string') {
       throw new TypeError(`Path should be string type instead of ${typeof path}!`);
+    }
+
+    if (!callback) {
+      throw new Error('Callback of route is required!');
     }
 
     newRoute[method](
