@@ -3,7 +3,7 @@ const path = require('path');
 
 const modulesDirectory = path.join(__dirname, '../src/modules');
 
-fs.readdir(filesDirectory, (err, files) => {
+fs.readdir(modulesDirectory, (err, files) => {
   if (err) {
     console.log('Some kind of error((((');
     throw err;
