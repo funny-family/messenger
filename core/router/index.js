@@ -1,5 +1,8 @@
 const KoaRouter = require('koa-router');
 
+// const fs = require('fs');
+// const path = require('path');
+
 function createRoutes(routes, prefix = '') {
   // const routePathRegex = /^\/(.*)\/(?:([^\/]+?))\/?$/;
   const routePathRegex = /^\/(.*)(?:([^\/]+?))\/?$/;
@@ -67,5 +70,24 @@ function combineRoutes({ appInstance, routes = [], middlewares = [] }) {
   });
 }
 
+function connectRouters() {
+  // require('./modules/user')(app);
+
+  // const dirPath = path.join(__dirname, folderPath);
+  // require(dirPath)(appInstance);
+
+  // fs.readdir('', (err, files) => {
+  //   if (err) {
+  //     console.log('Readdir error!');
+  //     throw err;
+  //   }
+
+  //   files.forEach((folderName) => {
+  //     require(path.join(__dirname, folderName))(appInstance);
+  //   });
+  // });
+}
+
 exports.createRoutes = createRoutes;
 exports.combineRoutes = combineRoutes;
+exports.connectRouters = connectRouters;
