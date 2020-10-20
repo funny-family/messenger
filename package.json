@@ -9,7 +9,8 @@
     "lint": "./node_modules/.bin/eslint .",
     "nolint": "cross-env NODE_ENV=development nodemon ./src/server.js",
     "clr-logs": "node ./tools/logs-cleaner.js",
-    "crt-logs": "node ./tools/logs-creator.js"
+    "crt-logs": "node ./tools/logs-creator.js",
+    "commit": "git-cz"
   },
   "_moduleAliases": {
     "@": "./src/",
@@ -23,9 +24,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+      "pre-commit": "npm run lint"
     }
   },
   "keywords": [
