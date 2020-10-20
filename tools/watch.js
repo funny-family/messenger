@@ -5,18 +5,23 @@ const modulesDirectory = path.join(__dirname, '../src/modules');
 
 fs.readdir(modulesDirectory, (err, files) => {
   if (err) {
-    console.log('Some kind of error((((');
+    console.log('Readdir error!');
     throw err;
   }
 
-  files.forEach((file) => {
-    console.log(file);
+  files.forEach((moduleFolder) => {
+    console.log(moduleFolder);
   });
 });
 
-fs.readdirSync(modulesDirectory).forEach(file => {
-  console.log(file);
-});
+// fs.readdirSync(modulesDirectory).forEach((file) => {
+//   console.log('use readdirSync:', file);
+// });
+
+// fs.watch(modulesDirectory, { encoding: 'buffer' }, (eventType, filename) => {
+//   console.log('eventType:', eventType);
+//   console.log('watching:', filename);
+// });
 
 // https://stackoverflow.com/questions/2727167/how-do-you-get-a-list-of-the-names-of-all-files-present-in-a-directory-in-node-j
 // https://medium.com/stackfame/get-list-of-all-files-in-a-directory-in-node-js-befd31677ec5
