@@ -8,8 +8,8 @@
     "prod": "cross-env PROJECT_MODE=production node ./src/server.js",
     "lint": "./node_modules/.bin/eslint .",
     "nolint": "cross-env PROJECT_MODE=development nodemon ./src/server.js",
-    "log:create": "node ./tools/logs-cleaner.js",
-    "log:clear": "node ./tools/logs-creator.js",
+    "log:clear": "node ./tools/logs-cleaner.js",
+    "log:create": "node ./tools/logs-creator.js",
     "commit": "git-cz"
   },
   "_moduleAliases": {
