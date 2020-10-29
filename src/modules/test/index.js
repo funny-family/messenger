@@ -1,4 +1,4 @@
-const passport = require('@/middlewares/passport');
+const passport = require('@/middlewares/local/passport');
 
 const routes = require('./routes');
 

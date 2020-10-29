@@ -9,18 +9,9 @@ const app = new Koa();
 const server = http.createServer(app.callback());
 
 app.proxy = config.proxy;
-app.keys = require('./middlewares/keygrip');
+app.keys = require('./middlewares/global/keygrip');
 
-app.use(require('./middlewares/headers'));
-app.use(require('./middlewares/log'));
-app.use(require('./middlewares/error'));
-app.use(require('./middlewares/static'));
-app.use(require('./middlewares/ratelimiter'));
-app.use(require('./middlewares/cors'));
-app.use(require('./middlewares/logger'));
-app.use(require('./middlewares/response-time'));
-app.use(require('./middlewares/useragent'));
-app.use(require('./middlewares/http-request'));
+require('./middlewares')(app);
 
 require('./modules')(app);
 

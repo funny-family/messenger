@@ -1,4 +1,4 @@
-const bodyParser = require('@/middlewares/body-parser');
+const bodyParser = require('@/middlewares/local/body-parser');
 
 const { createRoutes } = require('../../../core/router');
 
