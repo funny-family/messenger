@@ -1,8 +1,5 @@
-// const { connectRouters } = require('../../core/router');
-
-// const folderPath = '../models';
-
-// module.exports = (app) => connectRouters({
-//   appInstance: app,
-//   folderPath
-// });
+module.exports = (app) => {
+  require('./auth')(app);
+  require('./user')(app);
+  require('./test')(app);
+};

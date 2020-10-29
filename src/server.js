@@ -25,9 +25,7 @@ app.use(require('./middlewares/response-time'));
 app.use(require('./middlewares/useragent'));
 app.use(require('./middlewares/http-request'));
 
-// require('./modules/auth')(app);
-// require('./modules/user')(app);
-require('./modules/test')(app);
+require('./modules')(app);
 
 server.listen(config.port, () => {
   console.log('\x1b[36m', `Server running at: http://localhost:${config.port}/`);
