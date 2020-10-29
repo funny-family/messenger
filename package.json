@@ -82,7 +82,6 @@
     "module-alias": "^2.2.2",
     "mongoose": "^5.9.17",
     "mongoose-unique-validator": "^2.0.3",
-    "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "uuid": "^8.3.0"
