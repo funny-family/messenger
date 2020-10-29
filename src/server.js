@@ -8,9 +8,6 @@ const Koa = require('koa');
 const app = new Koa();
 const server = http.createServer(app.callback());
 
-global.__PROD__ = 'production';
-global.__DEV__ = 'development';
-
 app.proxy = config.proxy;
 app.keys = require('./middlewares/keygrip');
 
@@ -29,5 +26,5 @@ require('./modules')(app);
 
 server.listen(config.port, () => {
   console.log('\x1b[36m', `Server running at: http://localhost:${config.port}/`);
-  console.log('\x1b[36m', 'Mode:', '\x1b[33m', global.__DEV__);
+  console.log('\x1b[36m', 'Mode:', '\x1b[33m', process.env.PROJECT_MODE);
 });
