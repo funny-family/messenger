@@ -1,26 +1,28 @@
-const Router = require('koa-router');
-
-const bodyParser = require('@/middlewares/body-parser');
 const passport = require('@/middlewares/passport');
 
 const userRequest = require('./controllers/user-requests');
 
-const apiV1 = new Router({
-  prefix: '/api/v1/user'
-});
+const { createRoutes } = require('../../../core/router');
 
-apiV1.get(
-  '/me',
-  bodyParser,
-  passport.authenticate('jwt', { session: false }),
-  userRequest.getAuthenticatedUserInfo
-);
+const apiV1Routes = [
+  {
+    method: 'get',
+    path: '/me',
+    middlewares: [
+      passport.authenticate('jwt', { session: false })
+    ],
+    callback: userRequest.getAuthenticatedUserInfo
+  },
+  {
+    method: 'get',
+    path: '/get-user-info',
+    middlewares: [
+      // passport.authenticate('jwt', { session: false }),
+    ],
+    callback: userRequest.getUserAgentInfo
+  }
+];
 
-apiV1.get(
-  '/get-user-info',
-  bodyParser,
-  // passport.authenticate('jwt', { session: false }),
-  userRequest.getUserAgentInfo
-);
-
-module.exports = [apiV1];
+module.exports = [
+  createRoutes(apiV1Routes, '/api/v1/user')
+];
