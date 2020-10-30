@@ -29,5 +29,3 @@ module.exports = {
     };
   }
 };
-
-// https://github.com/koalex/gs-auth/blob/master/middlewares/passport.js
