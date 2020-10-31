@@ -1,6 +1,6 @@
 const User = require('@/models/User');
 
-exports.signup = async function (ctx) {
+module.exports = async function (ctx) {
   const userData = ctx.request.body;
   const newUser = new User(userData);
 

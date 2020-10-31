@@ -1,12 +1,6 @@
 const bodyParser = require('@/middlewares/local/body-parser');
 const passport = require('@/middlewares/local/passport');
 
-const { signup } = require('./controllers/signup');
-const { signin } = require('./controllers/signin');
-const signout = require('./controllers/signout');
-const { checkAuth } = require('./controllers/check-auth');
-const { refreshAuth } = require('./controllers/refresh-auth');
-
 const { createRoutes } = require('../../../core/router');
 
 const apiV1Routes = [
@@ -16,7 +10,7 @@ const apiV1Routes = [
     middlewares: [
       bodyParser
     ],
-    callback: signup
+    callback: require('./controllers/signup')
   },
   {
     method: 'post',
@@ -25,7 +19,7 @@ const apiV1Routes = [
       bodyParser,
       passport.authenticate('local', { session: false, failWithError: true })
     ],
-    callback: signin
+    callback: require('./controllers/signin')
   },
   {
     method: 'post',
@@ -33,7 +27,7 @@ const apiV1Routes = [
     middlewares: [
       passport.authenticate('jwt', { session: false, failWithError: true })
     ],
-    callback: signout.single
+    callback: require('./controllers/signout').single
   },
   {
     method: 'post',
@@ -41,16 +35,15 @@ const apiV1Routes = [
     middlewares: [
       passport.authenticate('jwt', { session: false, failWithError: true })
     ],
-    callback: checkAuth
+    callback: require('./controllers/check-auth')
   },
   {
     method: 'post',
     path: '/refresh-auth',
-    callback: refreshAuth
+    callback: require('./controllers/refresh-auth')
   }
 ];
 
 module.exports = [
   createRoutes(apiV1Routes, '/api/v1/auth')
 ];
-

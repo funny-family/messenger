@@ -1,3 +1,3 @@
-exports.checkAuth = async (ctx) => {
+module.exports = async (ctx) => {
   ctx.status = 200;
 };
