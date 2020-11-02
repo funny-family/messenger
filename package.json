@@ -4,10 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "cross-env PROJECT_MODE=development nodemon --exec \"npm run lint && node src/server\"",
-    "prod": "cross-env PROJECT_MODE=production node ./src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec \"npm run lint && node src/server\"",
+    "prod": "cross-env NODE_ENV=production node ./src/server.js",
     "lint": "./node_modules/.bin/eslint .",
-    "nolint": "cross-env PROJECT_MODE=development nodemon ./src/server.js",
+    "nolint": "cross-env NODE_ENV=development nodemon ./src/server.js",
     "log:clear": "node ./tools/logs-cleaner.js",
     "log:create": "node ./tools/logs-creator.js",
     "commit": "git-cz"

@@ -3,6 +3,6 @@ const serve = require('koa-static');
 
 module.exports = serve(config.staticRoot, {
   index: 'index.html',
-  maxage: process.env.PROJECT_MODE ? 8600000 : 0,
+  maxage: process.env.NODE_ENV ? 8600000 : 0,
   gzip: true
 });

@@ -17,5 +17,5 @@ require('./modules')(app);
 
 server.listen(config.port, () => {
   console.log('\x1b[36m', `Server running at: http://localhost:${config.port}/`);
-  console.log('\x1b[36m', 'Mode:', '\x1b[33m', process.env.PROJECT_MODE);
+  console.log('\x1b[36m', 'Mode:', '\x1b[33m', process.env.NODE_ENV);
 });

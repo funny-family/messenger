@@ -4,7 +4,7 @@ const database = new Map();
 let maxNumberOfRequests = 4;
 let delayTime = 30000; // 30sec
 
-if (process.env.PROJECT_MODE === 'development') {
+if (process.env.NODE_ENV === 'development') {
   maxNumberOfRequests = 6;
   delayTime = 5000; // 5sec
 }
