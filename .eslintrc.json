@@ -92,7 +92,8 @@
         "node/no-missing-require": "off",
         "node/no-unsupported-features/es-syntax": "off",
         "prefer-rest-params": "off",
-        "import/no-dynamic-require": "off"
+        "import/no-dynamic-require": "off",
+        "max-classes-per-file": "off"
     },
     "settings": {
         "react": {
