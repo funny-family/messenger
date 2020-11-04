@@ -1,114 +1,114 @@
 {
-    "extends": [
-        "airbnb",
-        "prettier",
-        "plugin:node/recommended"
-    ],
-    "plugins": ["prettier", "node"],
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "sourceType": "module",
-        "ecmaVersion": 6,
-        "ecmaFeatures": {
-            "experimentalObjectRestSpread": true
-        }
-    },
-    "rules": {
-        "no-unused-vars": "error",
-        "no-console": "off",
-        "comma-dangle": ["error", "never"],
-        "comma-spacing": [
-            "error",
-            {
-                "before": false,
-                "after": true
-            }
-        ],
-        "global-require": "off",
-        "no-param-reassign": "off",
-        "no-nested-ternary": "off",
-        "no-mixed-spaces-and-tabs": "error",
-        "object-curly-spacing": ["error", "always"],
-        "space-before-blocks": "error",
-        "space-in-parens": ["error", "never"],
-        "no-dupe-args": "error",
-        "no-spaced-func": "error",
-        "indent": ["error", 2],
-        "space-infix-ops": "error",
-        "no-multi-spaces": "error",
-        "prefer-const": "error",
-        "no-trailing-spaces": "error",
-        "keyword-spacing": ["error", { "before": true }],
-        "key-spacing": ["error", { "beforeColon": false }],
-        "arrow-spacing": "error",
-        "no-whitespace-before-property": "error",
-        "space-before-function-paren": [
-            "error",
-            {
-                "anonymous": "always",
-                "named": "never",
-                "asyncArrow": "always"
-            }
-        ],
-        "semi-spacing": [
-            "error",
-            {
-                "before": false,
-                "after": true
-            }
-        ],
-        "no-extra-semi": "error",
-        "no-func-assign": "error",
-        "quotes": [
-            "error",
-            "single",
-            { "avoidEscape": true }
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
-        "no-plusplus": "off",
-        "padded-blocks": ["error", "never"],
-        "eol-last": ["error", "always"],
-        "no-multiple-empty-lines": [
-            "error",
-            {
-                "max": 2,
-                "maxEOF": 1
-            }
-        ],
-        "no-else-return": ["error", { "allowElseIf": true }],
-        "func-names": ["off", "always"],
-        "eqeqeq": ["error", "always"],
-        "no-underscore-dangle": "off",
-        "consistent-return": "off",
-        "no-control-regex": "off",
-        "no-useless-escape": "off",
-        "prefer-template": "off",
-        "camelcase": "off",
-        "guard-for-in": "off",
-        "no-restricted-syntax": "off",
-        "node/no-missing-require": "off",
-        "node/no-unsupported-features/es-syntax": "off",
-        "prefer-rest-params": "off",
-        "import/no-dynamic-require": "off",
-        "max-classes-per-file": "off"
-    },
-    "settings": {
-        "react": {
-          "version": "none"
-        },
-        "import/resolver": {
-            "node": {
-                "extensions": [".js", ".ts"]
-            },
-            "alias": {
-              "extensions": [".js", ".ts"],
-              "map": [
-                ["@", "./src/"]
-              ]
-            }
-        }
+  "extends": [
+    "airbnb",
+    "prettier",
+    "plugin:node/recommended"
+  ],
+  "plugins": ["prettier", "node"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
     }
+  },
+  "rules": {
+    "no-unused-vars": "error",
+    "no-console": "off",
+    "comma-dangle": ["error", "never"],
+    "comma-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "global-require": "off",
+    "no-param-reassign": "off",
+    "no-nested-ternary": "off",
+    "no-mixed-spaces-and-tabs": "error",
+    "object-curly-spacing": ["error", "always"],
+    "space-before-blocks": "error",
+    "space-in-parens": ["error", "never"],
+    "no-dupe-args": "error",
+    "no-spaced-func": "error",
+    "indent": ["error", 2],
+    "space-infix-ops": "error",
+    "no-multi-spaces": "error",
+    "prefer-const": "error",
+    "no-trailing-spaces": "error",
+    "keyword-spacing": ["error", { "before": true }],
+    "key-spacing": ["error", { "beforeColon": false }],
+    "arrow-spacing": "error",
+    "no-whitespace-before-property": "error",
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "semi-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "no-extra-semi": "error",
+    "no-func-assign": "error",
+    "quotes": [
+      "error",
+      "single",
+      { "avoidEscape": true }
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-plusplus": "off",
+    "padded-blocks": ["error", "never"],
+    "eol-last": ["error", "always"],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 2,
+        "maxEOF": 1
+      }
+    ],
+    "no-else-return": ["error", { "allowElseIf": true }],
+    "func-names": ["off", "always"],
+    "eqeqeq": ["error", "always"],
+    "no-underscore-dangle": "off",
+    "consistent-return": "off",
+    "no-control-regex": "off",
+    "no-useless-escape": "off",
+    "prefer-template": "off",
+    "camelcase": "off",
+    "guard-for-in": "off",
+    "no-restricted-syntax": "off",
+    "node/no-missing-require": "off",
+    "node/no-unsupported-features/es-syntax": "off",
+    "prefer-rest-params": "off",
+    "import/no-dynamic-require": "off",
+    "max-classes-per-file": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "none"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      },
+      "alias": {
+        "extensions": [".js", ".ts"],
+        "map": [
+          ["@", "./src/"]
+        ]
+      }
+    }
+  }
 }
