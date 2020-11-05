@@ -11,7 +11,7 @@ if (fs.existsSync(fileDirectory)) {
       throw err;
     }
 
-    console.log('File is cleaned!');
+    console.log('\x1b[36m', `${fileName} file is clear!`);
   });
 } else {
   console.log('\x1b[31m', `Cannot find ${fileName} in ${fileDirectory} directory!`);
