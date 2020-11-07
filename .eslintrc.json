@@ -36,6 +36,7 @@
     "indent": ["error", 2, {
       "SwitchCase": 1
     }],
+    "no-useless-return": "off",
     "space-infix-ops": "error",
     "no-multi-spaces": "error",
     "prefer-const": "error",
