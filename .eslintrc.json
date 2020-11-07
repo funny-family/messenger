@@ -33,7 +33,9 @@
     "space-in-parens": ["error", "never"],
     "no-dupe-args": "error",
     "no-spaced-func": "error",
-    "indent": ["error", 2],
+    "indent": ["error", 2, {
+      "SwitchCase": 1
+    }],
     "space-infix-ops": "error",
     "no-multi-spaces": "error",
     "prefer-const": "error",
