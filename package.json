@@ -7,9 +7,9 @@
     "dev": "cross-env NODE_ENV=development nodemon --exec \"npm run lint && node src/server\"",
     "prod": "cross-env NODE_ENV=production node ./src/server.js",
     "lint": "./node_modules/.bin/eslint .",
-    "nolint": "cross-env NODE_ENV=development nodemon ./src/server.js",
-    "log:clear": "node ./tools/logs-cleaner.js",
-    "log:create": "node ./tools/logs-creator.js",
+    "lint:fix": "./node_modules/.bin/eslint . --fix",
+    "log:clear": "node ./cli/log.js clear",
+    "log:create": "node ./cli/log.js create",
     "commit": "git-cz"
   },
   "_moduleAliases": {
