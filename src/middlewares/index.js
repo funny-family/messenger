@@ -11,7 +11,7 @@ module.exports = (app) => {
   // app.use(require('./local/passport').initialize());
 
   if (process.env.NODE_ENV === 'development') {
-    app.use(require('./global/logger'));
+    app.use(require('./global/http-request-logger'));
     app.use(require('./global/response-time'));
   }
 };
