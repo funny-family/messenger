@@ -24,5 +24,5 @@ bootstrap()
     console.log('\x1b[36m', 'Mode:', '\x1b[33m', process.env.NODE_ENV);
   })
   .catch((error) => {
-    console.error('\x1b[31m', `bootstrap function error: ${error}!`);
+    console.error('\x1b[31m', error);
   });
