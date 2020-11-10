@@ -1,5 +1,5 @@
 const fs = require('fs');
-const path = require('path');
+const config = require('config');
 
 const logfile = {
   method: {
@@ -74,7 +74,4 @@ class LogCommandsRunner {
   }
 }
 
-const name = 'errors.log';
-const directory = path.join(__dirname, `../src/logs/${name}`);
-
-new LogCommandsRunner(new LogFile(name, directory)).run();
+new LogCommandsRunner(new LogFile(config.logFile.name, config.logFile.directory)).run();
