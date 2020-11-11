@@ -4,8 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --exec \"npm run lint && node ./src/app.js\"",
-    "prod": "cross-env NODE_ENV=production node ./src/app.js",
+    "server": "node ./src/app.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec \"npm run lint && npm run server\"",
+    "prod": "cross-env NODE_ENV=production npm run server",
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
     "log:clear": "node ./cli/log.js clear",
