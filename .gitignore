@@ -24,6 +24,9 @@ yarn-error.log*
 src/db/*
 !src/db/.gitkeep
 
+src/infrastructure/database/mongodb/data/*
+!src/infrastructure/database/mongodb/data/.gitkeep
+
 # Error logs
 src/logs/*
 !src/logs/.gitkeep
