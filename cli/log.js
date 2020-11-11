@@ -8,16 +8,23 @@ const logfile = {
   }
 };
 
+/**
+ * @class LogFile
+ */
 class LogFile {
   /**
-  * @param {string} name - log file name
-  * @param {string} directory - log file directory
-  */
+   * @param {string} name - log file name
+   * @param {string} directory - log file directory
+   */
   constructor(name, directory) {
     this.name = name;
     this.directory = directory;
   }
 
+  /**
+   * create log file in specific directory
+   * @todo replace fs.existsSync on fs.exists
+   */
   create() {
     if (fs.existsSync(this.directory)) {
       console.log('\x1b[33m', `${this.name} is already exists!`);
@@ -33,6 +40,9 @@ class LogFile {
     }
   }
 
+  /**
+   * clear log file
+   */
   clear() {
     if (fs.existsSync(this.directory)) {
       fs.truncate(this.directory, 0, (err) => {
