@@ -15,6 +15,7 @@ const configArray = [
   }),
   new ObjectConfig({
     staticFile: {
+      entry: 'index.html',
       path: path.join(process.cwd(), 'src/static')
     }
   }),
