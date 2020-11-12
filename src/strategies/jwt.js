@@ -1,14 +1,21 @@
 const config = require('config');
 const JWTStrategy = require('passport-jwt').Strategy;
 
-const UserList = require('@/db-requests/user');
-const BlackTokenList = require('@/db-requests/black-token');
+const { UserQuery } = require('@/infrastructure/database/mongodb/queries/User');
+const { BlackTokenQuery } = require('@/infrastructure/database/mongodb/queries/BlackToken');
 
 const options = {
   passReqToCallback: true,
   ignoreExpiration: false,
   secretOrKey: config.secretOrKey,
   jwtFromRequest: request => {
+    /*
+      priority
+      1 - query
+      2 - body
+      3 - headers
+      4 - cookies
+    */
     return request.headers['x-access-token'] ||
           request.query.access_token ||
           request.cookies.get('x-access-token') ||
@@ -22,9 +29,9 @@ module.exports = new JWTStrategy(options, async function (request, payload, done
                 request.cookies.get('x-access-token') ||
                 request.body && request.body.access_token;
 
-  const deniedToken = await BlackTokenList.findToken(access_token);
+  const deniedToken = await BlackTokenQuery.findToken(access_token);
   const userId = payload._id;
-  const user = await UserList.findIdAsDocument(userId);
+  const user = await UserQuery.findIdAsDocument(userId);
 
   if (deniedToken) return done(null, false, { message: 'Token is blacklisted!' });
 

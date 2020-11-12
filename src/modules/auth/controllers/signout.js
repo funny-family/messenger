@@ -1,4 +1,4 @@
-const BlackTokenList = require('@/db-requests/black-token');
+const { BlackTokenQuery } = require('@/infrastructure/database/mongodb/queries/BlackToken');
 
 const { clearAuthCookies } = require('../functions/clear-auth-cookies');
 
@@ -16,8 +16,8 @@ exports.single = async function (ctx) { // single signout
   if (!access_token || !refresh_token) return ctx.throw(400);
 
   await Promise.all([
-    BlackTokenList.addTokenAndSave(access_token),
-    BlackTokenList.addTokenAndSave(refresh_token)
+    BlackTokenQuery.save(access_token),
+    BlackTokenQuery.save(refresh_token)
   ]);
 
   clearAuthCookies(ctx);

@@ -1,4 +1,4 @@
-const User = require('@/models/User');
+const User = require('@/infrastructure/database/mongodb/models/User');
 
 module.exports = async function (ctx) {
   const userData = ctx.request.body;

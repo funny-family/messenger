@@ -1,5 +1,5 @@
-const UserList = require('@/db-requests/user');
-const BlackTokenList = require('@/db-requests/black-token');
+const { UserQuery } = require('@/infrastructure/database/mongodb/queries/User');
+const { BlackTokenQuery } = require('@/infrastructure/database/mongodb/queries/BlackToken');
 
 const { createAuthTokens } = require('./create-auth-tokens');
 const { setAuthCookies } = require('./set-auth-сookies');
@@ -22,7 +22,7 @@ exports.refreshTokens = async ctx => {
   try {
     const decodedRefreshToken = decodeToken(refresh_token);
     const id = decodedRefreshToken._id;
-    const userFromDecodedToken = await UserList.findId(id);
+    const userFromDecodedToken = await UserQuery.findId(id);
     const newTokens = createAuthTokens(userFromDecodedToken);
 
     if (!access_token || !refresh_token) return ctx.throw(401, 'No token!');
@@ -31,8 +31,8 @@ exports.refreshTokens = async ctx => {
     setAuthCookies(ctx, newTokens);
 
     await Promise.all([
-      BlackTokenList.addTokenAndSave(access_token),
-      BlackTokenList.addTokenAndSave(refresh_token)
+      BlackTokenQuery.save(access_token),
+      BlackTokenQuery.save(refresh_token)
     ]);
   } catch (err) {
     clearAuthCookies(ctx);
