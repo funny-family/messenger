@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = new Koa();
   const server = http.createServer(app.callback());
 
-  app.proxy = config.proxy;
+  app.proxy = config.server.proxy;
   app.keys = require('./middlewares/global/keygrip');
 
   require('./middlewares')(app);
