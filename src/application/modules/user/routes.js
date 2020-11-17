@@ -1,8 +1,9 @@
-const passport = require('@/middlewares/local/passport');
+const passport = require('@/application/middlewares/local/passport');
+
+const { createRoutes } = require('@core/router');
 
 const userRequest = require('./controllers/user-requests');
 
-const { createRoutes } = require('../../../core/router');
 
 const apiV1Routes = [
   {

@@ -10,10 +10,10 @@ async function bootstrap() {
   const server = http.createServer(app.callback());
 
   app.proxy = config.server.proxy;
-  app.keys = require('./middlewares/global/keygrip');
+  app.keys = require('./application/middlewares/global/keygrip');
 
-  app.use(require('./middlewares'));
-  require('./modules')(app);
+  app.use(require('./application/middlewares'));
+  require('./application/modules')(app);
 
   await server.listen(config.port);
 }

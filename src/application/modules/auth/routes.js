@@ -1,7 +1,7 @@
-const bodyParser = require('@/middlewares/local/body-parser');
-const passport = require('@/middlewares/local/passport');
+const bodyParser = require('@/application/middlewares/local/body-parser');
+const passport = require('@/application/middlewares/local/passport');
 
-const { createRoutes } = require('../../../core/router');
+const { createRoutes } = require('@core/router');
 
 const apiV1Routes = [
   {

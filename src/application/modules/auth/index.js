@@ -1,8 +1,9 @@
-const passport = require('@/middlewares/local/passport');
+const passport = require('@/application/middlewares/local/passport');
+
+const { combineRoutes } = require('@core/router');
 
 const routes = require('./routes');
 
-const { combineRoutes } = require('../../../core/router');
 
 module.exports = (app) => combineRoutes({
   appInstance: app,

@@ -62,9 +62,9 @@ function combineRoutes({ appInstance, routes = [], middlewares = [] }) {
     appInstance.use(...middlewares);
   }
 
-  routes.map((route) => {
+  for (const route of routes) {
     return appInstance.use(route.routes());
-  });
+  }
 }
 
 exports.createRoutes = createRoutes;

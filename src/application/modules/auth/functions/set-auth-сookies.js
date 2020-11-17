@@ -1,7 +1,7 @@
-exports.setAuthCookies = function (ctx, tokens) {
+exports.setAuthCookies = (ctx, tokens) => {
   const cookiesOptions = {
     signed: true,
-    secure: false,
+    secure: ctx.secure,
     httpOnly: true
   };
 
