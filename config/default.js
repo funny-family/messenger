@@ -45,7 +45,7 @@ const configArray = [
   new ObjectConfig({
     logFile: {
       name: logFileName,
-      directory: path.join(__dirname, `../src/logs/${logFileName}`)
+      directory: path.join(__dirname, '..', `logs/${logFileName}`)
     }
   })
 ];
