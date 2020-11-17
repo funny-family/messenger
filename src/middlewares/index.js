@@ -1,17 +1,18 @@
-module.exports = (app) => {
-  app.use(require('./global/headers'));
-  app.use(require('./global/error'));
-  app.use(require('./global/static'));
-  app.use(require('./global/ratelimiter'));
-  app.use(require('./global/cors'));
-  app.use(require('./global/useragent'));
-  app.use(require('./global/http-request'));
-  app.use(require('./global/log'));
+const compose = require('koa-compose');
 
-  // app.use(require('./local/passport').initialize());
+const middlewares = [
+  require('./global/headers'),
+  require('./global/error'),
+  require('./global/static'),
+  require('./global/ratelimiter'),
+  require('./global/cors'),
+  require('./global/useragent'),
+  require('./global/http-request'),
+  require('./global/log'),
+  require('./global/http-request-logger'),
+  require('./global/response-time')
+];
 
-  if (process.env.NODE_ENV === 'development') {
-    app.use(require('./global/http-request-logger'));
-    app.use(require('./global/response-time'));
-  }
-};
+module.exports = compose(middlewares.map((middleware) => {
+  return middleware;
+}));

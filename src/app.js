@@ -12,7 +12,7 @@ async function bootstrap() {
   app.proxy = config.server.proxy;
   app.keys = require('./middlewares/global/keygrip');
 
-  require('./middlewares')(app);
+  app.use(require('./middlewares'));
   require('./modules')(app);
 
   await server.listen(config.port);
