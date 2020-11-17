@@ -4,11 +4,11 @@ const serve = require('koa-static');
 
 module.exports = async (ctx, next) => {
   const options = {
-    index: config.staticFile.entry || 'index.html',
+    index: config.static.entry || 'index.html',
     maxage: process.env.NODE_ENV ? 8600000 : 0,
     gzip: true,
     hidden: false
   };
 
-  await serve(config.staticFile.path, options)(ctx, next);
+  await serve(config.static.path, options)(ctx, next);
 };

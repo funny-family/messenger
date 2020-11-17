@@ -14,9 +14,9 @@ const configArray = [
     }
   }),
   new ObjectConfig({
-    staticFile: {
+    static: {
       entry: 'index.html',
-      path: path.join(process.cwd(), 'src/static')
+      path: path.join(__dirname, '..', 'client')
     }
   }),
   new ObjectConfig({
