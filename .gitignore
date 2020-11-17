@@ -30,3 +30,6 @@ src/infrastructure/database/mongodb/data/*
 # Error logs
 src/logs/*
 !src/logs/.gitkeep
+
+logs/*
+!logs/.gitkeep
