@@ -9,8 +9,8 @@ async function bootstrap() {
   const app = new Koa();
   const server = http.createServer(app.callback());
 
-  app.proxy = config.server.proxy;
-  app.keys = config.server.keys;
+  app.proxy = config.app.proxy;
+  app.keys = config.app.keys;
 
   app.use(require('./application/middlewares'));
   require('./application/modules')(app);

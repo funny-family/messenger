@@ -12,7 +12,7 @@ const configArray = [
     secretOrKey
   }),
   new ObjectConfig({
-    server: {
+    app: {
       proxy: false,
       keys: new Keygrip([secretOrKey], 'sha256')
     }
