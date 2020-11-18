@@ -1,16 +1,20 @@
 const path = require('path');
 
+const Keygrip = require('keygrip');
+
 const { ObjectConfig, ObjectFactory } = require('./tools/config-builder');
 
+const secretOrKey = 'secret';
 const logFileName = 'errors.log';
 
 const configArray = [
   new ObjectConfig({
-    secretOrKey: 'secret'
+    secretOrKey
   }),
   new ObjectConfig({
     server: {
-      proxy: false
+      proxy: false,
+      keys: new Keygrip([secretOrKey], 'sha256')
     }
   }),
   new ObjectConfig({
