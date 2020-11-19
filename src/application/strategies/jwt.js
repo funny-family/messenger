@@ -8,7 +8,7 @@ const options = {
   passReqToCallback: true,
   ignoreExpiration: false,
   secretOrKey: config.secretOrKey,
-  jwtFromRequest: request => {
+  jwtFromRequest: (ctx) => { // ctx contain request
     /*
       priority
       1 - query
@@ -16,18 +16,18 @@ const options = {
       3 - headers
       4 - cookies
     */
-    return request.headers['x-access-token'] ||
-          request.query.access_token ||
-          request.cookies.get('x-access-token') ||
-          request.body && request.body.access_token;
+    return ctx.headers['x-access-token'] ||
+          ctx.query.access_token ||
+          ctx.cookies.get('x-access-token') ||
+          ctx.body && ctx.body.access_token;
   }
 };
 
-module.exports = new JWTStrategy(options, async function (request, payload, done) {
-  const access_token = request.headers['x-access-token'] ||
-                request.query.access_token ||
-                request.cookies.get('x-access-token') ||
-                request.body && request.body.access_token;
+module.exports = new JWTStrategy(options, async function (ctx, payload, done) { // ctx contain request
+  const access_token = ctx.headers['x-access-token'] ||
+                ctx.query.access_token ||
+                ctx.cookies.get('x-access-token') ||
+                ctx.body && ctx.body.access_token;
 
   const deniedToken = await BlackTokenQuery.findToken(access_token);
   const userId = payload._id;
