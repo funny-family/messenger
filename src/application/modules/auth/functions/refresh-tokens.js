@@ -6,7 +6,7 @@ const { setAuthCookies } = require('./set-auth-сookies');
 const { clearAuthCookies } = require('./clear-auth-cookies');
 const { decodeToken } = require('./decode-token');
 
-exports.refreshTokens = async ctx => {
+exports.refreshTokens = async (ctx) => {
   const access_token = ctx.headers['x-access-token'] ||
                       ctx.query.access_token ||
                       ctx.cookies.get('x-access-token') ||

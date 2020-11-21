@@ -6,7 +6,7 @@ const mongoose = require('../connection');
 
 const emailValidation = [
   {
-    validator: email => {
+    validator: (email) => {
       const emailRexExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return Promise.resolve(emailRexExp.test(email));
     },

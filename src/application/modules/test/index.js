@@ -1,9 +1,9 @@
 // const passport = require('@/middlewares/passport');
 const router = require('./routes');
 
-module.exports = app => {
+module.exports = (app) => {
   // app.use(passport.initialize());
-  router.forEach(route => {
+  router.forEach((route) => {
     app.use(route.routes());
   });
 };
