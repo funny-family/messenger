@@ -96,7 +96,8 @@
     "node/no-unsupported-features/es-syntax": "off",
     "prefer-rest-params": "off",
     "import/no-dynamic-require": "off",
-    "max-classes-per-file": "off"
+    "max-classes-per-file": "off",
+    "arrow-parens": ["error", "always"]
   },
   "settings": {
     "react": {
