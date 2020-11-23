@@ -97,6 +97,7 @@
     "prefer-rest-params": "off",
     "import/no-dynamic-require": "off",
     "max-classes-per-file": "off",
+    "no-prototype-builtins": "off",
     "arrow-parens": ["error", "always"]
   },
   "settings": {
