@@ -2,58 +2,40 @@ const path = require('path');
 
 const Keygrip = require('keygrip');
 
-const { ObjectConfig, ObjectFactory } = require('./tools/config-builder');
-
 const secretOrKey = 'secret';
 const logFileName = 'errors.log';
 
-const configArray = [
-  new ObjectConfig({
-    secretOrKey
-  }),
-  new ObjectConfig({
-    app: {
-      proxy: false,
-      keys: new Keygrip([secretOrKey], 'sha256')
+const config = {
+  secretOrKey,
+  app: {
+    proxy: false,
+    keys: new Keygrip([secretOrKey], 'sha256')
+  },
+  static: {
+    entry: 'index.html',
+    path: path.join(__dirname, '..', 'client')
+  },
+  mongoose: {
+    uri: 'mongodb://localhost:27017',
+    options: {
+      dbName: 'messanger',
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
     }
-  }),
-  new ObjectConfig({
-    static: {
-      entry: 'index.html',
-      path: path.join(__dirname, '..', 'client')
-    }
-  }),
-  new ObjectConfig({
-    mongoose: {
-      uri: 'mongodb://localhost:27017',
-      options: {
-        dbName: 'messanger',
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true
-      }
-    }
-  }),
-  new ObjectConfig({
-    crypto: {
-      iterations: 100,
-      keylen: 100,
-      digest: 'sha512'
-    }
-  }),
-  new ObjectConfig({
-    jsonwebtoken: {
-      algorithm: 'HS512'
-    }
-  }),
-  new ObjectConfig({
-    logFile: {
-      name: logFileName,
-      directory: path.join(__dirname, '..', `logs/${logFileName}`)
-    }
-  })
-];
+  },
+  crypto: {
+    iterations: 100,
+    keylen: 100,
+    digest: 'sha512'
+  },
+  jsonwebtoken: {
+    algorithm: 'HS512'
+  },
+  logFile: {
+    name: logFileName,
+    directory: path.join(__dirname, '..', `logs/${logFileName}`)
+  }
+};
 
-const objectConfig = new ObjectFactory(configArray).run();
-
-module.exports = objectConfig;
+module.exports = config;
