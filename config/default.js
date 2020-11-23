@@ -6,10 +6,10 @@ const secretOrKey = 'secret';
 const logFileName = 'errors.log';
 
 const config = {
-  secretOrKey,
   app: {
     proxy: false,
-    keys: new Keygrip([secretOrKey], 'sha256')
+    keys: new Keygrip([secretOrKey], 'sha256'),
+    secretOrKey
   },
   static: {
     entry: 'index.html',

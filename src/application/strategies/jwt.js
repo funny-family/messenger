@@ -7,7 +7,7 @@ const { BlackTokenQuery } = require('@/infrastructure/database/mongodb/queries/B
 const options = {
   passReqToCallback: true,
   ignoreExpiration: false,
-  secretOrKey: config.secretOrKey,
+  secretOrKey: config.app.secretOrKey,
   jwtFromRequest: (ctx) => { // ctx contain request
     /*
       priority
