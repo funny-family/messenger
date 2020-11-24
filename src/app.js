@@ -2,12 +2,12 @@ require('module-alias/register');
 require('dotenv').config();
 const config = require('config');
 
-const http = require('http');
+const { createServer } = require('http');
 const Koa = require('koa');
 
 async function bootstrap() {
   const app = new Koa();
-  const server = http.createServer(app.callback());
+  const server = await createServer(app.callback());
 
   app.proxy = config.app.proxy;
   app.keys = config.app.keys;
@@ -15,7 +15,7 @@ async function bootstrap() {
   app.use(require('./application/middlewares'));
   require('./application/modules')(app);
 
-  await server.listen(config.port);
+  server.listen(config.port);
 }
 
 bootstrap()
