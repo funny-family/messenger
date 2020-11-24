@@ -1,8 +1,8 @@
 const config = require('config');
 const JWTStrategy = require('passport-jwt').Strategy;
 
-const { UserQuery } = require('@/infrastructure/database/mongodb/queries/User');
-const { BlackTokenQuery } = require('@/infrastructure/database/mongodb/queries/BlackToken');
+const { UserQuery } = require('@/infrastructure/database/queries/User');
+const { BlackTokenQuery } = require('@/infrastructure/database/queries/BlackToken');
 
 const options = {
   passReqToCallback: true,

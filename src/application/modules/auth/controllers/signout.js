@@ -1,4 +1,4 @@
-const { BlackTokenQuery } = require('@/infrastructure/database/mongodb/queries/BlackToken');
+const { BlackTokenQuery } = require('@/infrastructure/database/queries/BlackToken');
 
 const { clearAuthCookies } = require('../functions/clear-auth-cookies');
 

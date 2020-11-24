@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const createError = require('http-errors');
 
-const { UserQuery } = require('@/infrastructure/database/mongodb/queries/User');
+const { UserQuery } = require('@/infrastructure/database/queries/User');
 
 const emailPath = 'email';
 const passwordPath = 'password';

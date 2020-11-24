@@ -1,5 +1,5 @@
-const { UserQuery } = require('@/infrastructure/database/mongodb/queries/User');
-const { BlackTokenQuery } = require('@/infrastructure/database/mongodb/queries/BlackToken');
+const { UserQuery } = require('@/infrastructure/database/queries/User');
+const { BlackTokenQuery } = require('@/infrastructure/database/queries/BlackToken');
 
 const { createAuthTokens } = require('./create-auth-tokens');
 const { setAuthCookies } = require('./set-auth-сookies');
