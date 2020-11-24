@@ -27,6 +27,9 @@ src/db/*
 src/infrastructure/database/mongodb/data/*
 !src/infrastructure/database/mongodb/data/.gitkeep
 
+src/infrastructure/database/data/*
+!src/infrastructure/database/data/.gitkeep
+
 # Error logs
 src/logs/*
 !src/logs/.gitkeep
