@@ -1,47 +1,46 @@
 const LocalStrategy = require('passport-local').Strategy;
-const createError = require('http-errors');
 
 const { UserQuery } = require('@/infrastructure/database/queries/User');
 
-const emailPath = 'email';
-const passwordPath = 'password';
+class ErrorObject {
+  constructor(errorField, errorMessage) {
+    this.errorField = errorField;
+    this.errorMessage = errorMessage;
+
+    return {
+      errors: {
+        [this.errorField]: {
+          properties: {
+            path: this.errorField,
+            message: this.errorMessage
+          }
+        }
+      }
+    };
+  }
+}
+
+const usernameField = 'email';
+const passwordField = 'password';
 
 module.exports = new LocalStrategy({
-  usernameField: emailPath,
-  passwordField: passwordPath,
+  usernameField,
+  passwordField,
   session: false
-}, async function (email, password, done) {
+}, async (email, password, done) => {
   try {
     const user = await UserQuery.findEmail(email);
 
     if (!user) {
-      const errorObject = {
-        errors: {
-          email: {
-            properties: {
-              path: emailPath,
-              message: 'User not found!'
-            }
-          }
-        }
-      };
-      throw done(createError(401, 'Unauthorized', errorObject));
+      return done(null, false, new ErrorObject(usernameField, 'User not found!'));
     }
+
     if (!user.checkPassword(password)) {
-      const errorObject = {
-        errors: {
-          password: {
-            properties: {
-              path: passwordPath,
-              message: 'Incorrect password!'
-            }
-          }
-        }
-      };
-      throw done(createError(401, 'Unauthorized', errorObject));
+      return done(null, false, new ErrorObject(passwordField, 'Incorrect password!'));
     }
+
     return done(null, user);
-  } catch (err) {
-    return done(err);
+  } catch (error) {
+    return done(error);
   }
 });
