@@ -15,7 +15,7 @@ module.exports = async (ctx, next) => {
     if (err.name === 'AuthenticationError') {
       ctx.status = 401;
     }
-    if (err.name === 'AuthenticationError' && err.message === 'Bad Request') {
+    if (err.message === 'Bad Request') {
       ctx.status = 400;
     }
     if (err.name === 'MongoError') {
