@@ -10,26 +10,21 @@ module.exports = {
   authenticate: (strategy, options) => {
     return async (ctx, next) => {
       await passport.authenticate(strategy, { session: false, ...options }, async (err, user, info) => {
-        const calculateStatus = () => {
-          if (err) {
-            ctx.status = 500;
+        function setStatus(statusCode) {
+          if (typeof statusCode !== 'number') {
+            throw new TypeError('Status code must be type of number!');
           }
 
-          if (strategy === 'local') {
-            if (info.message) {
-              ctx.status = 400;
-            }
+          ctx.status = statusCode;
+          return ctx.status;
+        }
 
-            ctx.status = 401;
-          }
-        };
-
-        const calculatedStatus = calculateStatus();
-
-        if (err) throw ctx.throw(calculatedStatus, err);
+        if (err) throw ctx.throw(setStatus(500), err);
 
         if (!user) {
-          return ctx.throw(calculatedStatus, info);
+          if (strategy === 'local') {
+            return ctx.throw(info.message ? setStatus(400) : setStatus(401), info);
+          }
         }
 
         ctx.state.user = user;

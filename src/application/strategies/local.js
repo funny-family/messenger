@@ -3,16 +3,16 @@ const LocalStrategy = require('passport-local').Strategy;
 const { UserQuery } = require('@/infrastructure/database/queries/User');
 
 class ErrorObject {
-  constructor(errorField, errorMessage) {
-    this.errorField = errorField;
-    this.errorMessage = errorMessage;
+  constructor(field, message) {
+    this.field = field;
+    this.message = message;
 
     return {
       errors: {
-        [this.errorField]: {
+        [this.field]: {
           properties: {
-            path: this.errorField,
-            message: this.errorMessage
+            path: this.field,
+            message: this.message
           }
         }
       }
@@ -27,9 +27,9 @@ module.exports = new LocalStrategy({
   usernameField,
   passwordField,
   session: false
-}, async (email, password, done) => {
+}, async (login, password, done) => {
   try {
-    const user = await UserQuery.findEmail(email);
+    const user = await UserQuery.findEmail(login);
 
     if (!user) {
       return done(null, false, new ErrorObject(usernameField, 'User not found!'));
