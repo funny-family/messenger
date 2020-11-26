@@ -1,5 +1,5 @@
 const config = require('config');
-const JWTStrategy = require('passport-jwt').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
 
 const { UserQuery } = require('@/infrastructure/database/queries/User');
 const { BlackTokenQuery } = require('@/infrastructure/database/queries/BlackToken');
@@ -23,7 +23,7 @@ const options = {
   }
 };
 
-module.exports = new JWTStrategy(options, async function (ctx, payload, done) { // ctx contain request
+module.exports = new JwtStrategy(options, async (ctx, payload, done) => { // ctx contain request
   const access_token = ctx.headers['x-access-token'] ||
                 ctx.query.access_token ||
                 ctx.cookies.get('x-access-token') ||
