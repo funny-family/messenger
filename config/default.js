@@ -32,6 +32,20 @@ const config = {
   jsonwebtoken: {
     algorithm: 'HS512'
   },
+  authData: {
+    accessTokenName: 'access_token',
+    refreshTokenName: 'refresh_token',
+    accessTokenCookieName: 'x-access-token',
+    refreshTokenCookieName: 'x-refresh-token',
+    findToken(context, cookieName, tokenName) {
+      return (
+        context.query[tokenName] ||
+        context.body && context.body.refresh_token ||
+        context.headers[cookieName] ||
+        context.cookies.get(cookieName)
+      );
+    }
+  },
   logFile: {
     name: logFileName,
     directory: path.join(__dirname, '..', `logs/${logFileName}`)
