@@ -8,26 +8,21 @@ const options = {
   passReqToCallback: true,
   ignoreExpiration: false,
   secretOrKey: config.app.secretOrKey,
-  jwtFromRequest: (ctx) => { // ctx contain request
-    /*
-      priority
-      1 - query
-      2 - body
-      3 - headers
-      4 - cookies
-    */
-    return ctx.headers['x-access-token'] ||
-          ctx.query.access_token ||
-          ctx.cookies.get('x-access-token') ||
-          ctx.body && ctx.body.access_token;
+  jwtFromRequest(ctx) {
+    return config.authData.findToken(
+      ctx,
+      config.authData.accessTokenCookieName,
+      config.authData.accessTokenName
+    );
   }
 };
 
-module.exports = new JwtStrategy(options, async (ctx, payload, done) => { // ctx contain request
-  const access_token = ctx.headers['x-access-token'] ||
-                ctx.query.access_token ||
-                ctx.cookies.get('x-access-token') ||
-                ctx.body && ctx.body.access_token;
+module.exports = new JwtStrategy(options, async (ctx, payload, done) => {
+  const access_token = config.authData.findToken(
+    ctx,
+    config.authData.accessTokenCookieName,
+    config.authData.accessTokenName
+  );
 
   const deniedToken = await BlackTokenQuery.findToken(access_token);
   const userId = payload._id;
