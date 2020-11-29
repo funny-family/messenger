@@ -4,21 +4,24 @@ passport.use('local', require('@/application/strategies/local'));
 passport.use('jwt', require('@/application/strategies/jwt'));
 
 module.exports = {
-  initialize: () => {
+  initialize() {
     return passport.initialize();
   },
-  authenticate: (strategy, options) => {
+  /*
+    Do not use try/catch block in passport.authenticate callback!
+  */
+  authenticate(strategy, options) {
     return async (ctx, next) => {
-      await passport.authenticate(strategy, { session: false, ...options }, async (err, user, info) => {
-        function setStatus(statusCode) {
-          if (typeof statusCode !== 'number') {
-            throw new TypeError('Status code must be type of number!');
-          }
-
-          ctx.status = statusCode;
-          return ctx.status;
+      function setStatus(statusCode) {
+        if (typeof statusCode !== 'number') {
+          throw new TypeError('Status code must be type of number!');
         }
 
+        ctx.status = statusCode;
+        return ctx.status;
+      }
+
+      await passport.authenticate(strategy, { ...options }, async (err, user, info) => {
         if (err) throw ctx.throw(setStatus(500), err);
 
         if (!user) {
