@@ -1,3 +1,5 @@
+const config = require('config');
+
 const { UserQuery } = require('@/infrastructure/database/queries/User');
 const { BlackTokenQuery } = require('@/infrastructure/database/queries/BlackToken');
 
@@ -7,17 +9,22 @@ const { clearAuthCookies } = require('./clear-auth-cookies');
 const { decodeToken } = require('./decode-token');
 
 exports.refreshTokens = async (ctx) => {
-  const access_token = ctx.headers['x-access-token'] ||
-                      ctx.query.access_token ||
-                      ctx.cookies.get('x-access-token') ||
-                      ctx.body && ctx.body.access_token;
+  const access_token = config.authData.findToken(
+    ctx,
+    config.authData.accessTokenCookieName,
+    config.authData.accessTokenName
+  );
 
-  const refresh_token = ctx.headers['x-refresh-token'] ||
-                      ctx.query.refresh_token ||
-                      ctx.cookies.get('x-refresh-token') ||
-                      ctx.body && ctx.body.refresh_token;
+  const refresh_token = config.authData.findToken(
+    ctx,
+    config.authData.refreshTokenCookieName,
+    config.authData.refreshTokenName
+  );
 
-  if (!access_token || !refresh_token) return ctx.throw(401, 'No token found!');
+  if (!access_token || !refresh_token) {
+    ctx.status = 400;
+    return ctx.throw(ctx.status, 'No token found!');
+  }
 
   try {
     const decodedRefreshToken = decodeToken(refresh_token);
@@ -25,8 +32,10 @@ exports.refreshTokens = async (ctx) => {
     const userFromDecodedToken = await UserQuery.findId(id);
     const newTokens = createAuthTokens(userFromDecodedToken);
 
-    if (!access_token || !refresh_token) return ctx.throw(401, 'No token!');
-    if (!userFromDecodedToken) return ctx.throw(500, 'Invalid token!');
+    if (!userFromDecodedToken) {
+      ctx.status = 401;
+      return ctx.throw(ctx.status, 'Invalid token!');
+    }
 
     setAuthCookies(ctx, newTokens);
 
@@ -34,8 +43,10 @@ exports.refreshTokens = async (ctx) => {
       BlackTokenQuery.save(access_token),
       BlackTokenQuery.save(refresh_token)
     ]);
-  } catch (err) {
+  } catch (error) {
     clearAuthCookies(ctx);
-    return ctx.throw(401, 'Refresh token validation error!');
+
+    ctx.status = 401;
+    return ctx.throw(ctx.status, 'Refresh token validation error!');
   }
 };
