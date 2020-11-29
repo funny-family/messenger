@@ -1,19 +1,26 @@
+const config = require('config');
+
 const { BlackTokenQuery } = require('@/infrastructure/database/queries/BlackToken');
 
 const { clearAuthCookies } = require('../functions/clear-auth-cookies');
 
-exports.single = async function (ctx) { // single signout
-  const access_token = ctx.headers['x-access-token'] ||
-                      ctx.query.access_token ||
-                      ctx.cookies.get('x-access-token') ||
-                      ctx.body && ctx.body.access_token;
+exports.single = async (ctx) => { // single signout
+  const access_token = config.authData.findToken(
+    ctx,
+    config.authData.accessTokenCookieName,
+    config.authData.accessTokenName
+  );
 
-  const refresh_token = ctx.headers['x-refresh-token'] ||
-                      ctx.query.refresh_token ||
-                      ctx.cookies.get('x-refresh-token') ||
-                      ctx.body && ctx.body.refresh_token;
+  const refresh_token = config.authData.findToken(
+    ctx,
+    config.authData.refreshTokenCookieName,
+    config.authData.refreshTokenName
+  );
 
-  if (!access_token || !refresh_token) return ctx.throw(400);
+  if (!access_token || !refresh_token) {
+    ctx.status = 400;
+    return ctx.throw(ctx.status, 'No token found!');
+  }
 
   await Promise.all([
     BlackTokenQuery.save(access_token),
@@ -23,4 +30,8 @@ exports.single = async function (ctx) { // single signout
   clearAuthCookies(ctx);
 
   ctx.status = 200;
+};
+
+exports.all = async () => {
+  throw new Error('Sign out sign dose not work!');
 };
