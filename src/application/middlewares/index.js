@@ -1,6 +1,6 @@
 const compose = require('koa-compose');
 
-const middlewares = [
+const globalMiddlewares = [
   require('./global/headers'),
   require('./global/error'),
   require('./global/static'),
@@ -13,6 +13,10 @@ const middlewares = [
   require('./global/response-time')
 ];
 
-module.exports = compose(middlewares.map((middleware) => {
-  return middleware;
-}));
+const localMiddlewares = [];
+
+module.exports = compose(
+  [...globalMiddlewares, ...localMiddlewares].map((middleware) => {
+    return middleware;
+  })
+);
