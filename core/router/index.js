@@ -1,6 +1,6 @@
 const KoaRouter = require('koa-router');
 
-function createRoutes(routes, prefix = '') {
+exports.createRoutes = (routes, prefix = '') => {
   // const routePathRegex = /^\/(.*)\/(?:([^\/]+?))\/?$/;
   const routePathRegex = /^\/(.*)(?:([^\/]+?))\/?$/;
 
@@ -47,9 +47,28 @@ function createRoutes(routes, prefix = '') {
   newRoute.prefix(prefix);
 
   return newRoute;
-}
+};
 
-function combineRoutes({ appInstance, routes = [], middlewares = [] }) {
+// exports.combineRoutes = ({ appInstance, routes = [], middlewares = [] }) => {
+//   if (!appInstance) {
+//     throw new Error('Application instance is required!');
+//   }
+
+//   if (routes.length < 0) {
+//     throw new Error('Combiner requires at least one route!');
+//   }
+
+//   if (middlewares.length > 0) {
+//     appInstance.use(...middlewares);
+//   }
+
+//   for (const route of routes) {
+//     // console.log('route.routes():', route.routes());
+//     return appInstance.use(route.routes());
+//   }
+// };
+
+exports.initRouter = ({ appInstance, routes = [], middlewares = [], methodsOptions = {} }) => {
   if (!appInstance) {
     throw new Error('Application instance is required!');
   }
@@ -63,9 +82,44 @@ function combineRoutes({ appInstance, routes = [], middlewares = [] }) {
   }
 
   for (const route of routes) {
-    return appInstance.use(route.routes());
+    appInstance.use(route.routes());
+    appInstance.use(route.allowedMethods(methodsOptions));
+  }
+};
+
+function declareRouter({ appInstance, routers = [] }) {
+  console.log(appInstance);
+  for (const router of routers) {
+    console.log('router:', router);
+    require(router)(appInstance);
   }
 }
 
-exports.createRoutes = createRoutes;
-exports.combineRoutes = combineRoutes;
+exports.declareRouter = declareRouter;
+
+// const callerPath = require('caller-path');
+
+// exports.declareRouter = ({ appInstance, pathsToModules = [] }) => {
+//   console.log('appInstance:', appInstance);
+
+//   console.log('callerPath():', callerPath());
+//   console.log('process.cwd():', process.cwd());
+
+//   if (Array.isArray(pathsToModules) === false) {
+//     throw new TypeError('Modules should be an array!');
+//   }
+
+//   if (pathsToModules.length > 0) {
+//     for (const modulePath of pathsToModules) {
+//       console.log('modulePath:', modulePath);
+//       return (modulePath)(appInstance);
+//       // return require('../../src/application/modules');
+//     }
+
+//     // -> return require('some kind of path to module')(appInstance);
+
+//     // return {
+//     //   ...pathsToModules
+//     // };
+//   }
+// };
