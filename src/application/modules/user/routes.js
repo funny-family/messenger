@@ -4,7 +4,6 @@ const { createRoutes } = require('@core/router');
 
 const userRequest = require('./controllers/user-requests');
 
-
 const apiV1Routes = [
   {
     method: 'get',
