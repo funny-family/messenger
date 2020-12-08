@@ -81,7 +81,7 @@ class RouterFactoryStatic {
   /**
    * @param {Array.<object[]>} routers
    */
-  static connectSome(routers) {
+  static merge(routers) {
     if (!Array.isArray(routers)) {
       routers = [...arguments];
     }
