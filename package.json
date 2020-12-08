@@ -15,8 +15,7 @@
   },
   "_moduleAliases": {
     "@": "./src/",
-    "@root": ".",
-    "@core": "./core/"
+    "@root": "."
   },
   "config": {
     "commitizen": {

@@ -111,8 +111,7 @@
       "alias": {
         "extensions": [".js", ".ts"],
         "map": [
-          ["@", "./src/"],
-          ["@core", "./core/"]
+          ["@", "./src/"]
         ]
       }
     }
