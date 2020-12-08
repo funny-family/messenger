@@ -1,5 +1,6 @@
-module.exports = (app) => {
-  require('./auth')(app);
-  require('./user')(app);
-  require('./test')(app);
-};
+const { RouterFactory } = require('../framework/core');
+
+module.exports = RouterFactory.connectSome([
+  require('./auth/auth.module'),
+  require('./user/user.module')
+]);

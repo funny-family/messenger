@@ -13,7 +13,7 @@ async function bootstrap() {
   app.keys = config.app.keys;
 
   app.use(require('./application/middlewares'));
-  require('./application/modules')(app);
+  app.use(require('./application/modules'));
 
   server.listen(config.port);
 }
