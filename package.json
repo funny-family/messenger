@@ -11,6 +11,7 @@
     "lint:fix": "./node_modules/.bin/eslint . --fix",
     "log:clear": "node ./cli/log.js clear",
     "log:create": "node ./cli/log.js create",
+    "module:create": "node ./cli/module.js",
     "commit": "git-cz"
   },
   "_moduleAliases": {
