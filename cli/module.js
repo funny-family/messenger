@@ -3,6 +3,10 @@ const path = require('path');
 
 // eslint-disable-next-line
 const modulesDirectory = path.join(__dirname, '../src/application/modules');
+const moduleNameFromScript = (
+  JSON.parse(process.env.npm_config_argv).original[2] ||
+  JSON.parse(process.env.npm_config_argv).cooked[2]
+).toString().match(/\w/g).join('');
 
 function getFolderListInDirectory(source) {
   return fs.readdirSync(source, { withFileTypes: true })
@@ -10,7 +14,7 @@ function getFolderListInDirectory(source) {
     .map((dirent) => dirent.name);
 }
 
-function createNewFolderIn(directory, folderName) {
+function createFolderIn(directory, folderName) {
   if (typeof folderName !== 'string') {
     throw new TypeError('Folder name must be type string!');
   }
@@ -19,9 +23,9 @@ function createNewFolderIn(directory, folderName) {
     throw new Error('Folder name is required!');
   }
 
-  return fs.mkdir(path.join(directory, folderName), (err) => {
+  fs.mkdir(path.join(directory, folderName), (err) => {
     if (err) {
-      console.log('Cannot create folder in directory!');
+      console.log(`Cannot create folder in ${directory} directory!`);
       throw err;
     }
   });
@@ -40,9 +44,18 @@ class Module {
       getFolderListInDirectory(this.directory).forEach((folderName) => {
         if (folderName === this.name) {
           console.error(`Module name ${this.name} is already used!`);
+          return;
         }
 
-        createNewFolderIn(this.directory, 'some name');
+        // const createdModuleDirectory = path.join(this.directory, moduleNameFromScript);
+
+        createFolderIn(this.directory, moduleNameFromScript);
+
+        // if (fs.existsSync(createdModuleDirectory)) {
+        //   createFolderIn(this.directory, 'services');
+        // } else {
+        //   console.error(`Cannot create service folder in ${this.directory} directory!`);
+        // }
       });
     } else {
       console.error(`Cannot create module ${this.name} in ${this.directory} directory!`);
@@ -68,14 +81,8 @@ class ModuleCommandsRunner {
   }
 
   run() {
-    return this.module;
+    this.module.create();
   }
 }
 
-new ModuleCommandsRunner(new Module()).run();
-
-const firstParsedArgv = (
-  JSON.parse(process.env.npm_config_argv).original[2] ||
-  JSON.parse(process.env.npm_config_argv).cooked[2]
-).toString().match(/\w/g).join('');
-console.log(firstParsedArgv);
+new ModuleCommandsRunner(new Module(moduleNameFromScript, modulesDirectory)).run();
