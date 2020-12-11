@@ -23,7 +23,7 @@ function createFolderIn(directory, folderName) {
     throw new Error('Folder name is required!');
   }
 
-  fs.mkdir(path.join(directory, folderName), (err) => {
+  fs.mkdir(path.join(directory, folderName), { recursive: true }, (err) => {
     if (err) {
       console.log(`Cannot create folder in ${directory} directory!`);
       throw err;
