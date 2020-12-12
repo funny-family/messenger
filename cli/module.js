@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-// eslint-disable-next-line
 const modulesDirectory = path.join(__dirname, '../src/application/modules');
 const moduleNameFromScript = (
   JSON.parse(process.env.npm_config_argv).original[2] ||
@@ -25,7 +24,7 @@ function createFolderIn(directory, folderName) {
 
   fs.mkdir(path.join(directory, folderName), { recursive: true }, (err) => {
     if (err) {
-      console.log(`Cannot create folder in ${directory} directory!`);
+      console.error('\x1b[31m', `Cannot create folder in ${directory} directory!`);
       throw err;
     }
   });
@@ -40,26 +39,29 @@ class Module {
   }
 
   create() {
-    if (fs.existsSync(this.directory)) {
-      getFolderListInDirectory(this.directory).forEach((folderName) => {
-        if (folderName === this.name) {
-          console.error(`Module name ${this.name} is already used!`);
-          return;
-        }
-
-        // const createdModuleDirectory = path.join(this.directory, moduleNameFromScript);
-
-        createFolderIn(this.directory, moduleNameFromScript);
-
-        // if (fs.existsSync(createdModuleDirectory)) {
-        //   createFolderIn(this.directory, 'services');
-        // } else {
-        //   console.error(`Cannot create service folder in ${this.directory} directory!`);
-        // }
-      });
-    } else {
-      console.error(`Cannot create module ${this.name} in ${this.directory} directory!`);
+    if (!fs.existsSync(this.directory)) {
+      console.error('\x1b[31m', `Cannot create module ${this.name} in ${this.directory} directory!`);
+      return;
     }
+
+    getFolderListInDirectory(this.directory).forEach((folderName) => {
+      if (folderName === this.name) {
+        console.error('\x1b[31m', `Module name ${this.name} is already exists!`);
+        return;
+      }
+    });
+
+    createFolderIn(this.directory, moduleNameFromScript);
+
+    const createdModuleDirectory = path.join(this.directory, moduleNameFromScript);
+
+    if (!fs.existsSync(createdModuleDirectory)) {
+      console.error('\x1b[31m', `Cannot create service folder in ${createdModuleDirectory} directory!`);
+      return;
+    }
+
+    createFolderIn(createdModuleDirectory, 'services');
+    console.log('\x1b[36m', `Module ${this.name} is created!`);
   }
 }
 
