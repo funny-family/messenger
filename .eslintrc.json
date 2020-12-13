@@ -98,6 +98,7 @@
     "import/no-dynamic-require": "off",
     "max-classes-per-file": "off",
     "no-prototype-builtins": "off",
+    "no-process-exit": "off",
     "arrow-parens": ["error", "always"]
   },
   "settings": {
