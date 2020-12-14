@@ -1,22 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 
-function getFolderListInDirectory(source) {
-  return fs.readdirSync(source, { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory())
-    .map((dirent) => dirent.name);
+function getFolderList(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true })
+    .filter((directoryEntry) => directoryEntry.isDirectory())
+    .map((directoryEntry) => directoryEntry.name);
 }
 
-function createFolderIn(directory, folderName) {
-  if (typeof folderName !== 'string') {
+function createFolder(directory, name) {
+  if (typeof name !== 'string') {
     throw new TypeError('Folder name must be type string!');
   }
 
-  if (!folderName) {
+  if (!name) {
     throw new Error('Folder name is required!');
   }
 
-  fs.mkdir(path.join(directory, folderName), { recursive: true }, (err) => {
+  fs.mkdir(path.join(directory, name), { recursive: true }, (err) => {
     if (err) {
       console.error('\x1b[31m', `Cannot create folder in ${directory} directory!`);
       throw err;
@@ -24,21 +24,22 @@ function createFolderIn(directory, folderName) {
   });
 }
 
-function createFileIn(directory, fileName, fileContent) {
-  fs.writeFile(path.join(directory, fileName), fileContent, (err) => {
+function createFile(directory, name, content = '') {
+  fs.writeFile(path.join(directory, name), content, (err) => {
     if (err) throw err;
   });
 }
 
-function readFileFrom(pathToFile) {
-  return fs.readFileSync(pathToFile, 'utf8');
+function readFile(directory) {
+  return fs.readFileSync(directory, 'utf8');
 }
 
 
 class FileTemplateNormalizer {
-  constructor(fileString, replacer) {
+  constructor(fileString, keyWord, replacer) {
     this.fileString = fileString;
     this.replacer = replacer;
+    this.keyWord = keyWord;
   }
 
   normalize() {
@@ -46,7 +47,7 @@ class FileTemplateNormalizer {
       throw new TypeError('File must be a string!');
     }
 
-    const replacerRegExp = new RegExp('template', 'g');
+    const replacerRegExp = new RegExp(this.keyWord, 'g');
     return this.fileString.replace(replacerRegExp, this.replacer);
   }
 }
@@ -63,31 +64,31 @@ class Module {
       process.exit(0);
     }
 
-    getFolderListInDirectory(this.directory).forEach((folderName) => {
+    getFolderList(this.directory).forEach((folderName) => {
       if (folderName === this.name) {
         console.error('\x1b[31m', `Module name ${this.name} is already exists!`);
         process.exit(0);
       }
     });
 
-    const controllerFileTemplate = readFileFrom(path.join(__dirname, './file-templates/template.controller.txt'));
-    const moduleFileTemplate = readFileFrom(path.join(__dirname, './file-templates/template.module.txt'));
-    const serviceFileTemplate = readFileFrom(path.join(__dirname, './file-templates/template.service.txt'));
+    const controllerFileTemplate = readFile(path.join(__dirname, './file-templates/template.controller.txt'));
+    const moduleFileTemplate = readFile(path.join(__dirname, './file-templates/template.module.txt'));
+    const serviceFileTemplate = readFile(path.join(__dirname, './file-templates/template.service.txt'));
 
-    const normalizedControllerFile = new FileTemplateNormalizer(controllerFileTemplate, this.name).normalize();
-    const normalizedModuleFile = new FileTemplateNormalizer(moduleFileTemplate, this.name).normalize();
-    const normalizedServiceFile = new FileTemplateNormalizer(serviceFileTemplate, this.name).normalize();
+    const keyWordToReplace = 'template';
+
+    const normalizedControllerFile = new FileTemplateNormalizer(controllerFileTemplate, keyWordToReplace, this.name).normalize();
+    const normalizedModuleFile = new FileTemplateNormalizer(moduleFileTemplate, keyWordToReplace, this.name).normalize();
+    const normalizedServiceFile = new FileTemplateNormalizer(serviceFileTemplate, keyWordToReplace, this.name).normalize();
 
     const createdModuleDirectory = path.join(this.directory, this.name);
 
-    createFolderIn(this.directory, this.name);
-    createFolderIn(createdModuleDirectory, 'services');
+    createFolder(this.directory, this.name);
+    createFolder(createdModuleDirectory, 'services');
 
-    createFileIn(createdModuleDirectory, `${this.name}.controller.js`, normalizedControllerFile);
-    createFileIn(createdModuleDirectory, `${this.name}.module.js`, normalizedModuleFile);
-
-    const createdServiceDirectory = path.join(createdModuleDirectory, 'services');
-    createFileIn(createdServiceDirectory, `${this.name}.service.js`, normalizedServiceFile);
+    createFile(createdModuleDirectory, `${this.name}.controller.js`, normalizedControllerFile);
+    createFile(createdModuleDirectory, `${this.name}.module.js`, normalizedModuleFile);
+    createFile(path.join(createdModuleDirectory, 'services'), `${this.name}.service.js`, normalizedServiceFile);
 
     console.log('\x1b[36m', `Module ${this.name} is created!`);
   }
