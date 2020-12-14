@@ -43,11 +43,6 @@ class RouterFactoryStatic {
       throw new TypeError(`Prefix should be string type instead of ${typeof prefix}!`);
     }
 
-    const routePathRegex = /^\/(.*)(?:([^\/]+?))\/?$/;
-    if (routePathRegex.test(prefix) === false) {
-      throw new SyntaxError(`Prefix "${prefix}" dose not match pattern!`);
-    }
-
     router.prefix(prefix);
 
     return router;
