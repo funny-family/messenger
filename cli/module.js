@@ -1,12 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-const modulesDirectory = path.join(__dirname, '../src/application/modules');
-const moduleNameFromScript = (
-  JSON.parse(process.env.npm_config_argv).original[2] ||
-  JSON.parse(process.env.npm_config_argv).cooked[2]
-).toString().match(/\w/g).join('');
-
 function getFolderListInDirectory(source) {
   return fs.readdirSync(source, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
@@ -30,7 +24,32 @@ function createFolderIn(directory, folderName) {
   });
 }
 
-// console.log(getFolderListInDirectory(path.join(__dirname, '../src/application/modules')));
+function createFileIn(directory, fileName, fileContent) {
+  fs.writeFile(path.join(directory, fileName), fileContent, (err) => {
+    if (err) throw err;
+  });
+}
+
+function readFileFrom(pathToFile) {
+  return fs.readFileSync(pathToFile, 'utf8');
+}
+
+
+class FileTemplateNormalizer {
+  constructor(fileString, replacer) {
+    this.fileString = fileString;
+    this.replacer = replacer;
+  }
+
+  normalize() {
+    if (typeof this.fileString !== 'string') {
+      throw new TypeError('File must be a string!');
+    }
+
+    const replacerRegExp = new RegExp('template', 'g');
+    return this.fileString.replace(replacerRegExp, this.replacer);
+  }
+}
 
 class Module {
   constructor(name, directory) {
@@ -41,38 +60,36 @@ class Module {
   create() {
     if (!fs.existsSync(this.directory)) {
       console.error('\x1b[31m', `Cannot create module ${this.name} in ${this.directory} directory!`);
-      return;
+      process.exit(0);
     }
 
     getFolderListInDirectory(this.directory).forEach((folderName) => {
       if (folderName === this.name) {
         console.error('\x1b[31m', `Module name ${this.name} is already exists!`);
-        return;
+        process.exit(0);
       }
     });
 
-    createFolderIn(this.directory, moduleNameFromScript);
+    const controllerFileTemplate = readFileFrom(path.join(__dirname, './file-templates/template.controller.txt'));
+    const moduleFileTemplate = readFileFrom(path.join(__dirname, './file-templates/template.module.txt'));
+    const serviceFileTemplate = readFileFrom(path.join(__dirname, './file-templates/template.service.txt'));
 
-    const createdModuleDirectory = path.join(this.directory, moduleNameFromScript);
+    const normalizedControllerFile = new FileTemplateNormalizer(controllerFileTemplate, this.name).normalize();
+    const normalizedModuleFile = new FileTemplateNormalizer(moduleFileTemplate, this.name).normalize();
+    const normalizedServiceFile = new FileTemplateNormalizer(serviceFileTemplate, this.name).normalize();
 
-    if (!fs.existsSync(createdModuleDirectory)) {
-      console.error('\x1b[31m', `Cannot create service folder in ${createdModuleDirectory} directory!`);
-      return;
-    }
+    const createdModuleDirectory = path.join(this.directory, this.name);
 
+    createFolderIn(this.directory, this.name);
     createFolderIn(createdModuleDirectory, 'services');
+
+    createFileIn(createdModuleDirectory, `${this.name}.controller.js`, normalizedControllerFile);
+    createFileIn(createdModuleDirectory, `${this.name}.module.js`, normalizedModuleFile);
+
+    const createdServiceDirectory = path.join(createdModuleDirectory, 'services');
+    createFileIn(createdServiceDirectory, `${this.name}.service.js`, normalizedServiceFile);
+
     console.log('\x1b[36m', `Module ${this.name} is created!`);
-  }
-}
-
-// eslint-disable-next-line
-class FileTemplate {
-  constructor(template) {
-    this.template = template;
-
-    if (typeof this.template !== 'string') {
-      throw new TypeError('Template arguments in constructor must be type of string!');
-    }
   }
 }
 
@@ -86,5 +103,11 @@ class ModuleCommandsRunner {
     this.module.create();
   }
 }
+
+const modulesDirectory = path.join(__dirname, '../src/application/modules');
+const moduleNameFromScript = (
+  JSON.parse(process.env.npm_config_argv).original[2] ||
+  JSON.parse(process.env.npm_config_argv).cooked[2]
+).toString().match(/\w/g).join('');
 
 new ModuleCommandsRunner(new Module(moduleNameFromScript, modulesDirectory)).run();
