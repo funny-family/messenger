@@ -7,10 +7,10 @@ module.exports = {
   initialize() {
     return passport.initialize();
   },
-  /*
-    Do not use try/catch block in passport.authenticate callback!
-  */
-  authenticate(strategy, options) {
+  authorize() {
+    return passport.authorize();
+  },
+  authenticate(strategy, options = { session: false, failWithError: true }) { //  Do not use try/catch block in passport.authenticate callback!
     return async (ctx, next) => {
       function setStatus(statusCode) {
         if (typeof statusCode !== 'number') {
