@@ -7,7 +7,7 @@ const apiV1Routes = [
     method: 'get',
     path: '/me',
     middlewares: [
-      passport.authenticate('jwt', { session: false })
+      passport.authenticate('jwt')
     ],
     callback: userRequest.getAuthenticatedUserInfo
   },
@@ -15,7 +15,7 @@ const apiV1Routes = [
     method: 'get',
     path: '/get-user-info',
     middlewares: [
-      // passport.authenticate('jwt', { session: false }),
+      // passport.authenticate('jwt'),
     ],
     callback: userRequest.getUserAgentInfo
   }

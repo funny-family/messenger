@@ -16,7 +16,7 @@ const apiV1Routes = [
     path: '/signin',
     middlewares: [
       bodyParser,
-      passport.authenticate('local', { session: false, failWithError: true })
+      passport.authenticate('local')
     ],
     callback: require('./services/signin.service')
   },
@@ -24,7 +24,7 @@ const apiV1Routes = [
     method: 'post',
     path: '/signout',
     middlewares: [
-      passport.authenticate('jwt', { session: false, failWithError: true })
+      passport.authenticate('jwt')
     ],
     callback: require('./services/signout.service').single
   },
@@ -32,7 +32,7 @@ const apiV1Routes = [
     method: 'post',
     path: '/check-auth',
     middlewares: [
-      passport.authenticate('jwt', { session: false, failWithError: true })
+      passport.authenticate('jwt')
     ],
     callback: require('./services/check-auth.service')
   },
