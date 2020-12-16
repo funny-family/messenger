@@ -1,7 +1,7 @@
 const passport = require('koa-passport');
 
-passport.use('local', require('@/application/strategies/local'));
-passport.use('jwt', require('@/application/strategies/jwt'));
+passport.use('local', require('@/application/strategies/local.strategy'));
+passport.use('jwt', require('@/application/strategies/jwt.strategy'));
 
 module.exports = {
   initialize() {
