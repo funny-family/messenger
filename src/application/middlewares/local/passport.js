@@ -32,6 +32,8 @@ module.exports = {
 
         ctx.state.user = user;
 
+        this.initialize();
+
         await next();
       })(ctx, next);
     };
