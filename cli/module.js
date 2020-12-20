@@ -4,7 +4,7 @@ const path = require('path');
 function getFolderList(directory) {
   return fs.readdirSync(directory, { withFileTypes: true })
     .filter((directoryEntry) => directoryEntry.isDirectory())
-    .map((directoryEntry) => directoryEntry.name);
+    .map((directoryEntry) => directoryEntry.name) || [];
 }
 
 function createFolder(directory, name) {
