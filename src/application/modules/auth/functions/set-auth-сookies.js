@@ -14,4 +14,6 @@ exports.setAuthCookies = (ctx, tokens) => {
     ...cookiesOptions,
     expires: new Date(tokens.refresh_token_expiration_date)
   });
+
+  console.log(12313, tokens);
 };

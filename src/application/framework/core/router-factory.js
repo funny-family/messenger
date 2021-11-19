@@ -73,16 +73,16 @@ class RouterFactoryStatic {
     return compose(handledRouters);
   }
 
-  /**
-   * @param {Array.<object[]>} routers
-   */
-  static merge(routers) {
-    if (!Array.isArray(routers)) {
-      routers = [...arguments];
-    }
+  // /**
+  //  * @param {Array.<object[]>} routers
+  //  */
+  // static merge(routers) {
+  //   if (!Array.isArray(routers)) {
+  //     routers = [...arguments];
+  //   }
 
-    return compose(routers);
-  }
+  //   return compose(routers);
+  // }
 }
 
 exports.Router = Router;

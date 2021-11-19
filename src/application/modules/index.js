@@ -1,6 +1,6 @@
-const { RouterFactory } = require('../framework/core');
+const { merge } = require('../framework/core');
 
-module.exports = RouterFactory.merge([
+module.exports = merge([
   require('./auth/auth.module'),
   require('./user/user.module')
 ]);

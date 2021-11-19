@@ -5,8 +5,9 @@ const config = require('config');
 const { createServer } = require('http');
 const Koa = require('koa');
 
+const app = new Koa();
+
 async function bootstrap() {
-  const app = new Koa();
   const server = await createServer(app.callback());
 
   app.proxy = config.app.proxy;
@@ -26,3 +27,5 @@ bootstrap()
   .catch((error) => {
     console.error('\x1b[31m', error);
   });
+
+module.exports = app;

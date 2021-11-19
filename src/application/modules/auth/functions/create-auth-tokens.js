@@ -25,9 +25,9 @@ exports.createAuthTokens = function (user) {
   });
 
   return {
-    access_token,
-    refresh_token,
-    access_token_expiration_date: Date.now() * accessTokenExpiresIn * 1000,
-    refresh_token_expiration_date: Date.now() * refreshTokenExpiresIn * 1000
+    accessToken: access_token,
+    refreshToken: refresh_token,
+    accessTokenExpirationDate: Date.now() * accessTokenExpiresIn * 1000,
+    refreshTokenExpirationDate: Date.now() * refreshTokenExpiresIn * 1000
   };
 };

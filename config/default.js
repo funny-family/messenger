@@ -40,7 +40,7 @@ const config = {
     findToken(context, cookieName, tokenName) {
       return (
         context.query[tokenName] ||
-        context.body && context.body.refresh_token ||
+        (context.body && context.body.refresh_token) ||
         context.headers[cookieName] ||
         context.cookies.get(cookieName)
       );
